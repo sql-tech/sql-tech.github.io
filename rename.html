@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL RENAME指令教學 - 學習如何重新命名資料表，包含語法與實務案例。">
+    <meta name="keywords" content="SQL RENAME, SQL重新命名, SQL語法, 資料庫教學">
+    <title>SQL RENAME - 重新命名資料表 | SQL字典查詢</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="banner.jpg" alt="SQL字典查詢 - RENAME教學" class="banner">
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul>
+                <li><a href="create.html">CREATE</a></li>
+                <li><a href="alter.html">ALTER</a></li>
+                <li><a href="drop.html">DROP</a></li>
+                <li><a href="truncate.html">TRUNCATE</a></li>
+                <li><a href="rename.html">RENAME</a></li>
+                <li><a href="insert.html">INSERT</a></li>
+                <li><a href="select.html">SELECT</a></li>
+                <li><a href="update.html">UPDATE</a></li>
+                <li><a href="delete.html">DELETE</a></li>
+                <li><a href="grant.html">GRANT</a></li>
+                <li><a href="revoke.html">REVOKE</a></li>
+                <li><a href="commit.html">COMMIT</a></li>
+                <li><a href="rollback.html">ROLLBACK</a></li>
+                < bubbli<a href="savepoint.html">SAVEPOINT</a></li>
+                <li><a href="set.html">SET</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>SQL RENAME - 重新命名資料表</h1>
+            <h2>語法說明</h2>
+            <p><code>RENAME</code> 用於更改資料表的名稱。其基本語法如下（依資料庫系統可能略有不同）：</p>
+            <pre><code>RENAME TABLE old_name TO new_name;</code></pre>
+            <p>範例參數：
+                <ul>
+                    <li><code>old_name</code>：現有資料表名稱</li>
+                    <li><code>new_name</code>：新名稱</li>
+                </ul>
+            </p>
+            <h2>實務案例</h2>
+            <p>假設我們要將 <code>employees</code> 表重新命名為 <code>staff</code>。語法如下：</p>
+            <pre><code>RENAME TABLE employees TO staff;</code></pre>
+            <p>執行後，資料表名稱從 <code>employees</code> 變為 <code>staff</code>，結構不變。</p>
+        </main>
+    </div>
+    <footer>
+        <p>最後編輯時間：2025年4月9日</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL COMMIT指令教學 - 學習如何提交交易，包含語法與實務案例。">
+    <meta name="keywords" content="SQL COMMIT, SQL交易控制, SQL語法, 資料庫教學">
+    <title>SQL COMMIT - 提交交易 | SQL字典查詢</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="banner.jpg" alt="SQL字典查詢 - COMMIT教學" class="banner">
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul>
+                <li><a href="create.html">CREATE</a></li>
+                <li><a href="alter.html">ALTER</a></li>
+                <li><a href="drop.html">DROP</a></li>
+                <li><a href="truncate.html">TRUNCATE</a></li>
+                <li><a href="rename.html">RENAME</a></li>
+                <li><a href="insert.html">INSERT</a></li>
+                <li><a href="select.html">SELECT</a></li>
+                <li><a href="update.html">UPDATE</a></li>
+                <li><a href="delete.html">DELETE</a></li>
+                <li><a href="grant.html">GRANT</a></li>
+                <li><a href="revoke.html">REVOKE</a></li>
+                <li><a href="commit.html">COMMIT</a></li>
+                <li><a href="rollback.html">ROLLBACK</a></li>
+                <li><a href="savepoint.html">SAVEPOINT</a></li>
+                <li><a href="set.html">SET</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>SQL COMMIT - 提交交易</h1>
+            <h2>語法說明</h2>
+            <p><code>COMMIT</code> 用於提交當前交易，將所有變更永久儲存至資料庫。其基本語法如下：</p>
+            <pre><code>COMMIT;</code></pre>
+            <h2>實務案例</h2>
+            <p>假設我們新增一筆員工資料並提交交易。語法如下：</p>
+            <pre><code>INSERT INTO employees (id, name, hire_date) VALUES (2, '李四', '2023-02-01');
+COMMIT;</code></pre>
+            <p>執行後，資料永久儲存至 <code>employees</code> 表。</p>
+        </main>
+    </div>
+    <footer>
+        <p>最後編輯時間：2025年4月9日</p>
+    </footer>
+</body>
+</html>

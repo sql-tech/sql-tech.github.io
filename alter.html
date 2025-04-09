@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL ALTER指令教學 - 學習如何修改資料表結構，包含新增欄位等語法與實務案例。">
+    <meta name="keywords" content="SQL ALTER, SQL修改資料表, SQL語法, 資料庫教學">
+    <title>SQL ALTER - 修改資料表結構 | SQL字典查詢</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="banner.jpg" alt="SQL字典查詢 - ALTER教學" class="banner">
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul>
+                <li><a href="create.html">CREATE</a></li>
+                <li><a href="alter.html">ALTER</a></li>
+                <li><a href="drop.html">DROP</a></li>
+                <li><a href="truncate.html">TRUNCATE</a></li>
+                <li><a href="rename.html">RENAME</a></li>
+                <li><a href="insert.html">INSERT</a></li>
+                <li><a href="select.html">SELECT</a></li>
+                <li><a href="update.html">UPDATE</a></li>
+                <li><a href="delete.html">DELETE</a></li>
+                <li><a href="grant.html">GRANT</a></li>
+                <li><a href="revoke.html">REVOKE</a></li>
+                <li><a href="commit.html">COMMIT</a></li>
+                <li><a href="rollback.html">ROLLBACK</a></li>
+                <li><a href="savepoint.html">SAVEPOINT</a></li>
+                <li><a href="set.html">SET</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>SQL ALTER - 修改資料表結構</h1>
+            <h2>語法說明</h2>
+            <p><code>ALTER</code> 用於修改現有的資料表結構，例如新增欄位、修改欄位型態或約束。其基本語法如下：</p>
+            <pre><code>ALTER TABLE table_name
+ADD column_name datatype constraints;</code></pre>
+            <p>範例參數：
+                <ul>
+                    <li><code>table_name</code>：資料表名稱</li>
+                    <li><code>column_name</code>：新欄位名稱</li>
+                    <li><code>datatype</code>：資料型態（如DECIMAL、VARCHAR）</li>
+                </ul>
+            </p>
+            <h2>實務案例</h2>
+            <p>假設我們要為 <code>employees</code> 表新增一個 <code>salary</code> 欄位，儲存員工薪資。語法如下：</p>
+            <pre><code>ALTER TABLE employees
+ADD salary DECIMAL(10,2);</code></pre>
+            <p>執行後，資料表結構更新如下：</p>
+            <table>
+                <tr>
+                    <th>欄位名稱</th>
+                    <th>資料型態</th>
+                    <th>約束條件</th>
+                </tr>
+                <tr>
+                    <td>id</td>
+                    <td>INT</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>VARCHAR(50)</td>
+                    <td>NOT NULL</td>
+                </tr>
+                <tr>
+                    <td>hire_date</td>
+                    <td>DATE</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>salary</td>
+                    <td>DECIMAL(10,2)</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            <p>新增的 <code>salary</code> 欄位可用於記錄員工薪資，支援兩位小數。</p>
+        </main>
+    </div>
+    <footer>
+        <p>最後編輯時間：2025年4月9日</p>
+    </footer>
+</body>
+</html>

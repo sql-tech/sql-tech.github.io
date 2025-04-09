@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL DELETE指令教學 - 學習如何刪除資料表資料，包含語法與實務案例。">
+    <meta name="keywords" content="SQL DELETE, SQL刪除資料, SQL語法, 資料庫教學">
+    <title>SQL DELETE - 刪除資料表資料 | SQL字典查詢</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="banner.jpg" alt="SQL字典查詢 - DELETE教學" class="banner">
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul>
+                <li><a href="create.html">CREATE</a></li>
+                <li><a href="alter.html">ALTER</a></li>
+                <li><a href="drop.html">DROP</a></li>
+                <li><a href="truncate.html">TRUNCATE</a></li>
+                <li><a href="rename.html">RENAME</a></li>
+                <li><a href="insert.html">INSERT</a></li>
+                <li><a href="select.html">SELECT</a></li>
+                <li><a href="update.html">UPDATE</a></li>
+                <li><a href="delete.html">DELETE</a></li>
+                <li><a href="grant.html">GRANT</a></li>
+                <li><a href="revoke.html">REVOKE</a></li>
+                <li><a href="commit.html">COMMIT</a></li>
+                <li><a href="rollback.html">ROLLBACK</a></li>
+                <li><a href="savepoint.html">SAVEPOINT</a></li>
+                <li><a href="set.html">SET</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>SQL DELETE - 刪除資料表資料</h1>
+            <h2>語法說明</h2>
+            <p><code>DELETE</code> 用於從資料表中刪除特定資料。其基本語法如下：</p>
+            <pre><code>DELETE FROM table_name
+WHERE condition;</code></pre>
+            <p>範例參數：
+                <ul>
+                    <li><code>table_name</code>：目標資料表</li>
+                    <li><code>condition</code>：過濾條件</li>
+                </ul>
+            </p>
+            <h2>實務案例</h2>
+            <p>假設我們要刪除 <code>employees</code> 表中員工張三的資料。語法如下：</p>
+            <pre><code>DELETE FROM employees
+WHERE name = '張三';</code></pre>
+            <p>執行後，<code>employees</code> 表將變為空表（假設只有這一筆資料）。</p>
+        </main>
+    </div>
+    <footer>
+        <p>最後編輯時間：2025年4月9日</p>
+    </footer>
+</body>
+</html>

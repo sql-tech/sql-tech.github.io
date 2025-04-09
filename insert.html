@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL INSERT指令教學 - 學習如何新增資料到資料表，包含語法與實務案例。">
+    <meta name="keywords" content="SQL INSERT, SQL新增資料, SQL語法, 資料庫教學">
+    <title>SQL INSERT - 新增資料到資料表 | SQL字典查詢</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="banner.jpg" alt="SQL字典查詢 - INSERT教學" class="banner">
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul>
+                <li><a href="create.html">CREATE</a></li>
+                <li><a href="alter.html">ALTER</a></li>
+                <li><a href="drop.html">DROP</a></li>
+                <li><a href="truncate.html">TRUNCATE</a></li>
+                <li><a href="rename.html">RENAME</a></li>
+                <li><a href="insert.html">INSERT</a></li>
+                <li><a href="select.html">SELECT</a></li>
+                <li><a href="update.html">UPDATE</a></li>
+                <li><a href="delete.html">DELETE</a></li>
+                <li><a href="grant.html">GRANT</a></li>
+                <li><a href="revoke.html">REVOKE</a></li>
+                <li><a href="commit.html">COMMIT</a></li>
+                <li><a href="rollback.html">ROLLBACK</a></li>
+                <li><a href="savepoint.html">SAVEPOINT</a></li>
+                <li><a href="set.html">SET</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>SQL INSERT - 新增資料到資料表</h1>
+            <h2>語法說明</h2>
+            <p><code>INSERT</code> 用於向資料表中新增資料。其基本語法如下：</p>
+            <pre><code>INSERT INTO table_name (column1, column2, ...)
+VALUES (value1, value2, ...);</code></pre>
+            <p>範例參數：
+                <ul>
+                    <li><code>table_name</code>：目標資料表</li>
+                    <li><code>column1, column2</code>：欄位名稱</li>
+                    <li><code>value1, value2</code>：對應值</li>
+                </ul>
+            </p>
+            <h2>實務案例</h2>
+            <p>假設我們要向 <code>employees</code> 表新增一筆員工資料。語法如下：</p>
+            <pre><code>INSERT INTO employees (id, name, hire_date, salary)
+VALUES (1, '張三', '2023-01-01', 50000.00);</code></pre>
+            <p>執行後，資料表內容如下：</p>
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>hire_date</th>
+                    <th>salary</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>張三</td>
+                    <td>2023-01-01</td>
+                    <td>50000.00</td>
+                </tr>
+            </table>
+            <p>這筆資料代表員工張三的基本資訊已成功新增。</p>
+        </main>
+    </div>
+    <footer>
+        <p>最後編輯時間：2025年4月9日</p>
+    </footer>
+</body>
+</html>

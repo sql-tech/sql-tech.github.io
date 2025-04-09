@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL SET指令教學 - 學習如何設定環境變數或參數，包含語法與實務案例。">
+    <meta name="keywords" content="SQL SET, SQL環境設定, SQL語法, 資料庫教學">
+    <title>SQL SET - 設定環境變數 | SQL字典查詢</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="banner.jpg" alt="SQL字典查詢 - SET教學" class="banner">
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul>
+                <li><a href="create.html">CREATE</a></li>
+                <li><a href="alter.html">ALTER</a></li>
+                <li><a href="drop.html">DROP</a></li>
+                <li><a href="truncate.html">TRUNCATE</a></li>
+                <li><a href="rename.html">RENAME</a></li>
+                <li><a href="insert.html">INSERT</a></li>
+                <li><a href="select.html">SELECT</a></li>
+                <li><a href="update.html">UPDATE</a></li>
+                <li><a href="delete.html">DELETE</a></li>
+                <li><a href="grant.html">GRANT</a></li>
+                <li><a href="revoke.html">REVOKE</a></li>
+                <li><a href="commit.html">COMMIT</a></li>
+                <li><a href="rollback.html">ROLLBACK</a></li>
+                <li><a href="savepoint.html">SAVEPOINT</a></li>
+                <li><a href="set.html">SET</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>SQL SET - 設定環境變數</h1>
+            <h2>語法說明</h2>
+            <p><code>SET</code> 用於設定資料庫的環境變數或參數（視系統而定）。其基本語法如下：</p>
+            <pre><code>SET variable = value;</code></pre>
+            <p>範例參數：
+                <ul>
+                    <li><code>variable</code>：要設定的變數</li>
+                    <li><code>value</code>：設定值</li>
+                </ul>
+            </p>
+            <h2>實務案例</h2>
+            <p>假設我們要設定交易隔離等級為 <code>READ COMMITTED</code>。語法如下（以SQL Server為例）：</p>
+            <pre><code>SET TRANSACTION ISOLATION LEVEL READ COMMITTED;</code></pre>
+            <p>執行後，當前會話的交易隔離等級被設定，影響資料一致性行為。</p>
+        </main>
+    </div>
+    <footer>
+        <p>最後編輯時間：2025年4月9日</p>
+    </footer>
+</body>
+</html>
