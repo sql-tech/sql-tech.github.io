@@ -88,6 +88,8 @@
             <ul>
                 <li><a onclick="scrollToSection('home')">首頁</a></li>
                 <li><a onclick="toggleAccordion('installation')">資料庫安裝標準作業流程</a></li>
+				<li><a onclick="toggleAccordion('normalization')">資料庫正規化說明書</a></li>
+                <li><a onclick="toggleAccordion('performance')">資料庫效能提升標準作業流程</a></li>	
             </ul>
 			<h3>基礎查詢</h3>
             <ul>
@@ -427,7 +429,527 @@ Oracle Database 21c Express Edition</code></pre></li>
                     </div>
                 </div>
             </div>
-			
+			<div class="accordion" id="normalization">
+    <div class="accordion-header" data-id="normalization">資料庫正規化說明書</div>
+    <div class="accordion-content">
+        <h2>簡介</h2>
+        <p>資料庫正規化（Normalization）是設計資料庫的過程，透過消除冗餘資料和確保資料一致性，提升儲存效率和查詢正確性。本節詳細說明第一至第五階正規化（1NF 至 5NF），每階包含定義、規則、範例、表格和圖示，適合初學者與進階使用者。</p>
+        <div class="sub-accordion" id="first_normal_form">
+            <div class="sub-accordion-header" data-id="first_normal_form">第一階正規化（1NF）</div>
+            <div class="sub-accordion-content">
+                <h3>定義</h3>
+                <p>第一階正規化（1NF）要求表格中的每個欄位值為原子值（不可再分），且每列有唯一主鍵，無重複群組。</p>
+                <h3>規則</h3>
+                <ul>
+                    <li>每個欄位包含單一值。</li>
+                    <li>無多值屬性或重複群組。</li>
+                    <li>每列由主鍵唯一識別。</li>
+                </ul>
+                <h3>範例</h3>
+                <p><strong>未正規化表格</strong>：學生選課表，課程欄包含多值。</p>
+                <table>
+                    <tr><th>學生ID</th><th>姓名</th><th>課程</th></tr>
+                    <tr><td>1</td><td>張三</td><td>數學,物理</td></tr>
+                    <tr><td>2</td><td>李四</td><td>化學,生物</td></tr>
+                </table>
+                <p><strong>1NF 表格</strong>：拆分課程為單一行。</p>
+                <table>
+                    <tr><th>學生ID</th><th>姓名</th><th>課程</th></tr>
+                    <tr><td>1</td><td>張三</td><td>數學</td></tr>
+                    <tr><td>1</td><td>張三</td><td>物理</td></tr>
+                    <tr><td>2</td><td>李四</td><td>化學</td></tr>
+                    <tr><td>2</td><td>李四</td><td>生物</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">未正規化
++------------+--------+--------------+
+| 學生ID     | 姓名   | 課程         |
++------------+--------+--------------+
+| 1          | 張三   | 數學,物理    |
+| 2          | 李四   | 化學,生物    |
++------------+--------+--------------+
+
+1NF
++------------+--------+--------+
+| 學生ID     | 姓名   | 課程   |
++------------+--------+--------+
+| 1          | 張三   | 數學   |
+| 1          | 張三   | 物理   |
+| 2          | 李四   | 化學   |
+| 2          | 李四   | 生物   |
++------------+--------+--------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>主鍵可為單欄（如學生ID+課程）。</li>
+                    <li>1NF 可能增加行數，影響儲存效率，需後續正規化。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-accordion" id="second_normal_form">
+            <div class="sub-accordion-header" data-id="second_normal_form">第二階正規化（2NF）</div>
+            <div class="sub-accordion-content">
+                <h3>定義</h3>
+                <p>第二階正規化（2NF）要求表格符合 1NF，且所有非主鍵欄位完全依賴主鍵（無部分依賴）。</p>
+                <h3>規則</h3>
+                <ul>
+                    <li>符合 1NF。</li>
+                    <li>非主鍵欄位不可僅依賴主鍵的一部分（複合主鍵情況）。</li>
+                </ul>
+                <h3>範例</h3>
+                <p><strong>1NF 表格</strong>：學生選課含部分依賴。</p>
+                <table>
+                    <tr><th>學生ID</th><th>課程ID</th><th>姓名</th><th>課程名稱</th></tr>
+                    <tr><td>1</td><td>101</td><td>張三</td><td>數學</td></tr>
+                    <tr><td>1</td><td>102</td><td>張三</td><td>物理</td></tr>
+                    <tr><td>2</td><td>103</td><td>李四</td><td>化學</td></tr>
+                </table>
+                <p>問題：姓名僅依賴學生ID，課程名稱僅依賴課程ID。</p>
+                <p><strong>2NF 表格</strong>：拆為學生表和選課表。</p>
+                <table>
+                    <tr><th>學生ID</th><th>姓名</th></tr>
+                    <tr><td>1</td><td>張三</td></tr>
+                    <tr><td>2</td><td>李四</td></tr>
+                </table>
+                <table>
+                    <tr><th>學生ID</th><th>課程ID</th><th>課程名稱</th></tr>
+                    <tr><td>1</td><td>101</td><td>數學</td></tr>
+                    <tr><td>1</td><td>102</td><td>物理</td></tr>
+                    <tr><td>2</td><td>103</td><td>化學</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">1NF
++------------+----------+--------+------------+
+| 學生ID     | 課程ID   | 姓名   | 課程名稱   |
++------------+----------+--------+------------+
+| 1          | 101      | 張三   | 數學       |
+| 1          | 102      | 張三   | 物理       |
+| 2          | 103      | 李四   | 化學       |
++------------+----------+--------+------------+
+
+2NF
+學生
++------------+--------+
+| 學生ID     | 姓名   |
++------------+--------+
+| 1          | 張三   |
+| 2          | 李四   |
++------------+--------+
+
+選課
++------------+----------+------------+
+| 學生ID     | 課程ID   | 課程名稱   |
++------------+----------+------------+
+| 1          | 101      | 數學       |
+| 1          | 102      | 物理       |
+| 2          | 103      | 化學       |
++------------+----------+------------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>僅適用複合主鍵表格。</li>
+                    <li>減少冗餘（如姓名重複）。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-accordion" id="third_normal_form">
+            <div class="sub-accordion-header" data-id="third_normal_form">第三階正規化（3NF）</div>
+            <div class="sub-accordion-content">
+                <h3>定義</h3>
+                <p>第三階正規化（3NF）要求表格符合 2NF，且非主鍵欄位無傳遞依賴（即不依賴其他非主鍵欄位）。</p>
+                <h3>規則</h3>
+                <ul>
+                    <li>符合 2NF。</li>
+                    <li>非主鍵欄位直接依賴主鍵。</li>
+                </ul>
+                <h3>範例</h3>
+                <p><strong>2NF 表格</strong>：選課表含傳遞依賴。</p>
+                <table>
+                    <tr><th>學生ID</th><th>課程ID</th><th>課程名稱</th><th>教師</th></tr>
+                    <tr><td>1</td><td>101</td><td>數學</td><td>王老師</td></tr>
+                    <tr><td>1</td><td>102</td><td>物理</td><td>陳老師</td></tr>
+                </table>
+                <p>問題：教師依賴課程名稱，非主鍵（學生ID+課程ID）。</p>
+                <p><strong>3NF 表格</strong>：拆為選課表和課程表。</p>
+                <table>
+                    <tr><th>學生ID</th><th>課程ID</th></tr>
+                    <tr><td>1</td><td>101</td></tr>
+                    <tr><td>1</td><td>102</td></tr>
+                </table>
+                <table>
+                    <tr><th>課程ID</th><th>課程名稱</th><th>教師</th></tr>
+                    <tr><td>101</td><td>數學</td><td>王老師</td></tr>
+                    <tr><td>102</td><td>物理</td><td>陳老師</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">2NF
++------------+----------+------------+----------+
+| 學生ID     | 課程ID   | 課程名稱   | 教師     |
++------------+----------+------------+----------+
+| 1          | 101      | 數學       | 王老師   |
+| 1          | 102      | 物理       | 陳老師   |
++------------+----------+------------+----------+
+
+3NF
+選課
++------------+----------+
+| 學生ID     | 課程ID   |
++------------+----------+
+| 1          | 101      |
+| 1          | 102      |
++------------+----------+
+
+課程
++----------+------------+----------+
+| 課程ID   | 課程名稱   | 教師     |
++----------+------------+----------+
+| 101      | 數學       | 王老師   |
+| 102      | 物理       | 陳老師   |
++----------+------------+----------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>3NF 減少更新異常。</li>
+                    <li>實務中多止於 3NF。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-accordion" id="fourth_normal_form">
+            <div class="sub-accordion-header" data-id="fourth_normal_form">第四階正規化（4NF）</div>
+            <div class="sub-accordion-content">
+                <h3>定義</h3>
+                <p>第四階正規化（4NF）要求表格符合 3NF，且無多值依賴（非主鍵欄位間獨立）。</p>
+                <h3>規則</h3>
+                <ul>
+                    <li>符合 3NF。</li>
+                    <li>消除非平凡多值依賴。</li>
+                </ul>
+                <h3>範例</h3>
+                <p><strong>3NF 表格</strong>：學生興趣和課程多值依賴。</p>
+                <table>
+                    <tr><th>學生ID</th><th>興趣</th><th>課程</th></tr>
+                    <tr><td>1</td><td>音樂</td><td>數學</td></tr>
+                    <tr><td>1</td><td>音樂</td><td>物理</td></tr>
+                    <tr><td>1</td><td>運動</td><td>數學</td></tr>
+                    <tr><td>1</td><td>運動</td><td>物理</td></tr>
+                </table>
+                <p>問題：興趣和課程獨立於學生ID，需拆分。</p>
+                <p><strong>4NF 表格</strong>：分為學生興趣表和學生課程表。</p>
+                <table>
+                    <tr><th>學生ID</th><th>興趣</th></tr>
+                    <tr><td>1</td><td>音樂</td></tr>
+                    <tr><td>1</td><td>運動</td></tr>
+                </table>
+                <table>
+                    <tr><th>學生ID</th><th>課程</th></tr>
+                    <tr><td>1</td><td>數學</td></tr>
+                    <tr><td>1</td><td>物理</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">3NF
++------------+--------+--------+
+| 學生ID     | 興趣   | 課程   |
++------------+--------+--------+
+| 1          | 音樂   | 數學   |
+| 1          | 音樂   | 物理   |
+| 1          | 運動   | 數學   |
+| 1          | 運動   | 物理   |
++------------+--------+--------+
+
+4NF
+學生興趣
++------------+--------+
+| 學生ID     | 興趣   |
++------------+--------+
+| 1          | 音樂   |
+| 1          | 運動   |
++------------+--------+
+
+學生課程
++------------+--------+
+| 學生ID     | 課程   |
++------------+--------+
+| 1          | 數學   |
+| 1          | 物理   |
++------------+--------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>4NF 罕用，僅在複雜多值關係時應用。</li>
+                    <li>拆分可能增加查詢複雜度。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-accordion" id="fifth_normal_form">
+            <div class="sub-accordion-header" data-id="fifth_normal_form">第五階正規化（5NF）</div>
+            <div class="sub-accordion-content">
+                <h3>定義</h3>
+                <p>第五階正規化（5NF）要求表格符合 4NF，且無聯接依賴（不可透過較小表格聯接重構）。</p>
+                <h3>規則</h3>
+                <ul>
+                    <li>符合 4NF。</li>
+                    <li>表格分解後，聯接不產生偽資料。</li>
+                </ul>
+                <h3>範例</h3>
+                <p><strong>4NF 表格</strong>：代理商、產品、公司關係。</p>
+                <table>
+                    <tr><th>代理商</th><th>產品</th><th>公司</th></tr>
+                    <tr><td>A1</td><td>P1</td><td>C1</td></tr>
+                    <tr><td>A1</td><td>P2</td><td>C1</td></tr>
+                    <tr><td>A2</td><td>P1</td><td>C2</td></tr>
+                </table>
+                <p>問題：聯接依賴導致分解後需三表。</p>
+                <p><strong>5NF 表格</strong>：拆為代理商-產品、產品-公司、代理商-公司。</p>
+                <table>
+                    <tr><th>代理商</th><th>產品</th></tr>
+                    <tr><td>A1</td><td>P1</td></tr>
+                    <tr><td>A1</td><td>P2</td></tr>
+                    <tr><td>A2</td><td>P1</td></tr>
+                </table>
+                <table>
+                    <tr><th>產品</th><th>公司</th></tr>
+                    <tr><td>P1</td><td>C1</td></tr>
+                    <tr><td>P2</td><td>C1</td></tr>
+                    <tr><td>P1</td><td>C2</td></tr>
+                </table>
+                <table>
+                    <tr><th>代理商</th><th>公司</th></tr>
+                    <tr><td>A1</td><td>C1</td></tr>
+                    <tr><td>A2</td><td>C2</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">4NF
++----------+--------+--------+
+| 代理商   | 產品   | 公司   |
++----------+--------+--------+
+| A1       | P1     | C1     |
+| A1       | P2     | C1     |
+| A2       | P1     | C2     |
++----------+--------+--------+
+
+5NF
+代理商-產品
++----------+--------+
+| 代理商   | 產品   |
++----------+--------+
+| A1       | P1     |
+| A1       | P2     |
+| A2       | P1     |
++----------+--------+
+
+產品-公司
++--------+--------+
+| 產品   | 公司   |
++--------+--------+
+| P1     | C1     |
+| P2     | C1     |
+| P1     | C2     |
++--------+--------+
+
+代理商-公司
++----------+--------+
+| 代理商   | 公司   |
++----------+--------+
+| A1       | C1     |
+| A2       | C2     |
++----------+--------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>5NF 極少使用，僅在高度複雜關係時必要。</li>
+                    <li>需權衡查詢性能。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="accordion" id="performance">
+    <div class="accordion-header" data-id="performance">資料庫效能提升標準作業流程</div>
+    <div class="accordion-content">
+        <h2>簡介</h2>
+        <p>資料庫效能提升是確保快速查詢和穩定運行的關鍵。本節針對 MySQL 和 Oracle，介紹三種方法：資料庫配置優化、正規化調整、SQL 語法優化。每部分包含詳細步驟、範例、表格和圖示，幫助您提升效能。</p>
+        <div class="sub-accordion" id="mysql_config">
+            <div class="sub-accordion-header" data-id="mysql_config">MySQL 配置優化</div>
+            <div class="sub-accordion-content">
+                <h3>簡介</h3>
+                <p>透過調整 MySQL 配置參數，提升查詢速度和資源利用率，適用於高流量應用。</p>
+                <h3>步驟</h3>
+                <ol>
+                    <li><p><strong>檢查硬體</strong>：確認 CPU、記憶體（建議 16GB+）、SSD。</p></li>
+                    <li><p><strong>調整緩衝區</strong>：編輯 <code>/etc/my.cnf</code>，設置 <code>innodb_buffer_pool_size</code> 為記憶體的 60%-70%。</p><pre><code>[mysqld]
+innodb_buffer_pool_size=4G</code></pre></li>
+                    <li><p><strong>查詢快取</strong>：啟用 <code>query_cache_size=64M</code>（MySQL 8.0 前）。</p></li>
+                    <li><p><strong>連線數</strong>：設置 <code>max_connections=500</code>。</p></li>
+                    <li><p><strong>驗證</strong>：重啟 <code>sudo systemctl restart mysql</code>，用 <code>SHOW VARIABLES LIKE 'innodb_buffer%'</code> 檢查。</p><pre><code>+--------------------------+---------+
+| Variable_name            | Value   |
++--------------------------+---------+
+| innodb_buffer_pool_size  | 4G      |
++--------------------------+---------+</code></pre></li>
+                </ol>
+                <h3>參數</h3>
+                <table>
+                    <tr><th>參數</th><th>建議值</th><th>說明</th></tr>
+                    <tr><td>innodb_buffer_pool_size</td><td>4G-8G</td><td>記憶體快取資料</td></tr>
+                    <tr><td>query_cache_size</td><td>64M</td><td>快取查詢結果</td></tr>
+                    <tr><td>max_connections</td><td>500</td><td>最大連線數</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">MySQL 配置
++------------------+       +------------------+
+| 硬體 (16GB RAM) | ----> | Buffer Pool (4G) |
++------------------+       +------------------+
+                           | Query Cache      |
+                           +------------------+
+                           | Connections (500)|
+                           +------------------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>避免過高緩衝，保留作業系統記憶體。</li>
+                    <li>MySQL 8.0 移除 query_cache，改用索引。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-accordion" id="oracle_config">
+            <div class="sub-accordion-header" data-id="oracle_config">Oracle 配置優化</div>
+            <div class="sub-accordion-content">
+                <h3>簡介</h3>
+                <p>調整 Oracle 參數，提升大規模資料庫性能，適用企業應用。</p>
+                <h3>步驟</h3>
+                <ol>
+                    <li><p><strong>硬體</strong>：確保 32GB+ 記憶體，NVMe SSD。</p></li>
+                    <li><p><strong>SGA 調整</strong>：用 <code>sqlplus / as sysdba</code>，設置 <code>ALTER SYSTEM SET sga_target=8G;</code>。</p></li>
+                    <li><p><strong>PGA</strong>：設置 <code>ALTER SYSTEM SET pga_aggregate_target=2G;</code>。</p></li>
+                    <li><p><strong>並行</strong>：啟用 <code>ALTER SYSTEM SET parallel_max_servers=16;</code>。</p></li>
+                    <li><p><strong>驗證</strong>：<code>SHOW PARAMETER sga_target;</code></p><pre><code>NAME            TYPE    VALUE
+--------------- ------- --------
+sga_target      big integer 8G</code></pre></li>
+                </ol>
+                <h3>參數</h3>
+                <table>
+                    <tr><th>參數</th><th>建議值</th><th>說明</th></tr>
+                    <tr><td>sga_target</td><td>8G</td><td>系統全域區域</td></tr>
+                    <tr><td>pga_aggregate_target</td><td>2G</td><td>程序全域區域</td></tr>
+                    <tr><td>parallel_max_servers</td><td>16</td><td>並行執行</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">Oracle 配置
++------------------+       +------------------+
+| 硬體 (32GB RAM) | ----> | SGA (8G)         |
++------------------+       +------------------+
+                           | PGA (2G)         |
+                           +------------------+
+                           | Parallel (16)    |
+                           +------------------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>檢查 <code>spfile</code> 持久化參數。</li>
+                    <li>高並行需 CPU 支援。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-accordion" id="normalization_performance">
+            <div class="sub-accordion-header" data-id="normalization_performance">正規化調整效能</div>
+            <div class="sub-accordion-content">
+                <h3>簡介</h3>
+                <p>正規化減少冗餘，但過度正規化可能增加聯接成本。本節說明如何平衡正規化與效能。</p>
+                <h3>步驟</h3>
+                <ol>
+                    <li><p><strong>分析</strong>：檢查表格聯接次數，找出頻繁查詢。</p></li>
+                    <li><p><strong>反正規化</strong>：合併常用表格，減少 JOIN。例如，將課程名稱併入選課表。</p><pre><code>SELECT s.student_id, c.course_name
+FROM students s JOIN courses c ON s.course_id = c.course_id;</code></pre><p>改為：</p><table><tr><th>student_id</th><th>course_name</th></tr><tr><td>1</td><td>數學</td></tr></table></li>
+                    <li><p><strong>索引</strong>：為合併表加索引：<code>CREATE INDEX idx_student_course ON students(course_name);</code>。</p></li>
+                    <li><p><strong>驗證</strong>：用 <code>EXPLAIN</code> 檢查查詢計劃。</p><pre><code>MySQL> EXPLAIN SELECT course_name FROM students;
++----+-------------+---------+-------+
+| id | select_type | table   | type  |
++----+-------------+---------+-------+
+| 1  | SIMPLE      | students| index |
++----+-------------+---------+-------+</code></pre></li>
+                </ol>
+                <h3>範例</h3>
+                <p><strong>正規化</strong>：學生和課程分開，需 JOIN。</p>
+                <table>
+                    <tr><th>student_id</th><th>course_id</th></tr>
+                    <tr><td>1</td><td>101</td></tr>
+                </table>
+                <table>
+                    <tr><th>course_id</th><th>course_name</th></tr>
+                    <tr><td>101</td><td>數學</td></tr>
+                </table>
+                <p><strong>反正規化</strong>：合併減少查詢。</p>
+                <table>
+                    <tr><th>student_id</th><th>course_name</th></tr>
+                    <tr><td>1</td><td>數學</td></tr>
+                </table>
+                <h3>圖示</h3>
+                <pre class="table-diagram">正規化
+學生                課程
++------------+       +------------+
+| student_id |<----->| course_id  |
+| course_id  |       | course_name|
++------------+       +------------+
+
+反正規化
+學生
++------------+------------+
+| student_id | course_name|
++------------+------------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>反正規化增加儲存，需監控。</li>
+                    <li>僅對高頻查詢反正規化。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-accordion" id="sql_optimization">
+            <div class="sub-accordion-header" data-id="sql_optimization">SQL 語法優化</div>
+            <div class="sub-accordion-content">
+                <h3>簡介</h3>
+                <p>優化 SQL 語法可減少執行時間，適用 MySQL 和 Oracle。</p>
+                <h3>步驟</h3>
+                <ol>
+                    <li><p><strong>索引</strong>：為 WHERE 和 JOIN 欄位加索引：<code>CREATE INDEX idx_salary ON employees(salary);</code>。</p></li>
+                    <li><p><strong>精簡查詢</strong>：僅選必要欄位。</p><pre><code>-- 慢
+SELECT * FROM employees WHERE salary > 50000;
+-- 快
+SELECT name, salary FROM employees WHERE salary > 50000;</code></pre></li>
+                    <li><p><strong>避免函數</strong>：不在索引欄位用函數。</p><pre><code>-- 慢
+SELECT name FROM employees WHERE YEAR(hire_date) = 2023;
+-- 快
+SELECT name FROM employees WHERE hire_date >= '2023-01-01' AND hire_date < '2024-01-01';</code></pre></li>
+                    <li><p><strong>子查詢改 JOIN</strong>：</p><pre><code>-- 慢
+SELECT name FROM employees WHERE dept_id IN (SELECT dept_id FROM departments WHERE location = 'Taipei');
+-- 快
+SELECT e.name FROM employees e JOIN departments d ON e.dept_id = d.dept_id WHERE d.location = 'Taipei';</code></pre></li>
+                    <li><p><strong>驗證</strong>：用 <code>EXPLAIN PLAN</code>（Oracle）或 <code>EXPLAIN</code>（MySQL）。</p><pre><code>MySQL> EXPLAIN SELECT name FROM employees WHERE salary > 50000;
++----+-------------+---------+-------+
+| id | select_type | table   | type  |
++----+-------------+---------+-------+
+| 1  | SIMPLE      | employees| range |
++----+-------------+---------+-------+</code></pre></li>
+                </ol>
+                <h3>範例</h3>
+                <p><strong>未優化</strong>：全表掃描。</p>
+                <pre><code>SELECT * FROM employees WHERE UPPER(name) = 'ZHANGSAN';</code></pre>
+                <p><strong>優化</strong>：索引查詢。</p>
+                <pre><code>SELECT name, salary FROM employees WHERE name = 'ZhangSan';
+CREATE INDEX idx_name ON employees(name);</code></pre>
+                <h3>圖示</h3>
+                <pre class="table-diagram">未優化
++------------------+
+| 全表掃描 (慢)    |
+| employees (10M)   |
++------------------+
+
+優化
++------------------+
+| 索引查詢 (快)    |
+| idx_name --------+
++------------------+</pre>
+                <h3>注意</h3>
+                <ul>
+                    <li>索引過多增加寫入成本。</li>
+                    <li>定期用 <code>ANALYZE TABLE</code> 更新統計。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 			           <div class="section-title">基礎查詢</div>
             <div class="accordion" id="select">
                 <div class="accordion-header" data-id="select">SQL SELECT - 查詢資料表資料</div>
