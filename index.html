@@ -80,6 +80,41 @@
         @media screen and (min-width:1025px){
             .banner{height:150px}
         }
+		.banner {
+    width: 100%;
+    max-width: 1200px; /* 限制最大寬度，避免滿版 */
+    margin: 0 auto; /* 置中 */
+    padding: 10px 0; /* 上下間距 */
+    overflow: hidden; /* 防止圖片溢出 */
+}
+
+.banner-image {
+    width: 100%; /* 圖片適應容器 */
+    height: auto; /* 保持比例 */
+    display: block; /* 避免底部間隙 */
+    max-height: 200px; /* 控制高度，防止過高 */
+    object-fit: cover; /* 裁剪圖片，填滿容器 */
+}
+
+/* 平板（768px 以下） */
+@media (max-width: 768px) {
+    .banner {
+        padding: 8px 0;
+    }
+    .banner-image {
+        max-height: 150px; /* 減小高度 */
+    }
+}
+
+/* 手機（480px 以下） */
+@media (max-width: 480px) {
+    .banner {
+        padding: 5px 0;
+    }
+    .banner-image {
+        max-height: 100px; /* 更小高度，適合手機 */
+    }
+}
 		.share-buttons {
     margin: 15px 0;
     display: flex;
@@ -108,7 +143,7 @@
   gtag('config', 'G-7K4829N8JE');
 </script>
 <body>
-    <header><img src="banner.jpg" alt="SQL資料庫百科全書" class="banner"></header>
+    <header><img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image"></header>
     <div class="hamburger">☰</div>
     <div class="container">
         <nav class="sidebar">
