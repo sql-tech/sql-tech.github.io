@@ -80,39 +80,43 @@
         @media screen and (min-width:1025px){
             .banner{height:150px}
         }
-		.banner {
+.banner {
     width: 100%;
-    max-width: 1200px; /* 限制最大寬度，避免滿版 */
+    max-width: 1000px; /* 桌面內縮，限制寬度 */
     margin: 0 auto; /* 置中 */
-    padding: 10px 0; /* 上下間距 */
-    overflow: hidden; /* 防止圖片溢出 */
+    padding: 20px 30px; /* 左右 30px 空白，上下 20px */
+    box-sizing: border-box; /* 包含 padding 在寬度計算 */
+    overflow: hidden;
 }
 
 .banner-image {
-    width: 100%; /* 圖片適應容器 */
-    height: auto; /* 保持比例 */
-    display: block; /* 避免底部間隙 */
-    max-height: 200px; /* 控制高度，防止過高 */
-    object-fit: cover; /* 裁剪圖片，填滿容器 */
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 180px; /* 桌面高度適中 */
+    object-fit: cover;
+    border-radius: 8px; /* 圓角，符合網站風格 */
 }
 
 /* 平板（768px 以下） */
 @media (max-width: 768px) {
     .banner {
-        padding: 8px 0;
+        max-width: 90%; /* 平板稍寬，適應螢幕 */
+        padding: 15px 20px; /* 減小空白 */
     }
     .banner-image {
-        max-height: 150px; /* 減小高度 */
+        max-height: 140px;
     }
 }
 
 /* 手機（480px 以下） */
 @media (max-width: 480px) {
     .banner {
-        padding: 5px 0;
+        max-width: 95%; /* 手機更貼邊 */
+        padding: 10px 15px;
     }
     .banner-image {
-        max-height: 100px; /* 更小高度，適合手機 */
+        max-height: 100px; /* 手機小高度 */
     }
 }
 		.share-buttons {
