@@ -6,6 +6,11 @@
     <meta name="description" content="SQL資料庫百科全書 - 進階 SQL，提供15個SQL指令教學及MySQL、Oracle安裝流程，包含範例，適合初學者與專業開發者。">
     <meta name="keywords" content="SQL, UNION, 子查詢, 窗口函數, MySQL安裝, Oracle安裝, Windows, Linux, MacOS">
     <meta name="author" content="SQL資料庫百科全書團隊">
+	<meta property="og:title" content="SQL資料庫百科全書">
+    <meta property="og:description" content="學習SQL、MySQL、Oracle，包含安裝指南和進階指令教學，適合初學者與專業人士！">
+    <meta property="og:url" content="https://yourwebsite.com/sql-encyclopedia">
+    <meta property="og:image" content="https://yourwebsite.com/images/sql-encyclopedia-thumbnail.jpg">
+    <meta property="og:type" content="website">
     <title>SQL資料庫百科全書 - 進階 SQL</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50PFF0MS1Q"></script>
     <script>
@@ -68,6 +73,22 @@
         @media screen and (min-width:1025px){
             .banner{height:150px}
         }
+		.share-buttons {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.share-button {
+    display: inline-block;
+    transition: opacity 0.2s;
+}
+.share-button:hover {
+    opacity: 0.8;
+}
+.share-button img {
+    vertical-align: middle;
+}
     </style>
 </head>
 <!-- Google tag (gtag.js) -->
@@ -87,7 +108,7 @@
             <h2>SQL指令清單</h2>
             <ul>
                 <li><a onclick="scrollToSection('home')">首頁</a></li>
-                <li><a onclick="toggleAccordion('installation')">資料庫安裝標準作業流程</a></li>
+                <li><a onclick="toggleAccordion('installation')">資料庫安裝說明書</a></li>
 				<li><a onclick="toggleAccordion('normalization')">資料庫正規化說明書</a></li>
                 <li><a onclick="toggleAccordion('performance')">資料庫效能提升標準作業流程</a></li>	
             </ul>
@@ -169,13 +190,27 @@
         <main class="content">
             <section id="home">
                 <h1>歡迎來到 SQL資料庫百科全書</h1>
+				<div class="share-buttons">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com/sql-encyclopedia&t=SQL資料庫百科全書" target="_blank" class="share-button facebook">
+            <img src="facebook-icon.png" alt="Facebook Share" width="32" height="32">
+        </a>
+        <a href="https://x.com/intent/tweet?url=https://yourwebsite.com/sql-encyclopedia&text=探索SQL資料庫百科全書，學習MySQL與Oracle！&hashtags=SQL,Database" target="_blank" class="share-button x">
+            <img src="x-icon.png" alt="X Share" width="32" height="32">
+        </a>
+        <a href="https://www.instagram.com/?url=https://yourwebsite.com/sql-encyclopedia" target="_blank" class="share-button instagram">
+            <img src="instagram-icon.png" alt="Instagram Share" width="32" height="32">
+        </a>
+        <a href="https://line.me/R/msg/text/?探索SQL資料庫百科全書！%0D%0Ahttps://yourwebsite.com/sql-encyclopedia" target="_blank" class="share-button line">
+            <img src="line-icon.png" alt="Line Share" width="32" height="32">
+        </a>
+    </div>
                 <p>「SQL資料庫百科全書」提供基礎、資料定義、進階 SQL 指令教學，包含一般、MySQL、Oracle範例，搭配表格和表結構圖，適合初學者與專業人士。我們還提供MySQL和Oracle在Windows、Linux、MacOS的安裝指南，步驟詳細，點擊左側目錄，立即開啟您的SQL學習之旅！無論是資料庫新手還是資深開發者，這裡都有您需要的知識與實務指引。</p>
             </section>
             <div class="ad-container">
                 <!-- <script async src="https://monetag.com/tag.min.js" data-zone="YOUR_ZONE_ID"></script> -->
             </div>
             <div class="accordion" id="installation">
-                <div class="accordion-header" data-id="installation">資料庫安裝標準作業流程</div>
+                <div class="accordion-header" data-id="installation">資料庫安裝說明書</div>
                 <div class="accordion-content">
                     <h2>簡介</h2>
                     <p>本節提供MySQL和Oracle在Windows、Linux、MacOS的安裝指南，包含步驟、模擬截圖、參數表格和注意事項，幫助您配置資料庫環境。</p>
