@@ -274,4 +274,4 @@ cumulative_sum_percent_example_mysql: 按部門計算累積薪資比例（MySQL 
 cumulative_sum_percent_example_oracle: 按訂單日期計算累積金額比例。
 
 # 頁尾
-footer_text: 最後編輯時間：2025年4月9日 | 聯絡信箱：[email protected] | © 2025 SQL資料庫百科全書。保留所有權利。
+footer_text: 最後編輯時間：2025年4月9日 | 聯絡信箱：[email protected] | © 2026 SQL資料庫百科全書。保留所有權利。
