@@ -8,6 +8,7 @@
 # Homepage
 home_title: 
 home_description: 
+home_nav: 
 
 # Sidebar
 sidebar_commands_title: 

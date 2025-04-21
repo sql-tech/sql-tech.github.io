@@ -8,6 +8,7 @@
 # 首頁
 home_title: 歡迎來到 SQL資料庫百科全書
 home_description: 「SQL資料庫百科全書」提供基礎、資料定義、進階 SQL 指令教學，包含一般、MySQL、Oracle範例，搭配表格和表結構圖，適合初學者與專業人士。我們還提供MySQL和Oracle在Windows、Linux、MacOS的安裝指南，步驟詳細，點擊左側目錄，立即開啟您的SQL學習之旅！無論是資料庫新手還是資深開發者，這裡都有您需要的知識與實務指引。
+home_nav: 首頁
 
 # 側邊欄
 sidebar_commands_title: SQL指令清單
@@ -274,4 +275,4 @@ cumulative_sum_percent_example_mysql: 按部門計算累積薪資比例（MySQL 
 cumulative_sum_percent_example_oracle: 按訂單日期計算累積金額比例。
 
 # 頁尾
-footer_text: 最後編輯時間：2025年4月9日 | 聯絡信箱：[email protected] | © 2026 SQL資料庫百科全書。保留所有權利。
+footer_text: 最後編輯時間：2025年4月9日 | 聯絡信箱：[email protected] | © 2025 SQL資料庫百科全書。保留所有權利。
