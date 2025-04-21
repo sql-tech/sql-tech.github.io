@@ -14,6 +14,9 @@ sidebar_commands_title: SQL指令清單
 sidebar_basic_queries_title: 基礎查詢
 sidebar_data_definition_title: 資料定義
 sidebar_advanced_sql_title: 進階 SQL
+installation_nav: 資料庫安裝說明書
+normalization_nav: 資料庫正規化說明書
+performance_nav: 資料庫效能提升標準作業流程
 
 # 資料庫安裝說明書
 installation_title: 資料庫安裝說明書
@@ -22,7 +25,7 @@ installation_intro: 本節提供MySQL和Oracle在Windows、Linux、MacOS的安�
 # MySQL 安裝 - Windows
 mysql_windows_title: MySQL 安裝 - Windows
 mysql_windows_intro: 在Windows 10/11安裝MySQL 8.0，適用64位系統。
-mysql_windows_steps: 1. 下載：訪問MySQLwhere to MySQL官網，選Windows版本（~400MB）。\n2. 運行：雙擊mysql-installer-web-community-8.0.x.msi，選「Developer Default」，點Next。\n3. 依賴項：檢查環境（如.NET Framework），點「Execute」安裝缺少項目。\n4. 配置：選「Standalone」，埠3306，點Next。\n5. 密碼：設根用戶密碼（如「MySQL2025!」），點Next。\n6. 安裝：點「Execute」，完成後勾選「Start MySQL」，點Finish。\n7. 驗證：命令提示字元輸入mysql -u root -p，檢查mysql>提示符。
+mysql_windows_steps: 1. 下載：訪問MySQL官網，選Windows版本（~400MB）。\n2. 運行：雙擊mysql-installer-web-community-8.0.x.msi，選「Developer Default」，點Next。\n3. 依賴項：檢查環境（如.NET Framework），點「Execute」安裝缺少項目。\n4. 配置：選「Standalone」，埠3306，點Next。\n5. 密碼：設根用戶密碼（如「MySQL2025!」），點Next。\n6. 安裝：點「Execute」，完成後勾選「Start MySQL」，點Finish。\n7. 驗證：命令提示字元輸入mysql -u root -p，檢查mysql>提示符。
 mysql_windows_params: 版本: MySQL 8.0\n路徑: C:\Program Files\MySQL\n埠: 3306\n用戶: root
 mysql_windows_notes: - 需2GB空間。\n- 防火牆允許3306埠。\n- 忘記密碼用mysqld --skip-grant-tables重設。
 
@@ -91,7 +94,7 @@ fourth_normal_form_title: 第四階正規化（4NF）
 fourth_normal_form_definition: 第四階正規化（4NF）要求表格符合 3NF，且無多值依賴（非主鍵欄位間獨立）。
 fourth_normal_form_rules: - 符合 3NF。\n- 消除非平凡多值依賴。
 fourth_normal_form_example: 3NF 表格：學生興趣和課程多值依賴。\n問題：興趣和課程獨立於學生ID，需拆分。\n4NF 表格：分為學生興趣表和學生課程表。
-fourth_normal_form_notes: - 4NF 罕用，僅在複雜多值關係時應用。\n-Hr 拆分可能增加查詢複雜度。
+fourth_normal_form_notes: - 4NF 罕用，僅在複雜多值關係時應用。\n- 拆分可能增加查詢複雜度。
 
 # 第五階正規化（5NF）
 fifth_normal_form_title: 第五階正規化（5NF）

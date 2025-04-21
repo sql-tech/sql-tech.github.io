@@ -48,7 +48,7 @@
     <meta property="og:title" content="SQL資料庫百科全書">
     <meta property="og:description" content="SQL資料庫百科全書 - 學習SQL、MySQL、Oracle，包含安裝指南和進階指令教學，適合初學者與專業人士！提供SQL指令教學及MySQL、Oracle安裝流程，包含範例，適合初學者與專業開發者。">
     <meta property="og:url" content="https://sql-tech.github.io//sql-encyclopedia">
-    <meta property="og:image" content="https://place???/1200x630/2c3e50/ffffff?text=SQL資料庫百科全書&font=montserrat">
+    <meta property="og:image" content="https://placehold.co/1200x630/2c3e50/ffffff?text=SQL資料庫百科全書&font=montserrat">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="SQL資料庫百科全書縮圖 - 文字圖片">
@@ -185,9 +185,9 @@
             <h2 data-i18n-key="sidebar_commands_title">SQL指令清單</h2>
             <ul>
                 <li><a onclick="scrollToSection('home')">首頁</a></li>
-                <li><a onclick="toggleAccordion('installation')">資料庫安裝說明書</a></li>
-                <li><a onclick="toggleAccordion('normalization')">資料庫正規化說明書</a></li>
-                <li><a onclick="toggleAccordion('performance')">資料庫效能提升標準作業流程</a></li>
+                <li><a onclick="toggleAccordion('installation')" data-i18n-key="installation_nav">資料庫安裝說明書</a></li>
+                <li><a onclick="toggleAccordion('normalization')" data-i18n-key="normalization_nav">資料庫正規化說明書</a></li>
+                <li><a onclick="toggleAccordion('performance')" data-i18n-key="performance_nav">資料庫效能提升標準作業流程</a></li>
             </ul>
             <h3 data-i18n-key="sidebar_basic_queries_title">基礎查詢</h3>
             <ul>
@@ -683,7 +683,7 @@ Oracle Database 21c Express Edition</code></pre></li>
                             <p>3NF 表格：拆為選課表和課程表。</p>
                             <table>
                                 <tr><th>學生ID</th><th>課程ID</th></tr>
-                                <tr><td>1</td><td>101"</td></tr>
+                                <tr><td>1</td><td>101</td></tr>
                                 <tr><td>1</td><td>102</td></tr>
                             </table>
                             <table>
@@ -734,13 +734,4 @@ Oracle Database 21c Express Edition</code></pre></li>
                                 <li>消除非平凡多值依賴。</li>
                             </ul>
                             <h3>範例</h3>
-                            <p data-i18n-key="fourth_normal_form_example">3NF 表格：學生興趣和課程多值依賴。</p>
-                            <table>
-                                <tr><th>學生ID</th><th>興趣</th><th>課程</th></tr>
-                                <tr><td>1</td><td>音樂</td><td>數學</td></tr>
-                                <tr><td>1</td><td>音樂</td><td>物理</td></tr>
-                                <tr><td>1</td><td>運動</td><td>數學</td></tr>
-                                <tr><td>1</td><td>運動</td><td>物理</td></tr>
-                            </table>
-                            <p>問題：興趣和課程獨立於學生ID，需拆分。</p>
-                            <p
+                            <p data-i18n-key="fourth_normal_form_example">3NF 表格：
