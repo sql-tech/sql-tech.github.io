@@ -1,0 +1,277 @@
+# SQL Database Encyclopedia - Content Text
+# Format Description:
+# - Each key-value pair is represented as "key: content", where the key corresponds to the data-i18n-key in HTML.
+# - Line breaks are represented by \n, with empty lines separating sections.
+# - Table content is represented as plain text, example code and diagrams only include descriptive text.
+# - Comments start with # and are for clarification only, not affecting content.
+
+# Homepage
+home_title: 
+home_description: 
+
+# Sidebar
+sidebar_commands_title: 
+sidebar_basic_queries_title: 
+sidebar_data_definition_title: 
+sidebar_advanced_sql_title: 
+installation_nav: 
+normalization_nav: 
+performance_nav: 
+
+# Database Installation Guide
+installation_title: 
+installation_intro: 
+
+# MySQL Installation - Windows
+mysql_windows_title: 
+mysql_windows_intro: 
+mysql_windows_steps: 
+mysql_windows_params: 
+mysql_windows_notes: 
+
+# MySQL Installation - Linux
+mysql_linux_title: 
+mysql_linux_intro: 
+mysql_linux_steps: 
+mysql_linux_params: 
+mysql_linux_notes: 
+
+# MySQL Installation - MacOS
+mysql_macos_title: 
+mysql_macos_intro: 
+mysql_macos_steps: 
+mysql_macos_params: 
+mysql_macos_notes: 
+
+# Oracle Installation - Windows
+oracle_windows_title: 
+oracle_windows_intro: 
+oracle_windows_steps: 
+oracle_windows_params: 
+oracle_windows_notes: 
+
+# Oracle Installation - Linux
+oracle_linux_title: 
+oracle_linux_intro: 
+oracle_linux_steps: 
+oracle_linux_params: 
+oracle_linux_notes: 
+
+# Oracle Installation - MacOS
+oracle_macos_title: 
+oracle_macos_intro: 
+oracle_macos_steps: 
+oracle_macos_params: 
+oracle_macos_notes: 
+
+# Database Normalization Guide
+normalization_title: 
+normalization_intro: 
+
+# First Normal Form (1NF)
+first_normal_form_title: 
+first_normal_form_definition: 
+first_normal_form_rules: 
+first_normal_form_example: 
+first_normal_form_notes: 
+
+# Second Normal Form (2NF)
+second_normal_form_title: 
+second_normal_form_definition: 
+second_normal_form_rules: 
+second_normal_form_example: 
+second_normal_form_notes: 
+
+# Third Normal Form (3NF)
+third_normal_form_title: 
+third_normal_form_definition: 
+third_normal_form_rules: 
+third_normal_form_example: 
+third_normal_form_notes: 
+
+# Fourth Normal Form (4NF)
+fourth_normal_form_title: 
+fourth_normal_form_definition: 
+fourth_normal_form_rules: 
+fourth_normal_form_example: 
+fourth_normal_form_notes: 
+
+# Fifth Normal Form (5NF)
+fifth_normal_form_title: 
+fifth_normal_form_definition: 
+fifth_normal_form_rules: 
+fifth_normal_form_example: 
+fifth_normal_form_notes: 
+
+# Database Performance Optimization SOP
+performance_title: 
+performance_intro: 
+
+# MySQL Configuration Optimization
+mysql_config_title: 
+mysql_config_intro: 
+mysql_config_steps: 
+
+# DROP TABLE
+drop_table_title: 
+drop_table_syntax: 
+drop_table_example_general: 
+drop_table_example_mysql: 
+drop_table_example_oracle: 
+
+# TRUNCATE TABLE
+truncate_table_title: 
+truncate_table_syntax: 
+truncate_table_example_general: 
+truncate_table_example_mysql: 
+truncate_table_example_oracle: 
+
+# USE
+use_title: 
+use_syntax: 
+use_example_general: 
+use_example_mysql: 
+use_example_oracle: 
+
+# INSERT INTO
+insert_into_title: 
+insert_into_syntax: 
+insert_into_example_general: 
+insert_into_example_mysql: 
+insert_into_example_oracle: 
+
+# UPDATE
+update_title: 
+update_syntax: 
+update_example_general: 
+update_example_mysql: 
+update_example_oracle: 
+
+# DELETE FROM
+delete_from_title: 
+delete_from_syntax: 
+delete_from_example_general: 
+delete_from_example_mysql: 
+delete_from_example_oracle: 
+
+# UNION
+union_title: 
+union_syntax: 
+union_example_general: 
+union_example_mysql: 
+union_example_oracle: 
+
+# UNION ALL
+union_all_title: 
+union_all_syntax: 
+union_all_example_general: 
+union_all_example_mysql: 
+union_all_example_oracle: 
+
+# Nested View
+nested_view_title: 
+nested_view_syntax: 
+nested_view_example_general: 
+nested_view_example_mysql: 
+nested_view_example_oracle: 
+
+# INTERSECT
+intersect_title: 
+intersect_syntax: 
+intersect_example_general: 
+intersect_example_mysql: 
+intersect_example_oracle: 
+
+# MINUS
+minus_title: 
+minus_syntax: 
+minus_example_general: 
+minus_example_mysql: 
+minus_example_oracle: 
+
+# LIMIT
+limit_title: 
+limit_syntax: 
+limit_example_general: 
+limit_example_mysql: 
+limit_example_oracle: 
+
+# Subquery
+subquery_title: 
+subquery_syntax: 
+subquery_example_general: 
+subquery_example_mysql: 
+subquery_example_oracle: 
+
+# WITH
+with_title: 
+with_syntax: 
+with_example_general: 
+with_example_mysql: 
+with_example_oracle: 
+
+# EXISTS
+exists_title: 
+exists_syntax: 
+exists_example_general: 
+exists_example_mysql: 
+exists_example_oracle: 
+
+# CASE
+case_title: 
+case_syntax: 
+case_example_general: 
+case_example_mysql: 
+case_example_oracle: 
+
+# Window Function
+window_function_title: 
+window_function_syntax: 
+window_function_example_general: 
+window_function_example_mysql: 
+window_function_example_oracle: 
+
+# SEQUENCE and NEXTVAL
+sequence_title: 
+sequence_syntax: 
+sequence_example_general: 
+sequence_example_mysql: 
+sequence_example_oracle: 
+
+# Rank Calculation
+rank_title: 
+rank_syntax: 
+rank_example_general: 
+rank_example_mysql: 
+rank_example_oracle: 
+
+# Median Calculation
+median_title: 
+median_syntax: 
+median_example_general: 
+median_example_mysql: 
+median_example_oracle: 
+
+# Cumulative Sum
+cumulative_sum_title: 
+cumulative_sum_syntax: 
+cumulative_sum_example_general: 
+cumulative_sum_example_mysql: 
+cumulative_sum_example_oracle: 
+
+# Sum Percentage
+sum_percent_title: 
+sum_percent_syntax: 
+sum_percent_example_general: 
+sum_percent_example_mysql: 
+sum_percent_example_oracle: 
+
+# Cumulative Sum Percentage
+cumulative_sum_percent_title: 
+cumulative_sum_percent_syntax: 
+cumulative_sum_percent_example_general: 
+cumulative_sum_percent_example_mysql: 
+cumulative_sum_percent_example_oracle: 
+
+# Footer
+footer_text:

@@ -56,7 +56,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://placehold.co/1200x630/2c3e50/ffffff?text=SQL資料庫百科全書&font=montserrat">
-    <title data-i18n-key="home_title">SQL資料庫百科全書 - 進階 SQL</title>
+    <title data-i18n-key="home_title"></title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50PFF0MS1Q"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -101,6 +101,19 @@
         .hamburger{display:none;font-size:24px;cursor:pointer;color:#2D3748;padding:10px}
         .section-title{font-size:1.8em;color:#2D3748;margin:30px 0 15px;border-bottom:2px solid #E2E8F0;padding-bottom:5px}
         footer{font-size:0.9em;color:#777;text-align:center;padding:20px;border-top:1px solid #E2E8F0;margin-top:20px;background:#F5F7FA}
+        .language-switch-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4A5568;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .language-switch-btn:hover {
+            background-color: #718096;
+        }
         @media screen and (max-width:768px){
             .banner{height:80px}
             .container{flex-direction:column}
@@ -182,14 +195,14 @@
     <div class="hamburger">☰</div>
     <div class="container">
         <nav class="sidebar">
-            <h2 data-i18n-key="sidebar_commands_title">SQL指令清單</h2>
+            <h2 data-i18n-key="sidebar_commands_title"></h2>
             <ul>
-                <li><a onclick="scrollToSection('home')">首頁</a></li>
-                <li><a onclick="toggleAccordion('installation')" data-i18n-key="installation_nav">資料庫安裝說明書</a></li>
-                <li><a onclick="toggleAccordion('normalization')" data-i18n-key="normalization_nav">資料庫正規化說明書</a></li>
-                <li><a onclick="toggleAccordion('performance')" data-i18n-key="performance_nav">資料庫效能提升標準作業流程</a></li>
+                <li><a onclick="scrollToSection('home')" data-i18n-key="home_nav">首頁</a></li>
+                <li><a onclick="toggleAccordion('installation')" data-i18n-key="installation_nav"></a></li>
+                <li><a onclick="toggleAccordion('normalization')" data-i18n-key="normalization_nav"></a></li>
+                <li><a onclick="toggleAccordion('performance')" data-i18n-key="performance_nav"></a></li>
             </ul>
-            <h3 data-i18n-key="sidebar_basic_queries_title">基礎查詢</h3>
+            <h3 data-i18n-key="sidebar_basic_queries_title"></h3>
             <ul>
                 <li><a onclick="toggleAccordion('select')">SELECT</a></li>
                 <li><a onclick="toggleAccordion('distinct')">DISTINCT</a></li>
@@ -218,7 +231,7 @@
                 <li><a onclick="toggleAccordion('length')">長度</a></li>
                 <li><a onclick="toggleAccordion('replace')">REPLACE</a></li>
             </ul>
-            <h3 data-i18n-key="sidebar_data_definition_title">資料定義</h3>
+            <h3 data-i18n-key="sidebar_data_definition_title"></h3>
             <ul>
                 <li><a onclick="toggleAccordion('create_table')">CREATE TABLE</a></li>
                 <li><a onclick="toggleAccordion('constraint')">Constraint</a></li>
@@ -243,7 +256,7 @@
                 <li><a onclick="toggleAccordion('update')">UPDATE</a></li>
                 <li><a onclick="toggleAccordion('delete_from')">DELETE FROM</a></li>
             </ul>
-            <h3 data-i18n-key="sidebar_advanced_sql_title">進階 SQL</h3>
+            <h3 data-i18n-key="sidebar_advanced_sql_title"></h3>
             <ul>
                 <li><a onclick="toggleAccordion('union')">UNION</a></li>
                 <li><a onclick="toggleAccordion('union_all')">UNION ALL</a></li>
@@ -266,7 +279,7 @@
         </nav>
         <main class="content">
             <section id="home">
-                <h1 data-i18n-key="home_title">歡迎來到 SQL資料庫百科全書</h1>
+                <h1 data-i18n-key="home_title"></h1>
                 <div class="share-buttons">
                     <a href="https://www.facebook.com/sharer/sharer.php?u=https://sql-tech.github.io/" target="_blank" class="share-button facebook">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/facebook.svg" alt="Facebook Share" width="32" height="32">
@@ -281,21 +294,22 @@
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/line.svg" alt="Line Share" width="32" height="32">
                     </a>
                 </div>
-                <p data-i18n-key="home_description">「SQL資料庫百科全書」提供基礎、資料定義、進階 SQL 指令教學，包含一般、MySQL、Oracle範例，搭配表格和表結構圖，適合初學者與專業人士。我們還提供MySQL和Oracle在Windows、Linux、MacOS的安裝指南，步驟詳細，點擊左側目錄，立即開啟您的SQL學習之旅！無論是資料庫新手還是資深開發者，這裡都有您需要的知識與實務指引。</p>
+                <p data-i18n-key="home_description"></p>
+                <button class="language-switch-btn" onclick="loadLanguage('sql_english.txt')">切換英文版</button>
             </section>
             <div class="ad-container">
                 <!-- <script async src="https://monetag.com/tag.min.js" data-zone="YOUR_ZONE_ID"></script> -->
             </div>
             <div class="accordion" id="installation">
-                <div class="accordion-header" data-id="installation" data-i18n-key="installation_title">資料庫安裝說明書</div>
+                <div class="accordion-header" data-id="installation" data-i18n-key="installation_title"></div>
                 <div class="accordion-content">
-                    <h2 data-i18n-key="installation_intro">簡介</h2>
-                    <p data-i18n-key="installation_intro">本節提供MySQL和Oracle在Windows、Linux、MacOS的安裝指南，包含步驟、模擬截圖、參數表格和注意事項，幫助您配置資料庫環境。</p>
+                    <h2 data-i18n-key="installation_intro"></h2>
+                    <p data-i18n-key="installation_intro"></p>
                     <div class="sub-accordion" id="mysql_windows">
-                        <div class="sub-accordion-header" data-id="mysql_windows" data-i18n-key="mysql_windows_title">MySQL 安裝 - Windows</div>
+                        <div class="sub-accordion-header" data-id="mysql_windows" data-i18n-key="mysql_windows_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="mysql_windows_intro">簡介</h3>
-                            <p data-i18n-key="mysql_windows_intro">在Windows 10/11安裝MySQL 8.0，適用64位系統。</p>
+                            <h3 data-i18n-key="mysql_windows_intro"></h3>
+                            <p data-i18n-key="mysql_windows_intro"></p>
                             <h3>安裝步驟</h3>
                             <ol data-i18n-key="mysql_windows_steps">
                                 <li><p>下載：訪問<a href="https://dev.mysql.com/downloads/installer/">MySQL官網</a>，選Windows版本（~400MB）。</p><pre class="mock-screenshot">
@@ -341,10 +355,10 @@
                         </div>
                     </div>
                     <div class="sub-accordion" id="mysql_linux">
-                        <div class="sub-accordion-header" data-id="mysql_linux" data-i18n-key="mysql_linux_title">MySQL 安裝 - Linux</div>
+                        <div class="sub-accordion-header" data-id="mysql_linux" data-i18n-key="mysql_linux_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="mysql_linux_intro">簡介</h3>
-                            <p data-i18n-key="mysql_linux_intro">在Ubuntu 22.04安裝MySQL 8.0，適用Linux發行版。</p>
+                            <h3 data-i18n-key="mysql_linux_intro"></h3>
+                            <p data-i18n-key="mysql_linux_intro"></p>
                             <h3>安裝步驟</h3>
                             <ol data-i18n-key="mysql_linux_steps">
                                 <li><p>更新：<code>sudo apt update && sudo apt upgrade</code></p><pre class="mock-screenshot">
@@ -383,10 +397,10 @@
                         </div>
                     </div>
                     <div class="sub-accordion" id="mysql_macos">
-                        <div class="sub-accordion-header" data-id="mysql_macos" data-i18n-key="mysql_macos_title">MySQL 安裝 - MacOS</div>
+                        <div class="sub-accordion-header" data-id="mysql_macos" data-i18n-key="mysql_macos_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="mysql_macos_intro">簡介</h3>
-                            <p data-i18n-key="mysql_macos_intro">在MacOS Ventura 13安裝MySQL 8.0，使用Homebrew。</p>
+                            <h3 data-i18n-key="mysql_macos_intro"></h3>
+                            <p data-i18n-key="mysql_macos_intro"></p>
                             <h3>安裝步驟</h3>
                             <ol data-i18n-key="mysql_macos_steps">
                                 <li><p>Homebrew：<code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></p><pre class="mock-screenshot">
@@ -425,10 +439,10 @@
                         </div>
                     </div>
                     <div class="sub-accordion" id="oracle_windows">
-                        <div class="sub-accordion-header" data-id="oracle_windows" data-i18n-key="oracle_windows_title">Oracle 安裝 - Windows</div>
+                        <div class="sub-accordion-header" data-id="oracle_windows" data-i18n-key="oracle_windows_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="oracle_windows_intro">簡介</h3>
-                            <p data-i18n-key="oracle_windows_intro">在Windows 10/11安裝Oracle 21c XE。</p>
+                            <h3 data-i18n-key="oracle_windows_intro"></h3>
+                            <p data-i18n-key="oracle_windows_intro"></p>
                             <h3>安裝步驟</h3>
                             <ol data-i18n-key="oracle_windows_steps">
                                 <li><p>下載：訪問<a href="https://www.oracle.com/database/technologies/xe-downloads.html">Oracle官網</a>，選21c XE（~2GB）。</p><pre class="mock-screenshot">
@@ -464,10 +478,10 @@ Oracle Database 21c Express Edition</code></pre></li>
                         </div>
                     </div>
                     <div class="sub-accordion" id="oracle_linux">
-                        <div class="sub-accordion-header" data-id="oracle_linux" data-i18n-key="oracle_linux_title">Oracle 安裝 - Linux</div>
+                        <div class="sub-accordion-header" data-id="oracle_linux" data-i18n-key="oracle_linux_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="oracle_linux_intro">簡介</h3>
-                            <p data-i18n-key="oracle_linux_intro">在Oracle Linux 8安裝Oracle 21c XE，透過RPM。</p>
+                            <h3 data-i18n-key="oracle_linux_intro"></h3>
+                            <p data-i18n-key="oracle_linux_intro"></p>
                             <h3>安裝步驟</h3>
                             <ol data-i18n-key="oracle_linux_steps">
                                 <li><p>下載：<code>oracle-database-xe-21c-1.0-1.x86_64.rpm</code>。</p><pre class="mock-screenshot">
@@ -502,10 +516,10 @@ Oracle Database 21c Express Edition</code></pre></li>
                         </div>
                     </div>
                     <div class="sub-accordion" id="oracle_macos">
-                        <div class="sub-accordion-header" data-id="oracle_macos" data-i18n-key="oracle_macos_title">Oracle 安裝 - MacOS</div>
+                        <div class="sub-accordion-header" data-id="oracle_macos" data-i18n-key="oracle_macos_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="oracle_macos_intro">簡介</h3>
-                            <p data-i18n-key="oracle_macos_intro">在MacOS Ventura 13用Docker安裝Oracle 21c XE。</p>
+                            <h3 data-i18n-key="oracle_macos_intro"></h3>
+                            <p data-i18n-key="oracle_macos_intro"></p>
                             <h3>安裝步驟</h3>
                             <ol data-i18n-key="oracle_macos_steps">
                                 <li><p>Docker：下載<a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>。</p><pre class="mock-screenshot">
@@ -542,15 +556,15 @@ Oracle Database 21c Express Edition</code></pre></li>
                 </div>
             </div>
             <div class="accordion" id="normalization">
-                <div class="accordion-header" data-id="normalization" data-i18n-key="normalization_title">資料庫正規化說明書</div>
+                <div class="accordion-header" data-id="normalization" data-i18n-key="normalization_title"></div>
                 <div class="accordion-content">
-                    <h2 data-i18n-key="normalization_intro">簡介</h2>
-                    <p data-i18n-key="normalization_intro">資料庫正規化（Normalization）是設計資料庫的過程，透過消除冗餘資料和確保資料一致性，提升儲存效率和查詢正確性。本節詳細說明第一至第五階正規化（1NF 至 5NF），每階包含定義、規則、範例、表格和圖示，適合初學者與進階使用者。</p>
+                    <h2 data-i18n-key="normalization_intro"></h2>
+                    <p data-i18n-key="normalization_intro"></p>
                     <div class="sub-accordion" id="first_normal_form">
-                        <div class="sub-accordion-header" data-id="first_normal_form" data-i18n-key="first_normal_form_title">第一階正規化（1NF）</div>
+                        <div class="sub-accordion-header" data-id="first_normal_form" data-i18n-key="first_normal_form_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="first_normal_form_definition">定義</h3>
-                            <p data-i18n-key="first_normal_form_definition">第一階正規化（1NF）要求表格中的每個欄位值為原子值（不可再分），且每列有唯一主鍵，無重複群組。</p>
+                            <h3 data-i18n-key="first_normal_form_definition"></h3>
+                            <p data-i18n-key="first_normal_form_definition"></p>
                             <h3>規則</h3>
                             <ul data-i18n-key="first_normal_form_rules">
                                 <li>每個欄位包含單一值。</li>
@@ -558,7 +572,7 @@ Oracle Database 21c Express Edition</code></pre></li>
                                 <li>每列由主鍵唯一識別。</li>
                             </ul>
                             <h3>範例</h3>
-                            <p data-i18n-key="first_normal_form_example">未正規化表格：學生選課表，課程欄包含多值。</p>
+                            <p data-i18n-key="first_normal_form_example"></p>
                             <table>
                                 <tr><th>學生ID</th><th>姓名</th><th>課程</th></tr>
                                 <tr><td>1</td><td>張三</td><td>數學,物理</td></tr>
@@ -598,17 +612,17 @@ Oracle Database 21c Express Edition</code></pre></li>
                         </div>
                     </div>
                     <div class="sub-accordion" id="second_normal_form">
-                        <div class="sub-accordion-header" data-id="second_normal_form" data-i18n-key="second_normal_form_title">第二階正規化（2NF）</div>
+                        <div class="sub-accordion-header" data-id="second_normal_form" data-i18n-key="second_normal_form_title"></div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="second_normal_form_definition">定義</h3>
-                            <p data-i18n-key="second_normal_form_definition">第二階正規化（2NF）要求表格符合 1NF，且所有非主鍵欄位完全依賴主鍵（無部分依賴）。</p>
+                            <h3 data-i18n-key="second_normal_form_definition"></h3>
+                            <p data-i18n-key="second_normal_form_definition"></p>
                             <h3>規則</h3>
                             <ul data-i18n-key="second_normal_form_rules">
                                 <li>符合 1NF。</li>
                                 <li>非主鍵欄位不可僅依賴主鍵的一部分（複合主鍵情況）。</li>
                             </ul>
                             <h3>範例</h3>
-                            <p data-i18n-key="second_normal_form_example">1NF 表格：學生選課含部分依賴。</p>
+                            <p data-i18n-key="second_normal_form_example"></p>
                             <table>
                                 <tr><th>學生ID</th><th>課程ID</th><th>姓名</th><th>課程名稱</th></tr>
                                 <tr><td>1</td><td>101</td><td>張三</td><td>數學</td></tr>
@@ -649,89 +663,4 @@ Oracle Database 21c Express Edition</code></pre></li>
 
 選課
 +------------+----------+------------+
-| 學生ID     | 課程ID   | 課程名稱   |
-+------------+----------+------------+
-| 1          | 101      | 數學       |
-| 1          | 102      | 物理       |
-| 2          | 103      | 化學       |
-+------------+----------+------------+</pre>
-                            <h3>注意</h3>
-                            <ul data-i18n-key="second_normal_form_notes">
-                                <li>僅適用複合主鍵表格。</li>
-                                <li>減少冗餘（如姓名重複）。</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="sub-accordion" id="third_normal_form">
-                        <div class="sub-accordion-header" data-id="third_normal_form" data-i18n-key="third_normal_form_title">第三階正規化（3NF）</div>
-                        <div class="sub-accordion-content">
-                            <h3 data-i18n-key="third_normal_form_definition">定義</h3>
-                            <p data-i18n-key="third_normal_form_definition">第三階正規化（3NF）要求表格符合 2NF，且非主鍵欄位無傳遞依賴（即不依賴其他非主鍵欄位）。</p>
-                            <h3>規則</h3>
-                            <ul data-i18n-key="third_normal_form_rules">
-                                <li>符合 2NF。</li>
-                                <li>非主鍵欄位直接依賴主鍵。</li>
-                            </ul>
-                            <h3>範例</h3>
-                            <p data-i18n-key="third_normal_form_example">2NF 表格：選課表含傳遞依賴。</p>
-                            <table>
-                                <tr><th>學生ID</th><th>課程ID</th><th>課程名稱</th><th>教師</th></tr>
-                                <tr><td>1</td><td>101</td><td>數學</td><td>王老師</td></tr>
-                                <tr><td>1</td><td>102</td><td>物理</td><td>陳老師</td></tr>
-                            </table>
-                            <p>問題：教師依賴課程名稱，非主鍵（學生ID+課程ID）。</p>
-                            <p>3NF 表格：拆為選課表和課程表。</p>
-                            <table>
-                                <tr><th>學生ID</th><th>課程ID</th></tr>
-                                <tr><td>1</td><td>101</td></tr>
-                                <tr><td>1</td><td>102</td></tr>
-                            </table>
-                            <table>
-                                <tr><th>課程ID</th><th>課程名稱</th><th>教師</th></tr>
-                                <tr><td>101</td><td>數學</td><td>王老師</td></tr>
-                                <tr><td>102</td><td>物理</td><td>陳老師</td></tr>
-                            </table>
-                            <h3>圖示</h3>
-                            <pre class="table-diagram">2NF
-+------------+----------+------------+----------+
-| 學生ID     | 課程ID   | 課程名稱   | 教師     |
-+------------+----------+------------+----------+
-| 1          | 101      | 數學       | 王老師   |
-| 1          | 102      | 物理       | 陳老師   |
-+------------+----------+------------+----------+
-
-3NF
-選課
-+------------+----------+
-| 學生ID     | 課程ID   |
-+------------+----------+
-| 1          | 101      |
-| 1          | 102      |
-+------------+----------+
-
-課程
-+----------+------------+----------+
-| 課程ID   | 課程名稱   | 教師     |
-+----------+------------+----------+
-| 101      | 數學       | 王老師   |
-| 102      | 物理       | 陳老師   |
-+----------+------------+----------+</pre>
-                            <h3>注意</h3>
-                            <ul data-i18n-key="third_normal_form_notes">
-                                <li>3NF 減少更新異常。</li>
-                                <li>實務中多止於 3NF。</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="sub-accordion" id="fourth_normal_form">
-                        <div class="sub-accordion-header" data-id="fourth_normal_form" data-i18n-key="fourth_normal_form_title">第四階正規化（4NF）</div>
-                        <div class="sub-accordion-content">
-                            <h3 data-i18n-key="fourth_normal_form_definition">定義</h3>
-                            <p data-i18n-key="fourth_normal_form_definition">第四階正規化（4NF）要求表格符合 3NF，且無多值依賴（非主鍵欄位間獨立）。</p>
-                            <h3>規則</h3>
-                            <ul data-i18n-key="fourth_normal_form_rules">
-                                <li>符合 3NF。</li>
-                                <li>消除非平凡多值依賴。</li>
-                            </ul>
-                            <h3>範例</h3>
-                            <p data-i18n-key="fourth_normal_form_example">3NF 表格：
+| 學生ID     | 課程ID
