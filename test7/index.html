@@ -136,22 +136,12 @@
             border-radius: 8px;
         }
         @media (max-width: 768px) {
-            .banner {
-                max-width: 90%;
-                padding: 15px 20px;
-            }
-            .banner-image {
-                max-height: 140px;
-            }
+            .banner {max-width: 90%;padding: 15px 20px;}
+            .banner-image {max-height: 140px;}
         }
         @media (max-width: 480px) {
-            .banner {
-                max-width: 95%;
-                padding: 10px 15px;
-            }
-            .banner-image {
-                max-height: 100px;
-            }
+            .banner {max-width: 95%;padding: 10px 15px;}
+            .banner-image {max-height: 100px;}
         }
         .share-buttons {
             margin: 15px 0;
@@ -163,39 +153,19 @@
             display: inline-block;
             transition: opacity 0.2s;
         }
-        .share-button:hover {
-            opacity: 0.8;
-        }
-        .share-button img {
-            vertical-align: middle;
-        }
-        .language-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: #4A5568;
-            color: #FFF;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .language-toggle:hover {
-            background: #718096;
-        }
-        .error-message {
-            color: red;
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
+        .share-button:hover {opacity: 0.8;}
+        .share-button img {vertical-align: middle;}
     </style>
 </head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7K4829N8JE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K4829N8JE');
+</script>
 <body>
-    <header>
-        <img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image">
-        <button class="language-toggle" onclick="toggleLanguage()">切換英文</button>
-    </header>
+    <header><img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image"></header>
     <div class="hamburger">☰</div>
     <div class="container">
         <nav class="sidebar">
@@ -204,7 +174,7 @@
                 <li><a onclick="scrollToSection('home')">首頁</a></li>
                 <li><a onclick="toggleAccordion('installation')">資料庫安裝說明書</a></li>
                 <li><a onclick="toggleAccordion('normalization')">資料庫正規化說明書</a></li>
-                <li><a onclick="toggleAccordion('performance')">資料庫效能提升標準作業流程</a></li>	
+                <li><a onclick="toggleAccordion('performance')">資料庫效能提升標準作業流程</a></li>
             </ul>
             <h3>基礎查詢</h3>
             <ul>
@@ -283,7 +253,7 @@
         </nav>
         <main class="content">
             <section id="home">
-                <h1><span data-content-id="home-title"></span></h1>
+                <h1><span data-content-id="home_title"></span></h1>
                 <div class="share-buttons">
                     <a href="https://www.facebook.com/sharer/sharer.php?u=https://sql-tech.github.io/" target="_blank" class="share-button facebook">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/facebook.svg" alt="Facebook Share" width="32" height="32">
@@ -298,133 +268,854 @@
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/line.svg" alt="Line Share" width="32" height="32">
                     </a>
                 </div>
-                <p><span data-content-id="home-text"></span></p>
+                <p><span data-content-id="home_intro"></span></p>
             </section>
             <div class="ad-container">
                 <!-- <script async src="https://monetag.com/tag.min.js" data-zone="YOUR_ZONE_ID"></script> -->
             </div>
             <div class="accordion" id="installation">
-                <div class="accordion-header" data-id="installation">資料庫安裝說明書</div>
+                <div class="accordion-header" data-id="installation"><span data-content-id="installation_title"></span></div>
                 <div class="accordion-content">
-                    <h2><span data-content-id="installation-intro-title"></span></h2>
-                    <p><span data-content-id="installation-intro-text"></span></p>
+                    <h2>簡介</h2>
+                    <p><span data-content-id="installation_intro"></span></p>
                     <div class="sub-accordion" id="mysql_windows">
-                        <div class="sub-accordion-header" data-id="mysql_windows">MySQL 安裝 - Windows</div>
+                        <div class="sub-accordion-header" data-id="mysql_windows"><span data-content-id="mysql_windows_title"></span></div>
                         <div class="sub-accordion-content">
-                            <h3><span data-content-id="installation-mysql_windows-intro-title"></span></h3>
-                            <p><span data-content-id="installation-mysql_windows-intro-text"></span></p>
-                            <h3><span data-content-id="installation-mysql_windows-steps-title"></span></h3>
+                            <h3>簡介</h3>
+                            <p><span data-content-id="mysql_windows_intro"></span></p>
+                            <h3>安裝步驟</h3>
                             <ol>
-                                <li><p><span data-content-id="installation-mysql_windows-steps-items-0"></span></p></li>
-                                <li><p><span data-content-id="installation-mysql_windows-steps-items-1"></span></p></li>
-                                <li><p><span data-content-id="installation-mysql_windows-steps-items-2"></span></p></li>
-                                <li><p><span data-content-id="installation-mysql_windows-steps-items-3"></span></p></li>
-                                <li><p><span data-content-id="installation-mysql_windows-steps-items-4"></span></p></li>
-                                <li><p><span data-content-id="installation-mysql_windows-steps-items-5"></span></p></li>
-                                <li><p><span data-content-id="installation-mysql_windows-steps-items-6"></span></p></li>
+                                <li><p><strong>下載</strong>：<span data-content-id="mysql_windows_step1"></span></p><pre class="mock-screenshot"><span data-content-id="mysql_windows_step1_screenshot"></span></pre></li>
+                                <li><p><strong>運行</strong>：<span data-content-id="mysql_windows_step2"></span></p><pre class="mock-screenshot"><span data-content-id="mysql_windows_step2_screenshot"></span></pre></li>
+                                <li><p><strong>依賴項</strong>：<span data-content-id="mysql_windows_step3"></span></p></li>
+                                <li><p><strong>配置</strong>：<span data-content-id="mysql_windows_step4"></span></p><pre class="mock-screenshot"><span data-content-id="mysql_windows_step4_screenshot"></span></pre></li>
+                                <li><p><strong>密碼</strong>：<span data-content-id="mysql_windows_step5"></span></p></li>
+                                <li><p><strong>安裝</strong>：<span data-content-id="mysql_windows_step6"></span></p></li>
+                                <li><p><strong>驗證</strong>：<span data-content-id="mysql_windows_step7"></span></p><pre><code><span data-content-id="mysql_windows_step7_code"></span></code></pre></li>
                             </ol>
-                            <h3><span data-content-id="installation-mysql_windows-parameters-title"></span></h3>
-                            <table><tr><th>參數</th><th>值</th></tr><tr><td colspan="2"><pre><span data-content-id="installation-mysql_windows-parameters-table"></span></pre></td></tr></table>
-                            <h3><span data-content-id="installation-mysql_windows-notes-title"></span></h3>
-                            <ul>
-                                <li><span data-content-id="installation-mysql_windows-notes-items-0"></span></li>
-                                <li><span data-content-id="installation-mysql_windows-notes-items-1"></span></li>
-                                <li><span data-content-id="installation-mysql_windows-notes-items-2"></span></li>
-                            </ul>
-                            <h3><span data-content-id="installation-mysql_windows-structure-title"></span></h3>
-                            <pre class="table-diagram"><span data-content-id="installation-mysql_windows-structure-text"></span></pre>
+                            <h3>參數</h3>
+                            <table><tr><th>參數</th><th>值</th></tr><span data-content-id="mysql_windows_params"></span></table>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="mysql_windows_notes"></span></ul>
+                            <h3>結構</h3>
+                            <pre class="table-diagram"><span data-content-id="mysql_windows_structure"></span></pre>
                         </div>
                     </div>
-                    <!-- 其他子手風琴 -->
+                    <div class="sub-accordion" id="mysql_linux">
+                        <div class="sub-accordion-header" data-id="mysql_linux"><span data-content-id="mysql_linux_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>簡介</h3>
+                            <p><span data-content-id="mysql_linux_intro"></span></p>
+                            <h3>安裝步驟</h3>
+                            <ol>
+                                <li><p><strong>更新</strong>：<span data-content-id="mysql_linux_step1"></span></p><pre class="mock-screenshot"><span data-content-id="mysql_linux_step1_screenshot"></span></pre></li>
+                                <li><p><strong>安裝</strong>：<span data-content-id="mysql_linux_step2"></span></p></li>
+                                <li><p><strong>啟動</strong>：<span data-content-id="mysql_linux_step3"></span></p></li>
+                                <li><p><strong>安全</strong>：<span data-content-id="mysql_linux_step4"></span></p><pre class="mock-screenshot"><span data-content-id="mysql_linux_step4_screenshot"></span></pre></li>
+                                <li><p><strong>驗證</strong>：<span data-content-id="mysql_linux_step5"></span></p><pre><code><span data-content-id="mysql_linux_step5_code"></span></code></pre></li>
+                            </ol>
+                            <h3>參數</h3>
+                            <table><tr><th>參數</th><th>值</th></tr><span data-content-id="mysql_linux_params"></span></table>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="mysql_linux_notes"></span></ul>
+                            <h3>結構</h3>
+                            <pre class="table-diagram"><span data-content-id="mysql_linux_structure"></span></pre>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="mysql_macos">
+                        <div class="sub-accordion-header" data-id="mysql_macos"><span data-content-id="mysql_macos_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>簡介</h3>
+                            <p><span data-content-id="mysql_macos_intro"></span></p>
+                            <h3>安裝步驟</h3>
+                            <ol>
+                                <li><p><strong>Homebrew</strong>：<span data-content-id="mysql_macos_step1"></span></p><pre class="mock-screenshot"><span data-content-id="mysql_macos_step1_screenshot"></span></pre></li>
+                                <li><p><strong>安裝</strong>：<span data-content-id="mysql_macos_step2"></span></p></li>
+                                <li><p><strong>啟動</strong>：<span data-content-id="mysql_macos_step3"></span></p></li>
+                                <li><p><strong>密碼</strong>：<span data-content-id="mysql_macos_step4"></span></p><pre class="mock-screenshot"><span data-content-id="mysql_macos_step4_screenshot"></span></pre></li>
+                                <li><p><strong>驗證</strong>：<span data-content-id="mysql_macos_step5"></span></p><pre><code><span data-content-id="mysql_macos_step5_code"></span></code></pre></li>
+                            </ol>
+                            <h3>參數</h3>
+                            <table><tr><th>參數</th><th>值</th></tr><span data-content-id="mysql_macos_params"></span></table>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="mysql_macos_notes"></span></ul>
+                            <h3>結構</h3>
+                            <pre class="table-diagram"><span data-content-id="mysql_macos_structure"></span></pre>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="oracle_windows">
+                        <div class="sub-accordion-header" data-id="oracle_windows"><span data-content-id="oracle_windows_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>簡介</h3>
+                            <p><span data-content-id="oracle_windows_intro"></span></p>
+                            <h3>安裝步驟</h3>
+                            <ol>
+                                <li><p><strong>下載</strong>：<span data-content-id="oracle_windows_step1"></span></p><pre class="mock-screenshot"><span data-content-id="oracle_windows_step1_screenshot"></span></pre></li>
+                                <li><p><strong>解壓</strong>：<span data-content-id="oracle_windows_step2"></span></p></li>
+                                <li><p><strong>運行</strong>：<span data-content-id="oracle_windows_step3"></span></p><pre class="mock-screenshot"><span data-content-id="oracle_windows_step3_screenshot"></span></pre></li>
+                                <li><p><strong>密碼</strong>：<span data-content-id="oracle_windows_step4"></span></p></li>
+                                <li><p><strong>安裝</strong>：<span data-content-id="oracle_windows_step5"></span></p></li>
+                                <li><p><strong>驗證</strong>：<span data-content-id="oracle_windows_step6"></span></p><pre><code><span data-content-id="oracle_windows_step6_code"></span></code></pre></li>
+                            </ol>
+                            <h3>參數</h3>
+                            <table><tr><th>參數</th><th>值</th></tr><span data-content-id="oracle_windows_params"></span></table>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="oracle_windows_notes"></span></ul>
+                            <h3>結構</h3>
+                            <pre class="table-diagram"><span data-content-id="oracle_windows_structure"></span></pre>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="oracle_linux">
+                        <div class="sub-accordion-header" data-id="oracle_linux"><span data-content-id="oracle_linux_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>簡介</h3>
+                            <p><span data-content-id="oracle_linux_intro"></span></p>
+                            <h3>安裝步驟</h3>
+                            <ol>
+                                <li><p><strong>下載</strong>：<span data-content-id="oracle_linux_step1"></span></p><pre class="mock-screenshot"><span data-content-id="oracle_linux_step1_screenshot"></span></pre></li>
+                                <li><p><strong>依賴</strong>：<span data-content-id="oracle_linux_step2"></span></p></li>
+                                <li><p><strong>安裝</strong>：<span data-content-id="oracle_linux_step3"></span></p></li>
+                                <li><p><strong>配置</strong>：<span data-content-id="oracle_linux_step4"></span></p><pre class="mock-screenshot"><span data-content-id="oracle_linux_step4_screenshot"></span></pre></li>
+                                <li><p><strong>驗證</strong>：<span data-content-id="oracle_linux_step5"></span></p><pre><code><span data-content-id="oracle_linux_step5_code"></span></code></pre></li>
+                            </ol>
+                            <h3>參數</h3>
+                            <table><tr><th>參數</th><th>值</th></tr><span data-content-id="oracle_linux_params"></span></table>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="oracle_linux_notes"></span></ul>
+                            <h3>結構</h3>
+                            <pre class="table-diagram"><span data-content-id="oracle_linux_structure"></span></pre>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="oracle_macos">
+                        <div class="sub-accordion-header" data-id="oracle_macos"><span data-content-id="oracle_macos_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>簡介</h3>
+                            <p><span data-content-id="oracle_macos_intro"></span></p>
+                            <h3>安裝步驟</h3>
+                            <ol>
+                                <li><p><strong>Docker</strong>：<span data-content-id="oracle_macos_step1"></span></p><pre class="mock-screenshot"><span data-content-id="oracle_macos_step1_screenshot"></span></pre></li>
+                                <li><p><strong>啟動</strong>：<span data-content-id="oracle_macos_step2"></span></p></li>
+                                <li><p><strong>映像</strong>：<span data-content-id="oracle_macos_step3"></span></p></li>
+                                <li><p><strong>容器</strong>：<span data-content-id="oracle_macos_step4"></span></p><pre class="mock-screenshot"><span data-content-id="oracle_macos_step4_screenshot"></span></pre></li>
+                                <li><p><strong>驗證</strong>：<span data-content-id="oracle_macos_step5"></span></p><pre><code><span data-content-id="oracle_macos_step5_code"></span></code></pre></li>
+                            </ol>
+                            <h3>參數</h3>
+                            <table><tr><th>參數</th><th>值</th></tr><span data-content-id="oracle_macos_params"></span></table>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="oracle_macos_notes"></span></ul>
+                            <h3>結構</h3>
+                            <pre class="table-diagram"><span data-content-id="oracle_macos_structure"></span></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- 其他手風琴 -->
+            <div class="accordion" id="normalization">
+                <div class="accordion-header" data-id="normalization"><span data-content-id="normalization_title"></span></div>
+                <div class="accordion-content">
+                    <h2>簡介</h2>
+                    <p><span data-content-id="normalization_intro"></span></p>
+                    <div class="sub-accordion" id="first_normal_form">
+                        <div class="sub-accordion-header" data-id="first_normal_form"><span data-content-id="first_normal_form_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p><span data-content-id="first_normal_form_definition"></span></p>
+                            <h3>規則</h3>
+                            <ul><span data-content-id="first_normal_form_rules"></span></ul>
+                            <h3>範例</h3>
+                            <p><strong>未正規化表格</strong>：<span data-content-id="first_normal_form_example_un"></span></p>
+                            <table><tr><th>學生ID</th><th>姓名</th><th>課程</th></tr><span data-content-id="first_normal_form_table_un"></span></table>
+                            <p><strong>1NF 表格</strong>：<span data-content-id="first_normal_form_example_1nf"></span></p>
+                            <table><tr><th>學生ID</th><th>姓名</th><th>課程</th></tr><span data-content-id="first_normal_form_table_1nf"></span></table>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram"><span data-content-id="first_normal_form_diagram"></span></pre>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="first_normal_form_notes"></span></ul>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="second_normal_form">
+                        <div class="sub-accordion-header" data-id="second_normal_form"><span data-content-id="second_normal_form_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p><span data-content-id="second_normal_form_definition"></span></p>
+                            <h3>規則</h3>
+                            <ul><span data-content-id="second_normal_form_rules"></span></ul>
+                            <h3>範例</h3>
+                            <p><strong>1NF 表格</strong>：<span data-content-id="second_normal_form_example_1nf"></span></p>
+                            <table><tr><th>學生ID</th><th>課程ID</th><th>姓名</th><th>課程名稱</th></tr><span data-content-id="second_normal_form_table_1nf"></span></table>
+                            <p><span data-content-id="second_normal_form_problem"></span></p>
+                            <p><strong>2NF 表格</strong>：<span data-content-id="second_normal_form_example_2nf"></span></p>
+                            <table><tr><th>學生ID</th><th>姓名</th></tr><span data-content-id="second_normal_form_table_students"></span></table>
+                            <table><tr><th>學生ID</th><th>課程ID</th><th>課程名稱</th></tr><span data-content-id="second_normal_form_table_courses"></span></table>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram"><span data-content-id="second_normal_form_diagram"></span></pre>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="second_normal_form_notes"></span></ul>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="third_normal_form">
+                        <div class="sub-accordion-header" data-id="third_normal_form"><span data-content-id="third_normal_form_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p><span data-content-id="third_normal_form_definition"></span></p>
+                            <h3>規則</h3>
+                            <ul><span data-content-id="third_normal_form_rules"></span></ul>
+                            <h3>範例</h3>
+                            <p><strong>2NF 表格</strong>：<span data-content-id="third_normal_form_example_2nf"></span></p>
+                            <table><tr><th>學生ID</th><th>課程ID</th><th>課程名稱</th><th>教師</th></tr><span data-content-id="third_normal_form_table_2nf"></span></table>
+                            <p><span data-content-id="third_normal_form_problem"></span></p>
+                            <p><strong>3NF 表格</strong>：<span data-content-id="third_normal_form_example_3nf"></span></p>
+                            <table><tr><th>學生ID</th><th>課程ID</th></tr><span data-content-id="third_normal_form_table_enrollment"></span></table>
+                            <table><tr><th>課程ID</th><th>課程名稱</th><th>教師</th></tr><span data-content-id="third_normal_form_table_courses"></span></table>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram"><span data-content-id="third_normal_form_diagram"></span></pre>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="third_normal_form_notes"></span></ul>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="fourth_normal_form">
+                        <div class="sub-accordion-header" data-id="fourth_normal_form"><span data-content-id="fourth_normal_form_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p><span data-content-id="fourth_normal_form_definition"></span></p>
+                            <h3>規則</h3>
+                            <ul><span data-content-id="fourth_normal_form_rules"></span></ul>
+                            <h3>範例</h3>
+                            <p><strong>3NF 表格</strong>：<span data-content-id="fourth_normal_form_example_3nf"></span></p>
+                            <table><tr><th>學生ID</th><th>興趣</th><th>課程</th></tr><span data-content-id="fourth_normal_form_table_3nf"></span></table>
+                            <p><span data-content-id="fourth_normal_form_problem"></span></p>
+                            <p><strong>4NF 表格</strong>：<span data-content-id="fourth_normal_form_example_4nf"></span></p>
+                            <table><tr><th>學生ID</th><th>興趣</th></tr><span data-content-id="fourth_normal_form_table_interests"></span></table>
+                            <table><tr><th>學生ID</th><th>課程</th></tr><span data-content-id="fourth_normal_form_table_courses"></span></table>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram"><span data-content-id="fourth_normal_form_diagram"></span></pre>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="fourth_normal_form_notes"></span></ul>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="fifth_normal_form">
+                        <div class="sub-accordion-header" data-id="fifth_normal_form"><span data-content-id="fifth_normal_form_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p><span data-content-id="fifth_normal_form_definition"></span></p>
+                            <h3>規則</h3>
+                            <ul><span data-content-id="fifth_normal_form_rules"></span></ul>
+                            <h3>範例</h3>
+                            <p><strong>4NF 表格</strong>：<span data-content-id="fifth_normal_form_example_4nf"></span></p>
+                            <table><tr><th>代理商</th><th>產品</th><th>公司</th></tr><span data-content-id="fifth_normal_form_table_4nf"></span></table>
+                            <p><span data-content-id="fifth_normal_form_problem"></span></p>
+                            <p><strong>5NF 表格</strong>：<span data-content-id="fifth_normal_form_example_5nf"></span></p>
+                            <table><tr><th>代理商</th><th>產品</th></tr><span data-content-id="fifth_normal_form_table_agent_product"></span></table>
+                            <table><tr><th>產品</th><th>公司</th></tr><span data-content-id="fifth_normal_form_table_product_company"></span></table>
+                            <table><tr><th>代理商</th><th>公司</th></tr><span data-content-id="fifth_normal_form_table_agent_company"></span></table>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram"><span data-content-id="fifth_normal_form_diagram"></span></pre>
+                            <h3>注意</h3>
+                            <ul><span data-content-id="fifth_normal_form_notes"></span></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion" id="performance">
+                <div class="accordion-header" data-id="performance"><span data-content-id="performance_title"></span></div>
+                <div class="accordion-content">
+                    <h2>簡介</h2>
+                    <p><span data-content-id="performance_intro"></span></p>
+                    <div class="sub-accordion" id="mysql_config">
+                        <div class="sub-accordion-header" data-id="mysql_config"><span data-content-id="mysql_config_title"></span></div>
+                        <div class="sub-accordion-content">
+                            <h3>簡介</h3>
+                            <p><span data-content-id="mysql_config_intro"></span></p>
+                            <h3>步驟</h3>
+                            <ol>
+                                <li><p><strong>檢查硬體</strong>：<span data-content-id="mysql_config_step1"></span></p></li>
+                                <li><p><strong>調整緩衝區</strong>：<span data-content-id="mysql_config_step2"></span></p><pre><code><span data-content-id="mysql_config_step2_code"></span></code></pre></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion" id="drop_table">
+                <div class="accordion-header" data-id="drop_table"><span data-content-id="drop_table_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="drop_table_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="drop_table_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="drop_table_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="drop_table_example_general"></span></code></pre>
+                    <table><tr><th>表</th><th>操作</th></tr><span data-content-id="drop_table_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="drop_table_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="drop_table_example_mysql"></span></code></pre>
+                    <table><tr><th>表</th><th>操作</th></tr><span data-content-id="drop_table_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="drop_table_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="drop_table_example_oracle"></span></code></pre>
+                    <table><tr><th>表</th><th>操作</th></tr><span data-content-id="drop_table_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="drop_table_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="truncate_table">
+                <div class="accordion-header" data-id="truncate_table"><span data-content-id="truncate_table_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="truncate_table_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="truncate_table_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="truncate_table_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="truncate_table_example_general"></span></code></pre>
+                    <table><tr><th>表</th><th>操作</th></tr><span data-content-id="truncate_table_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="truncate_table_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="truncate_table_example_mysql"></span></code></pre>
+                    <table><tr><th>表</th><th>操作</th></tr><span data-content-id="truncate_table_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="truncate_table_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="truncate_table_example_oracle"></span></code></pre>
+                    <table><tr><th>表</th><th>操作</th></tr><span data-content-id="truncate_table_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="truncate_table_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="use">
+                <div class="accordion-header" data-id="use"><span data-content-id="use_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="use_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="use_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="use_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="use_example_general"></span></code></pre>
+                    <table><tr><th>資料庫</th><th>操作</th></tr><span data-content-id="use_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="use_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="use_example_mysql"></span></code></pre>
+                    <table><tr><th>資料庫</th><th>操作</th></tr><span data-content-id="use_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="use_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="use_example_oracle"></span></code></pre>
+                    <table><tr><th>模式</th><th>操作</th></tr><span data-content-id="use_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="use_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="insert_into">
+                <div class="accordion-header" data-id="insert_into"><span data-content-id="insert_into_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="insert_into_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="insert_into_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="insert_into_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="insert_into_example_general"></span></code></pre>
+                    <table><tr><th>id</th><th>name</th><th>salary</th></tr><span data-content-id="insert_into_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="insert_into_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="insert_into_example_mysql"></span></code></pre>
+                    <table><tr><th>id</th><th>name</th><th>salary</th></tr><span data-content-id="insert_into_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="insert_into_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="insert_into_example_oracle"></span></code></pre>
+                    <table><tr><th>id</th><th>name</th><th>salary</th></tr><span data-content-id="insert_into_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="insert_into_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="update">
+                <div class="accordion-header" data-id="update"><span data-content-id="update_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="update_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="update_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="update_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="update_example_general"></span></code></pre>
+                    <table><tr><th>id</th><th>salary</th></tr><span data-content-id="update_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="update_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="update_example_mysql"></span></code></pre>
+                    <table><tr><th>id</th><th>salary</th><th>department</th></tr><span data-content-id="update_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="update_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="update_example_oracle"></span></code></pre>
+                    <table><tr><th>department</th><th>salary</th></tr><span data-content-id="update_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="update_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="delete_from">
+                <div class="accordion-header" data-id="delete_from"><span data-content-id="delete_from_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="delete_from_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="delete_from_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="delete_from_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="delete_from_example_general"></span></code></pre>
+                    <table><tr><th>id</th><th>操作</th></tr><span data-content-id="delete_from_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="delete_from_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="delete_from_example_mysql"></span></code></pre>
+                    <table><tr><th>department</th><th>操作</th></tr><span data-content-id="delete_from_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="delete_from_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="delete_from_example_oracle"></span></code></pre>
+                    <table><tr><th>條件</th><th>操作</th></tr><span data-content-id="delete_from_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="delete_from_structure"></span></pre>
+                </div>
+            </div>
+            <div class="section-title">進階 SQL</div>
+            <div class="accordion" id="union">
+                <div class="accordion-header" data-id="union"><span data-content-id="union_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="union_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="union_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="union_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="union_example_general"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="union_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="union_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="union_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="union_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="union_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="union_example_oracle"></span></code></pre>
+                    <table><tr><th>prod_id</th></tr><span data-content-id="union_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="union_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="union_all">
+                <div class="accordion-header" data-id="union_all"><span data-content-id="union_all_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="union_all_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="union_all_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="union_all_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="union_all_example_general"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="union_all_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="union_all_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="union_all_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="union_all_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="union_all_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="union_all_example_oracle"></span></code></pre>
+                    <table><tr><th>prod_id</th></tr><span data-content-id="union_all_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="union_all_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="nested_view">
+                <div class="accordion-header" data-id="nested_view"><span data-content-id="nested_view_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="nested_view_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="nested_view_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="nested_view_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="nested_view_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th></tr><span data-content-id="nested_view_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="nested_view_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="nested_view_example_mysql"></span></code></pre>
+                    <table><tr><th>dept</th><th>count</th></tr><span data-content-id="nested_view_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="nested_view_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="nested_view_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>total</th></tr><span data-content-id="nested_view_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="nested_view_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="intersect">
+                <div class="accordion-header" data-id="intersect"><span data-content-id="intersect_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="intersect_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="intersect_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="intersect_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="intersect_example_general"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="intersect_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="intersect_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="intersect_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="intersect_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="intersect_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="intersect_example_oracle"></span></code></pre>
+                    <table><tr><th>prod_id</th></tr><span data-content-id="intersect_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="intersect_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="minus">
+                <div class="accordion-header" data-id="minus"><span data-content-id="minus_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="minus_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="minus_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="minus_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="minus_example_general"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="minus_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="minus_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="minus_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="minus_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="minus_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="minus_example_oracle"></span></code></pre>
+                    <table><tr><th>prod_id</th></tr><span data-content-id="minus_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="minus_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="limit">
+                <div class="accordion-header" data-id="limit"><span data-content-id="limit_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="limit_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="limit_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="limit_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="limit_example_general"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="limit_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="limit_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="limit_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th></tr><span data-content-id="limit_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="limit_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="limit_example_oracle"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="limit_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="limit_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="subquery">
+                <div class="accordion-header" data-id="subquery"><span data-content-id="subquery_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="subquery_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="subquery_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="subquery_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="subquery_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th></tr><span data-content-id="subquery_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="subquery_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="subquery_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th></tr><span data-content-id="subquery_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="subquery_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="subquery_example_oracle"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="subquery_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="subquery_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="with">
+                <div class="accordion-header" data-id="with"><span data-content-id="with_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="with_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="with_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="with_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="with_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th></tr><span data-content-id="with_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="with_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="with_example_mysql"></span></code></pre>
+                    <table><tr><th>department</th><th>count</th></tr><span data-content-id="with_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="with_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="with_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>total</th></tr><span data-content-id="with_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="with_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="exists">
+                <div class="accordion-header" data-id="exists"><span data-content-id="exists_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="exists_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="exists_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="exists_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="exists_example_general"></span></code></pre>
+                    <table><tr><th>name</th></tr><span data-content-id="exists_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="exists_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="exists_example_mysql"></span></code></pre>
+                    <table><tr><th>department</th></tr><span data-content-id="exists_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="exists_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="exists_example_oracle"></span></code></pre>
+                    <table><tr><th>prod_name</th></tr><span data-content-id="exists_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="exists_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="case">
+                <div class="accordion-header" data-id="case"><span data-content-id="case_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="case_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="case_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="case_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="case_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary_level</th></tr><span data-content-id="case_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="case_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="case_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>dept_type</th></tr><span data-content-id="case_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="case_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="case_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>order_size</th></tr><span data-content-id="case_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="case_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="window_function">
+                <div class="accordion-header" data-id="window_function"><span data-content-id="window_function_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="window_function_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="window_function_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="window_function_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="window_function_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>rank</th></tr><span data-content-id="window_function_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="window_function_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="window_function_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>cumulative_salary</th></tr><span data-content-id="window_function_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="window_function_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="window_function_example_oracle"></span></code></pre>
+                    <table><tr><th>year</th><th>total</th><th>rank</th></tr><span data-content-id="window_function_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="window_function_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="sequence">
+                <div class="accordion-header" data-id="sequence"><span data-content-id="sequence_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="sequence_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="sequence_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="sequence_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="sequence_example_general"></span></code></pre>
+                    <table><tr><th>id</th><th>name</th></tr><span data-content-id="sequence_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="sequence_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="sequence_example_mysql"></span></code></pre>
+                    <table><tr><th>id</th><th>name</th></tr><span data-content-id="sequence_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="sequence_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="sequence_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>amount</th></tr><span data-content-id="sequence_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="sequence_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="rank">
+                <div class="accordion-header" data-id="rank"><span data-content-id="rank_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="rank_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="rank_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="rank_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="rank_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>rank</th></tr><span data-content-id="rank_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="rank_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="rank_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>rank</th></tr><span data-content-id="rank_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="rank_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="rank_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>amount</th><th>rank</th></tr><span data-content-id="rank_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="rank_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="median">
+                <div class="accordion-header" data-id="median"><span data-content-id="median_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="median_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="median_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="median_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="median_example_general"></span></code></pre>
+                    <table><tr><th>median_salary</th></tr><span data-content-id="median_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="median_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="median_example_mysql"></span></code></pre>
+                    <table><tr><th>median_salary</th></tr><span data-content-id="median_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="median_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="median_example_oracle"></span></code></pre>
+                    <table><tr><th>median_amount</th></tr><span data-content-id="median_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="median_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="cumulative_sum">
+                <div class="accordion-header" data-id="cumulative_sum"><span data-content-id="cumulative_sum_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="cumulative_sum_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="cumulative_sum_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>cumulative_salary</th></tr><span data-content-id="cumulative_sum_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="cumulative_sum_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>cumulative_salary</th></tr><span data-content-id="cumulative_sum_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="cumulative_sum_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>amount</th><th>cumulative_amount</th></tr><span data-content-id="cumulative_sum_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="cumulative_sum_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="sum_percent">
+                <div class="accordion-header" data-id="sum_percent"><span data-content-id="sum_percent_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="sum_percent_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="sum_percent_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="sum_percent_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="sum_percent_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>salary_percent</th></tr><span data-content-id="sum_percent_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="sum_percent_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="sum_percent_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>dept_percent</th></tr><span data-content-id="sum_percent_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="sum_percent_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="sum_percent_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>amount</th><th>amount_percent</th></tr><span data-content-id="sum_percent_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="sum_percent_structure"></span></pre>
+                </div>
+            </div>
+            <div class="accordion" id="cumulative_sum_percent">
+                <div class="accordion-header" data-id="cumulative_sum_percent"><span data-content-id="cumulative_sum_percent_title"></span></div>
+                <div class="accordion-content">
+                    <h2>語法</h2>
+                    <p><span data-content-id="cumulative_sum_percent_syntax_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_percent_syntax"></span></code></pre>
+                    <h3>範例</h3>
+                    <h4>一般</h4>
+                    <p><span data-content-id="cumulative_sum_percent_example_general_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_percent_example_general"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>cumulative_percent</th></tr><span data-content-id="cumulative_sum_percent_example_general_table"></span></table>
+                    <h4>MySQL</h4>
+                    <p><span data-content-id="cumulative_sum_percent_example_mysql_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_percent_example_mysql"></span></code></pre>
+                    <table><tr><th>name</th><th>salary</th><th>cumulative_percent</th></tr><span data-content-id="cumulative_sum_percent_example_mysql_table"></span></table>
+                    <h4>Oracle</h4>
+                    <p><span data-content-id="cumulative_sum_percent_example_oracle_intro"></span></p>
+                    <pre><code><span data-content-id="cumulative_sum_percent_example_oracle"></span></code></pre>
+                    <table><tr><th>order_id</th><th>amount</th><th>cumulative_percent</th></tr><span data-content-id="cumulative_sum_percent_example_oracle_table"></span></table>
+                    <h3>結構</h3>
+                    <pre class="table-diagram"><span data-content-id="cumulative_sum_percent_structure"></span></pre>
+                </div>
+            </div>
         </main>
     </div>
     <footer>
-        <p>最後編輯時間：2025年4月9日 | 聯絡信箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6b7b4b5e1e9ffe3eaeae9f1e4e9e9edc6e1ebe7efeaa8e5e9eb">[email protected]</a> | © 2025 SQL資料庫百科全書。保留所有權利。</p>
+        <p>最後編輯時間：2025年4月9日 | 聯絡信箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d1d2d3878f99858c8c8f97828f8f8ba0878d81898cce838f8d">[email&#160;protected]</a> | © 2025 SQL資料庫百科全書。保留所有權利。</p>
     </footer>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        let currentLanguage = 'chinese';
-        let contentData = {};
-
-        function loadContent(language) {
-            const file = language === 'chinese' ? 'sql_chinese.json' : 'sql_english.json';
-            fetch(file)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`無法載入 ${file}，狀態碼：${response.status} (${response.statusText})。請確認檔案是否存在並在同一目錄下，或使用本地伺服器測試（例如 python -m http.server）。`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    contentData = data;
-                    updateContent();
-                })
-                .catch(error => {
-                    console.error('載入內容時發生錯誤:', error);
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'error-message';
-                    errorDiv.textContent = error.message;
-                    document.querySelector('.content').prepend(errorDiv);
-                });
-        }
-
-        function getNestedValue(obj, path) {
-            return path.split('-').reduce((current, key) => {
-                if (current && current[key] !== undefined) {
-                    return current[key];
-                }
-                return '內容未找到';
-            }, obj);
-        }
-
-        function updateContent() {
-            document.querySelectorAll('[data-content-id]').forEach(el => {
-                const contentId = el.getAttribute('data-content-id');
-                const value = getNestedValue(contentData, contentId);
-                if (typeof value === 'string') {
-                    el.textContent = value;
-                } else {
-                    el.textContent = '內容格式錯誤';
-                }
-            });
-        }
-
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'chinese' ? 'english' : 'chinese';
-            document.querySelector('.language-toggle').textContent = currentLanguage === 'chinese' ? '切換英文' : 'Switch to Chinese';
-            loadContent(currentLanguage);
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            loadContent('chinese');
+            fetch('sql_chinese.json')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelectorAll('[data-content-id]').forEach(element => {
+                        const contentId = element.getAttribute('data-content-id');
+                        let content = data;
+                        contentId.split('_').forEach(key => {
+                            content = content[key];
+                        });
+                        if (typeof content === 'string') {
+                            element.innerHTML = content;
+                        } else if (Array.isArray(content)) {
+                            element.innerHTML = content.map(item => `<li>${item}</li>`).join('');
+                        } else if (typeof content === 'object') {
+                            element.innerHTML = Object.entries(content).map(([key, value]) => `<tr><td>${key}</td><td>${value}</td></tr>`).join('');
+                        }
+                    });
+                })
+                .catch(error => console.error('Error loading JSON:', error));
 
             const toggleAccordion = id => {
                 try {
                     const content = document.querySelector(`#${id} .accordion-content`);
-                    if (!content) throw new Error(`找不到 ID 為 ${id} 的手風琴內容`);
+                    if (!content) throw new Error(`No content for ID: ${id}`);
                     document.querySelectorAll('.accordion-content').forEach(c => {
                         if (c !== content) c.classList.remove('active');
                     });
                     content.classList.toggle('active');
                     document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
                 } catch (e) {
-                    console.error('手風琴錯誤:', e.message);
+                    console.error('Accordion Error:', e.message);
                 }
             };
             const toggleSubAccordion = id => {
                 try {
                     const content = document.querySelector(`#${id} .sub-accordion-content`);
-                    if (!content) throw new Error(`找不到 ID 為 ${id} 的子手風琴內容`);
+                    if (!content) throw new Error(`No sub-content for ID: ${id}`);
                     document.querySelectorAll('.sub-accordion-content').forEach(c => {
                         if (c !== content) c.classList.remove('active');
                     });
                     content.classList.toggle('active');
                     document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
                 } catch (e) {
-                    console.error('子手風琴錯誤:', e.message);
+                    console.error('Sub-Accordion Error:', e.message);
                 }
             };
             const scrollToSection = id => {
@@ -447,5 +1138,6 @@
             window.scrollToSection = scrollToSection;
         });
     </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9346d0ce4ca3bf9a',t:'MTc0NTM0MjY3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
