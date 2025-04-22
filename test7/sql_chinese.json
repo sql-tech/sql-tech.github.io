@@ -41,45 +41,6 @@
         "title": "結構",
         "text": "mysql.user\n+------------+---------+\n| user       | VARCHAR |\n| host       | VARCHAR |\n| password   | VARCHAR |\n+------------+---------+"
       }
-    },
-    "mysql_linux": {
-      "intro": {
-        "title": "簡介",
-        "text": "在Ubuntu 22.04安裝MySQL 8.0，適用Linux發行版。"
-      },
-      "steps": {
-        "title": "安裝步驟",
-        "items": [
-          "更新：sudo apt update && sudo apt upgrade\n\n--------------------\n| $ sudo apt update |\n| [Progress Bar]    |\n| Hit:1 http://...  |\n--------------------",
-          "安裝：sudo apt install mysql-server",
-          "啟動：sudo systemctl start mysql && sudo systemctl enable mysql",
-          "安全：sudo mysql_secure_installation，設密碼，移除不安全選項。\n\n--------------------\n| Root password     |\n| [Input Field]     |\n| [Y/n] Remove...?  |\n--------------------",
-          "驗證：mysql -u root -p，檢查資料庫。\n\nmysql> SHOW DATABASES;\n+--------------------+\n| Database           |\n+--------------------+\n| information_schema |\n| mysql              |\n+--------------------+"
-        ]
-      },
-      "parameters": {
-        "title": "參數",
-        "table": "| 參數 | 值 |\n|------|----|\n| 版本 | MySQL 8.0 |\n| 路徑 | /var/lib/mysql |\n| 埠  | 3306 |\n| 服務 | mysql |"
-      },
-      "notes": {
-        "title": "注意",
-        "items": [
-          "需root權限。",
-          "檢查 /etc/mysql 配置。",
-          "允許3306埠。"
-        ]
-      },
-      "structure": {
-        "title": "結構",
-        "text": "mysql.user\n+------------+---------+\n| user       | VARCHAR |\n| host       | VARCHAR |\n| password   | VARCHAR |\n+------------+---------+"
-      }
-    },
-    "mysql_macos": {
-      "intro": {
-        "title": "簡介",
-        "text": "在MacOS Ventura 13安裝MySQL 8.0，使用Homebrew。"
-      },
-      "steps": {
-        "title": "安裝步驟",
-        "items": [
-          "Homebrew：/bin/bash -c
+    }
+  }
+}
