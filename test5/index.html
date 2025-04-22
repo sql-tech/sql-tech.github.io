@@ -277,40 +277,41 @@
         </main>
     </div>
     <footer>
-        <p>最後編輯時間：2025年4月9日 | 聯絡信箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e6f6c6d39317b777e7e7f67727f7f7b5e79737f7770307d7173">[email&#160;protected]</a> | © 2025 SQL資料庫百科全書。保留所有權利。</p>
+        <p>最後編輯時間：2025年4月9日 | 聯絡信箱：<a href="mailto:support@sql-encyclopedia.com">support@sql-encyclopedia.com</a> | © 2025 SQL資料庫百科全書。保留所有權利。</p>
     </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         let currentLang = 'chinese';
 
         function escapeHTML(str) {
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
         }
 
         function parseTable(lines, startIndex) {
             let table = '<table>';
             let headers = lines[startIndex].split('|').map(h => h.trim()).filter(h => h);
             table += '<tr>' + headers.map(h => `<th>${escapeHTML(h)}</th>`).join('') + '</tr>';
-            for (let i = startIndex + 2; i < lines.length && lines[i].trim() && !lines[i].startsWith('---'); i++) {
+            let i = startIndex + 2;
+            while (i < lines.length && lines[i].trim() && !lines[i].startsWith('---') && lines[i].includes('|')) {
                 let cells = lines[i].split('|').map(c => c.trim()).filter(c => c);
                 table += '<tr>' + cells.map(c => `<td>${escapeHTML(c)}</td>`).join('') + '</tr>';
+                i++;
             }
             table += '</table>';
-            return table;
+            return { html: table, endIndex: i };
         }
 
         function loadContent(file) {
             fetch(file)
                 .then(response => {
-                    if (!response.ok) throw new Error('Failed to load content');
+                    if (!response.ok) throw new Error(`Failed to load ${file}: ${response.statusText}`);
                     return response.text();
                 })
                 .then(data => {
                     const content = document.querySelector('.content');
                     content.innerHTML = '<button id="toggle-lang">' + (currentLang === 'chinese' ? '切換英文' : 'Switch to Chinese') + '</button><section id="home"></section><div class="ad-container"></div>';
                     
-                    const sections = data.split('=== ').filter(s => s.trim());
-                    sections.forEach((section, index) => {
+                    const sections = data.split('\n=== ').filter(s => s.trim());
+                    sections.forEach(section => {
                         const lines = section.trim().split('\n');
                         const title = lines[0].trim();
                         const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '');
@@ -353,32 +354,36 @@
                                     const subId = subTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '');
                                     html += `<div class="sub-accordion" id="${subId}"><div class="sub-accordion-header" data-id="${subId}">${escapeHTML(subTitle)}</div><div class="sub-accordion-content">`;
                                     i++;
-                                    while (i < lines.length && !lines[i].startsWith('--- ')) {
-                                        const subLine = lines[i].trim();
+                                    while (i < lines.length && (!lines[i].startsWith('--- ') || lines[i].trim() === '---')) {
+                                        const subLine = lines[i] ? lines[i].trim() : '';
                                         if (!subLine) {
                                             i++;
                                             continue;
                                         }
-                                        if (subLine.match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
-                                            html += parseTable(lines, i);
-                                            while (i < lines.length && lines[i].trim() && !lines[i].startsWith('---')) i++;
+                                        if (subLine.match(/^[^\|]+\s*\|\s*[^\|]+/)) {
+                                            const result = parseTable(lines, i);
+                                            html += result.html;
+                                            i = result.endIndex;
                                         } else if (subLine.match(/^\+[-+]+\+/)) {
-                                            let diagram = '';
-                                            while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/))) {
+                                            let diagram = subLine + '\n';
+                                            i++;
+                                            while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/) || lines[i].trim().startsWith('|'))) {
                                                 diagram += lines[i] + '\n';
                                                 i++;
                                             }
                                             html += `<pre class="table-diagram">${escapeHTML(diagram)}</pre>`;
                                         } else if (subLine.match(/^[-]+$/)) {
-                                            let screenshot = '';
-                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                            let screenshot = subLine + '\n';
+                                            i++;
+                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/)) {
                                                 screenshot += lines[i] + '\n';
                                                 i++;
                                             }
                                             html += `<pre class="mock-screenshot">${escapeHTML(screenshot)}</pre>`;
                                         } else if (subLine.match(/^[A-Z_]+> /) || subLine.match(/^SELECT |CREATE |INSERT |UPDATE |DELETE |WITH /)) {
-                                            let code = '';
-                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                            let code = subLine + '\n';
+                                            i++;
+                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/) && !lines[i].match(/^\+[-+]+\+/)) {
                                                 code += lines[i] + '\n';
                                                 i++;
                                             }
@@ -388,6 +393,15 @@
                                                 html += `<h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>${escapeHTML(subLine)}</h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>`;
                                             } else if (subLine.match(/^(一般|MySQL|Oracle)$/)) {
                                                 html += `<h4>${escapeHTML(subLine)}</h4>`;
+                                            } else if (subLine.startsWith('- ')) {
+                                                let list = '<ul>';
+                                                while (i < lines.length && lines[i].trim().startsWith('- ')) {
+                                                    list += `<li>${escapeHTML(lines[i].trim().slice(2))}</li>`;
+                                                    i++;
+                                                }
+                                                list += '</ul>';
+                                                html += list;
+                                                continue;
                                             } else {
                                                 html += `<p>${escapeHTML(subLine)}</p>`;
                                             }
@@ -400,30 +414,43 @@
                                         html += `<h${line.match(/^(簡介|Introduction)$/) ? 2 : 3}>${escapeHTML(line)}</h${line.match(/^(簡介|Introduction)$/) ? 2 : 3}>`;
                                     } else if (line.match(/^(一般|MySQL|Oracle)$/)) {
                                         html += `<h4>${escapeHTML(line)}</h4>`;
-                                    } else if (line.match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
-                                        html += parseTable(lines, i);
-                                        while (i < lines.length && lines[i].trim() && !lines[i].startsWith('---')) i++;
+                                    } else if (line.match(/^[^\|]+\s*\|\s*[^\|]+/)) {
+                                        const result = parseTable(lines, i);
+                                        html += result.html;
+                                        i = result.endIndex;
                                     } else if (line.match(/^\+[-+]+\+/)) {
-                                        let diagram = '';
-                                        while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/))) {
+                                        let diagram = line + '\n';
+                                        i++;
+                                        while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/) || lines[i].trim().startsWith('|'))) {
                                             diagram += lines[i] + '\n';
                                             i++;
                                         }
                                         html += `<pre class="table-diagram">${escapeHTML(diagram)}</pre>`;
                                     } else if (line.match(/^[-]+$/)) {
-                                        let screenshot = '';
-                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                        let screenshot = line + '\n';
+                                        i++;
+                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/)) {
                                             screenshot += lines[i] + '\n';
                                             i++;
                                         }
                                         html += `<pre class="mock-screenshot">${escapeHTML(screenshot)}</pre>`;
                                     } else if (line.match(/^[A-Z_]+> /) || line.match(/^SELECT |CREATE |INSERT |UPDATE |DELETE |WITH /)) {
-                                        let code = '';
-                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                        let code = line + '\n';
+                                        i++;
+                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/) && !lines[i].match(/^\+[-+]+\+/)) {
                                             code += lines[i] + '\n';
                                             i++;
                                         }
                                         html += `<pre><code>${escapeHTML(code)}</code></pre>`;
+                                    } else if (line.startsWith('- ')) {
+                                        let list = '<ul>';
+                                        while (i < lines.length && lines[i].trim().startsWith('- ')) {
+                                            list += `<li>${escapeHTML(lines[i].trim().slice(2))}</li>`;
+                                            i++;
+                                        }
+                                        list += '</ul>';
+                                        html += list;
+                                        continue;
                                     } else {
                                         html += `<p>${escapeHTML(line)}</p>`;
                                     }
@@ -445,7 +472,7 @@
                 })
                 .catch(error => {
                     console.error('Error loading content:', error);
-                    document.querySelector('.content').innerHTML += '<p>無法載入內容，請稍後再試。</p>';
+                    document.querySelector('.content').innerHTML += '<p>無法載入內容，請確認 sql_chinese.txt 是否存在。</p>';
                 });
         }
 
@@ -486,9 +513,12 @@
             };
 
             const scrollToSection = id => {
-                document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.sidebar').classList.remove('active');
+                const element = document.querySelector(`#${id}`);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.sidebar').classList.remove('active');
+                    }
                 }
             };
 
