@@ -1,0 +1,505 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL資料庫百科全書 - 學習SQL、MySQL、Oracle，包含安裝指南和進階指令教學，適合初學者與專業人士！提供SQL指令教學及MySQL、Oracle安裝流程，包含範例，適合初學者與專業開發者。">
+    <meta name="keywords" content="SQL, UNION, 子查詢, 窗口函數, MySQL安裝, Oracle安裝, Windows, Linux, MacOS">
+    <meta name="author" content="SQL資料庫百科全書團隊">
+    <meta property="og:title" content="SQL資料庫百科全書">
+    <meta property="og:description" content="SQL資料庫百科全書 - 學習SQL、MySQL、Oracle，包含安裝指南和進階指令教學，適合初學者與專業人士！提供SQL指令教學及MySQL、Oracle安裝流程，包含範例，適合初學者與專業開發者。">
+    <meta property="og:url" content="https://sql-tech.github.io//sql-encyclopedia">
+    <meta property="og:image" content="https://placehold.co/1200x630/2c3e50/ffffff?text=SQL資料庫百科全書&font=montserrat">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="SQL資料庫百科全書縮圖 - 文字圖片">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/2c3e50/ffffff?text=SQL資料庫百科全書&font=montserrat">
+    
+    <title>SQL資料庫百科全書 - 進階 SQL</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-50PFF0MS1Q"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-50PFF0MS1Q');
+    </script>
+    <style>
+        body{font-family:Arial,sans-serif;margin:0;padding:0;line-height:1.6;background:#F5F7FA;color:#333}
+        .banner{width:100%;height:120px;object-fit:cover}
+        .container{display:flex;max-width:1200px;margin:20px auto;flex-wrap:wrap}
+        .sidebar{width:25%;padding:20px;background:#2D3748;color:#FFF;box-sizing:border-box}
+        .sidebar h2{font-size:1.5em;margin-bottom:10px}
+        .sidebar h3{font-size:1.2em;margin:15px 0 5px;color:#A0AEC0}
+        .sidebar ul{list-style:none;padding:0}
+        .sidebar ul li{margin:8px 0}
+        .sidebar ul li a{text-decoration:none;color:#1E90FF;cursor:pointer;font-size:0.95em}
+        .sidebar ul li a:hover{text-decoration:underline;color:#63B3ED}
+        .content{width:75%;padding:20px;background:#FFF;box-shadow:0 2px 4px rgba(0,0,0,0.1);box-sizing:border-box}
+        .content h1{font-size:2em;margin-bottom:20px;color:#2D3748}
+        .content h2{font-size:1.5em;margin:15px 0;color:#2D3748}
+        .content h3{font-size:1.2em;margin:10px 0;color:#4A5568}
+        .content p{font-size:1.1em}
+        pre{background:#EDF2F7;padding:10px;border-radius:4px;overflow-x:auto}
+        code{color:#2B6CB0;font-family:'Courier New',monospace}
+        table{width:100%;border-collapse:collapse;margin:15px 0}
+        table,th,td{border:1px solid #E2E8F0}
+        th,td{padding:10px;text-align:left}
+        th{background:#4A5568;color:#FFF}
+        .table-diagram,.mock-screenshot{font-family:monospace;background:#F7FAFC;padding:10px;border:1px solid #E2E8F0;border-radius:4px;margin:10px 0}
+        .accordion{margin-bottom:10px}
+        .accordion-header{background:#4A5568;color:#FFF;padding:10px;cursor:pointer;font-size:1.2em;border-radius:4px}
+        .accordion-header:hover{background:#718096}
+        .accordion-content{display:none;padding:15px;border:1px solid #E2E8F0;border-top:none;background:#F7FAFC}
+        .accordion-content.active{display:block}
+        .sub-accordion{margin:10px 0}
+        .sub-accordion-header{background:#718096;color:#FFF;padding:8px;cursor:pointer;font-size:1.1em;border-radius:4px}
+        .sub-accordion-header:hover{background:#A0AEC0}
+        .sub-accordion-content{display:none;padding:10px;border:1px solid #E2E8F0;border-top:none;background:#EDF2F7}
+        .sub-accordion-content.active{display:block}
+        .ad-container{margin:20px 0;text-align:center}
+        .hamburger{display:none;font-size:24px;cursor:pointer;color:#2D3748;padding:10px}
+        .section-title{font-size:1.8em;color:#2D3748;margin:30px 0 15px;border-bottom:2px solid #E2E8F0;padding-bottom:5px}
+        #toggle-lang{background:#1E90FF;color:#FFF;padding:10px 20px;border:none;border-radius:4px;cursor:pointer;font-size:1em;margin:10px 0}
+        #toggle-lang:hover{background:#63B3ED}
+        footer{font-size:0.9em;color:#777;text-align:center;padding:20px;border-top:1px solid #E2E8F0;margin-top:20px;background:#F5F7FA}
+        @media screen and (max-width:768px){
+            .banner{height:80px}
+            .container{flex-direction:column}
+            .sidebar{width:100%;display:none}
+            .sidebar.active{display:block}
+            .content{width:100%}
+            .hamburger{display:block}
+            table{display:block;overflow-x:auto}
+        }
+        @media screen and (min-width:769px) and (max-width:1024px){
+            .banner{height:120px}
+            .sidebar{width:30%}
+            .content{width:70%}
+        }
+        @media screen and (min-width:1025px){
+            .banner{height:150px}
+        }
+        .banner {
+            width: 80%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            .banner {
+                max-width: 90%;
+                padding: 15px 20px;
+            }
+            .banner-image {
+                max-height: 140px;
+            }
+        }
+        @media (max-width: 480px) {
+            .banner {
+                max-width: 95%;
+                padding: 10px 15px;
+            }
+            .banner-image {
+                max-height: 100px;
+            }
+        }
+        .share-buttons {
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .share-button {
+            display: inline-block;
+            transition: opacity 0.2s;
+        }
+        .share-button:hover {
+            opacity: 0.8;
+        }
+        .share-button img {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7K4829N8JE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K4829N8JE');
+</script>
+<body>
+    <header><img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image"></header>
+    <div class="hamburger">☰</div>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul>
+                <li><a onclick="scrollToSection('home')">首頁</a></li>
+                <li><a onclick="toggleAccordion('installation')">資料庫安裝說明書</a></li>
+                <li><a onclick="toggleAccordion('normalization')">資料庫正規化說明書</a></li>
+                <li><a onclick="toggleAccordion('performance')">資料庫效能提升標準作業流程</a></li>	
+            </ul>
+            <h3>基礎查詢</h3>
+            <ul>
+                <li><a onclick="toggleAccordion('select')">SELECT</a></li>
+                <li><a onclick="toggleAccordion('distinct')">DISTINCT</a></li>
+                <li><a onclick="toggleAccordion('where')">WHERE</a></li>
+                <li><a onclick="toggleAccordion('and_or')">AND OR</a></li>
+                <li><a onclick="toggleAccordion('in')">IN</a></li>
+                <li><a onclick="toggleAccordion('between')">BETWEEN</a></li>
+                <li><a onclick="toggleAccordion('wildcard')">萬用字元</a></li>
+                <li><a onclick="toggleAccordion('like')">LIKE</a></li>
+                <li><a onclick="toggleAccordion('order_by')">ORDER BY</a></li>
+                <li><a onclick="toggleAccordion('function')">函數</a></li>
+                <li><a onclick="toggleAccordion('avg')">平均值</a></li>
+                <li><a onclick="toggleAccordion('count')">COUNT</a></li>
+                <li><a onclick="toggleAccordion('max')">最大值</a></li>
+                <li><a onclick="toggleAccordion('min')">最小值</a></li>
+                <li><a onclick="toggleAccordion('sum')">總合</a></li>
+                <li><a onclick="toggleAccordion('group_by')">GROUP BY</a></li>
+                <li><a onclick="toggleAccordion('having')">HAVING</a></li>
+                <li><a onclick="toggleAccordion('alias')">別名</a></li>
+                <li><a onclick="toggleAccordion('as')">AS</a></li>
+                <li><a onclick="toggleAccordion('join')">表格連接</a></li>
+                <li><a onclick="toggleAccordion('outer_join')">外部連接</a></li>
+                <li><a onclick="toggleAccordion('concatenate')">CONCATENATE</a></li>
+                <li><a onclick="toggleAccordion('substring')">SUBSTRING</a></li>
+                <li><a onclick="toggleAccordion('trim')">TRIM</a></li>
+                <li><a onclick="toggleAccordion('length')">長度</a></li>
+                <li><a onclick="toggleAccordion('replace')">REPLACE</a></li>
+            </ul>
+            <h3>資料定義</h3>
+            <ul>
+                <li><a onclick="toggleAccordion('create_table')">CREATE TABLE</a></li>
+                <li><a onclick="toggleAccordion('constraint')">Constraint</a></li>
+                <li><a onclick="toggleAccordion('primary_key')">主鍵</a></li>
+                <li><a onclick="toggleAccordion('foreign_key')">外來鍵</a></li>
+                <li><a onclick="toggleAccordion('create_view')">CREATE VIEW</a></li>
+                <li><a onclick="toggleAccordion('create_index')">CREATE INDEX</a></li>
+                <li><a onclick="toggleAccordion('alter_table')">ALTER TABLE</a></li>
+                <li><a onclick="toggleAccordion('add_column')">添加欄位</a></li>
+                <li><a onclick="toggleAccordion('modify_column')">更改欄位</a></li>
+                <li><a onclick="toggleAccordion('alter_column')">調整欄位</a></li>
+                <li><a onclick="toggleAccordion('rename_column')">改名欄位</a></li>
+                <li><a onclick="toggleAccordion('drop_column')">刪除欄位</a></li>
+                <li><a onclick="toggleAccordion('add_index')">添加索引</a></li>
+                <li><a onclick="toggleAccordion('drop_index')">刪除索引</a></li>
+                <li><a onclick="toggleAccordion('add_constraint')">添加限制</a></li>
+                <li><a onclick="toggleAccordion('drop_constraint')">刪除限制</a></li>
+                <li><a onclick="toggleAccordion('drop_table')">DROP TABLE</a></li>
+                <li><a onclick="toggleAccordion('truncate_table')">TRUNCATE TABLE</a></li>
+                <li><a onclick="toggleAccordion('use')">USE</a></li>
+                <li><a onclick="toggleAccordion('insert_into')">INSERT INTO</a></li>
+                <li><a onclick="toggleAccordion('update')">UPDATE</a></li>
+                <li><a onclick="toggleAccordion('delete_from')">DELETE FROM</a></li>
+            </ul>
+            <h3>進階 SQL</h3>
+            <ul>
+                <li><a onclick="toggleAccordion('union')">UNION</a></li>
+                <li><a onclick="toggleAccordion('union_all')">UNION ALL</a></li>
+                <li><a onclick="toggleAccordion('nested_view')">內嵌視觀表</a></li>
+                <li><a onclick="toggleAccordion('intersect')">INTERSECT</a></li>
+                <li><a onclick="toggleAccordion('minus')">MINUS</a></li>
+                <li><a onclick="toggleAccordion('limit')">LIMIT</a></li>
+                <li><a onclick="toggleAccordion('subquery')">子查詢</a></li>
+                <li><a onclick="toggleAccordion('with')">WITH</a></li>
+                <li><a onclick="toggleAccordion('exists')">EXISTS</a></li>
+                <li><a onclick="toggleAccordion('case')">CASE</a></li>
+                <li><a onclick="toggleAccordion('window_function')">窗口函數</a></li>
+                <li><a onclick="toggleAccordion('sequence')">SEQUENCE 和 NEXTVAL</a></li>
+                <li><a onclick="toggleAccordion('rank')">算排名</a></li>
+                <li><a onclick="toggleAccordion('median')">算中位數</a></li>
+                <li><a onclick="toggleAccordion('cumulative_sum')">算累積總計</a></li>
+                <li><a onclick="toggleAccordion('sum_percent')">算總合百分比</a></li>
+                <li><a onclick="toggleAccordion('cumulative_sum_percent')">算累積總合百分比</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <button id="toggle-lang">切換英文</button>
+            <section id="home"></section>
+            <div class="ad-container">
+                <!-- <script async src="https://monetag.com/tag.min.js" data-zone="YOUR_ZONE_ID"></script> -->
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>最後編輯時間：2025年4月9日 | 聯絡信箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e6f6c6d39317b777e7e7f67727f7f7b5e79737f7770307d7173">[email&#160;protected]</a> | © 2025 SQL資料庫百科全書。保留所有權利。</p>
+    </footer>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+        let currentLang = 'chinese';
+
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function parseTable(lines, startIndex) {
+            let table = '<table>';
+            let headers = lines[startIndex].split('|').map(h => h.trim()).filter(h => h);
+            table += '<tr>' + headers.map(h => `<th>${escapeHTML(h)}</th>`).join('') + '</tr>';
+            for (let i = startIndex + 2; i < lines.length && lines[i].trim() && !lines[i].startsWith('---'); i++) {
+                let cells = lines[i].split('|').map(c => c.trim()).filter(c => c);
+                table += '<tr>' + cells.map(c => `<td>${escapeHTML(c)}</td>`).join('') + '</tr>';
+            }
+            table += '</table>';
+            return table;
+        }
+
+        function loadContent(file) {
+            fetch(file)
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to load content');
+                    return response.text();
+                })
+                .then(data => {
+                    const content = document.querySelector('.content');
+                    content.innerHTML = '<button id="toggle-lang">' + (currentLang === 'chinese' ? '切換英文' : 'Switch to Chinese') + '</button><section id="home"></section><div class="ad-container"></div>';
+                    
+                    const sections = data.split('=== ').filter(s => s.trim());
+                    sections.forEach((section, index) => {
+                        const lines = section.trim().split('\n');
+                        const title = lines[0].trim();
+                        const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '');
+                        let html = '';
+
+                        if (title === '歡迎來到 SQL資料庫百科全書' || title === 'Welcome to the SQL Database Encyclopedia') {
+                            html = `<section id="home"><h1>${escapeHTML(title)}</h1>`;
+                            for (let i = 1; i < lines.length; i++) {
+                                if (lines[i].trim()) {
+                                    html += `<p>${escapeHTML(lines[i].trim())}</p>`;
+                                }
+                            }
+                            html += `<div class="share-buttons">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sql-tech.github.io/" target="_blank" class="share-button facebook">
+                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/facebook.svg" alt="Facebook Share" width="32" height="32">
+                                </a>
+                                <a href="https://x.com/intent/tweet?url=https://sql-tech.github.io/" target="_blank" class="share-button x">
+                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/x.svg" alt="X Share" width="32" height="32">
+                                </a>
+                                <a href="https://www.instagram.com/?url=https://sql-tech.github.io/" target="_blank" class="share-button instagram">
+                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/instagram.svg" alt="Instagram Share" width="32" height="32">
+                                </a>
+                                <a href="https://line.me/R/msg/text/?探索SQL資料庫百科全書！%0D%0Ahttps://sql-tech.github.io/" target="_blank" class="share-button line">
+                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/line.svg" alt="Line Share" width="32" height="32">
+                                </a>
+                            </div></section>`;
+                        } else if (title === '進階 SQL' || title === 'Advanced SQL') {
+                            html = `<div class="section-title">${escapeHTML(title)}</div>`;
+                        } else {
+                            html = `<div class="accordion" id="${id}"><div class="accordion-header" data-id="${id}">${escapeHTML(title)}</div><div class="accordion-content">`;
+                            let i = 1;
+                            while (i < lines.length) {
+                                const line = lines[i].trim();
+                                if (!line) {
+                                    i++;
+                                    continue;
+                                }
+                                if (line.startsWith('--- ')) {
+                                    const subTitle = line.slice(4).trim();
+                                    const subId = subTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '');
+                                    html += `<div class="sub-accordion" id="${subId}"><div class="sub-accordion-header" data-id="${subId}">${escapeHTML(subTitle)}</div><div class="sub-accordion-content">`;
+                                    i++;
+                                    while (i < lines.length && !lines[i].startsWith('--- ')) {
+                                        const subLine = lines[i].trim();
+                                        if (!subLine) {
+                                            i++;
+                                            continue;
+                                        }
+                                        if (subLine.match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                            html += parseTable(lines, i);
+                                            while (i < lines.length && lines[i].trim() && !lines[i].startsWith('---')) i++;
+                                        } else if (subLine.match(/^\+[-+]+\+/)) {
+                                            let diagram = '';
+                                            while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/))) {
+                                                diagram += lines[i] + '\n';
+                                                i++;
+                                            }
+                                            html += `<pre class="table-diagram">${escapeHTML(diagram)}</pre>`;
+                                        } else if (subLine.match(/^[-]+$/)) {
+                                            let screenshot = '';
+                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                                screenshot += lines[i] + '\n';
+                                                i++;
+                                            }
+                                            html += `<pre class="mock-screenshot">${escapeHTML(screenshot)}</pre>`;
+                                        } else if (subLine.match(/^[A-Z_]+> /) || subLine.match(/^SELECT |CREATE |INSERT |UPDATE |DELETE |WITH /)) {
+                                            let code = '';
+                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                                code += lines[i] + '\n';
+                                                i++;
+                                            }
+                                            html += `<pre><code>${escapeHTML(code)}</code></pre>`;
+                                        } else {
+                                            if (subLine.match(/^(簡介|定義|規則|範例|語法|參數|注意|結構|圖示|步驟|Introduction|Definition|Rules|Examples|Syntax|Parameters|Notes|Structure|Diagram|Steps)$/)) {
+                                                html += `<h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>${escapeHTML(subLine)}</h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>`;
+                                            } else if (subLine.match(/^(一般|MySQL|Oracle)$/)) {
+                                                html += `<h4>${escapeHTML(subLine)}</h4>`;
+                                            } else {
+                                                html += `<p>${escapeHTML(subLine)}</p>`;
+                                            }
+                                            i++;
+                                        }
+                                    }
+                                    html += '</div></div>';
+                                } else {
+                                    if (line.match(/^(簡介|定義|規則|範例|語法|參數|注意|結構|圖示|步驟|Introduction|Definition|Rules|Examples|Syntax|Parameters|Notes|Structure|Diagram|Steps)$/)) {
+                                        html += `<h${line.match(/^(簡介|Introduction)$/) ? 2 : 3}>${escapeHTML(line)}</h${line.match(/^(簡介|Introduction)$/) ? 2 : 3}>`;
+                                    } else if (line.match(/^(一般|MySQL|Oracle)$/)) {
+                                        html += `<h4>${escapeHTML(line)}</h4>`;
+                                    } else if (line.match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                        html += parseTable(lines, i);
+                                        while (i < lines.length && lines[i].trim() && !lines[i].startsWith('---')) i++;
+                                    } else if (line.match(/^\+[-+]+\+/)) {
+                                        let diagram = '';
+                                        while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/))) {
+                                            diagram += lines[i] + '\n';
+                                            i++;
+                                        }
+                                        html += `<pre class="table-diagram">${escapeHTML(diagram)}</pre>`;
+                                    } else if (line.match(/^[-]+$/)) {
+                                        let screenshot = '';
+                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                            screenshot += lines[i] + '\n';
+                                            i++;
+                                        }
+                                        html += `<pre class="mock-screenshot">${escapeHTML(screenshot)}</pre>`;
+                                    } else if (line.match(/^[A-Z_]+> /) || line.match(/^SELECT |CREATE |INSERT |UPDATE |DELETE |WITH /)) {
+                                        let code = '';
+                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[A-Za-z0-9\s]+\s*\|\s*[A-Za-z0-9\s]+/)) {
+                                            code += lines[i] + '\n';
+                                            i++;
+                                        }
+                                        html += `<pre><code>${escapeHTML(code)}</code></pre>`;
+                                    } else {
+                                        html += `<p>${escapeHTML(line)}</p>`;
+                                    }
+                                    i++;
+                                }
+                            }
+                            html += '</div></div>';
+                        }
+                        content.insertAdjacentHTML('beforeend', html);
+                    });
+
+                    document.querySelectorAll('.accordion-header').forEach(header => {
+                        header.addEventListener('click', () => toggleAccordion(header.getAttribute('data-id')));
+                    });
+                    document.querySelectorAll('.sub-accordion-header').forEach(header => {
+                        header.addEventListener('click', () => toggleSubAccordion(header.getAttribute('data-id')));
+                    });
+                    document.getElementById('toggle-lang').addEventListener('click', toggleLanguage);
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    document.querySelector('.content').innerHTML += '<p>無法載入內容，請稍後再試。</p>';
+                });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'chinese' ? 'english' : 'chinese';
+            loadContent(currentLang === 'chinese' ? './sql_chinese.txt' : './sql_english.txt');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadContent('./sql_chinese.txt');
+
+            const toggleAccordion = id => {
+                try {
+                    const content = document.querySelector(`#${id} .accordion-content`);
+                    if (!content) throw new Error(`No content for ID: ${id}`);
+                    document.querySelectorAll('.accordion-content').forEach(c => {
+                        if (c !== content) c.classList.remove('active');
+                    });
+                    content.classList.toggle('active');
+                    document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Accordion Error:', e.message);
+                }
+            };
+
+            const toggleSubAccordion = id => {
+                try {
+                    const content = document.querySelector(`#${id} .sub-accordion-content`);
+                    if (!content) throw new Error(`No sub-content for ID: ${id}`);
+                    document.querySelectorAll('.sub-accordion-content').forEach(c => {
+                        if (c !== content) c.classList.remove('active');
+                    });
+                    content.classList.toggle('active');
+                    document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Sub-Accordion Error:', e.message);
+                }
+            };
+
+            const scrollToSection = id => {
+                document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.sidebar').classList.remove('active');
+                }
+            };
+
+            document.querySelector('.hamburger').addEventListener('click', () => {
+                document.querySelector('.sidebar').classList.toggle('active');
+            });
+
+            window.toggleAccordion = toggleAccordion;
+            window.toggleSubAccordion = toggleSubAccordion;
+            window.scrollToSection = scrollToSection;
+        });
+    </script>
+</body>
+</html>
