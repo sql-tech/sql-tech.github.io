@@ -189,7 +189,7 @@
     <div class="container">
         <div class="hamburger">☰</div>
         <div style="text-align: center; margin: 10px 0;">
-            <button id="toggle-lang" onclick="toggleLanguage()">切換英文</button>
+            <button id="toggle-lang">切換英文</button>
         </div>
         <nav class="sidebar" id="sidebar">
             <h2>SQL指令清單</h2>
@@ -227,7 +227,7 @@
             const file = lang === 'chinese' ? 'sql_chinese.txt' : 'sql_english.txt';
             fetch(file)
                 .then(response => {
-                    if (!response.ok) throw new Error(`無法載入 ${file}`);
+                    if (!response.ok) throw new Error(`無法載入 ${file}，狀態碼: ${response.status}`);
                     return response.text();
                 })
                 .then(text => {
@@ -237,8 +237,8 @@
                     renderFooter(content);
                 })
                 .catch(error => {
-                    console.error('載入錯誤:', error);
-                    document.getElementById('content').innerHTML = '<p>無法載入內容，請檢查檔案路徑。</p>';
+                    console.error('載入錯誤:', error.message);
+                    document.getElementById('content').innerHTML = '<p>無法載入內容，請確認檔案是否存在並檢查路徑。</p>';
                 });
         }
 
@@ -563,4 +563,143 @@
             main.appendChild(normalization);
 
             // 效能提升
-            const performance = document
+            const performance = document.createElement('div');
+            performance.className = 'accordion';
+            performance.id = 'performance';
+            performance.innerHTML = `
+                <div class="accordion-header" data-id="performance">${content.performance_title || '資料庫效能提升標準作業流程'}</div>
+                <div class="accordion-content">
+                    <h2>簡介</h2>
+                    <p>${content.performance_intro || ''}</p>
+                    <div class="sub-accordion" id="mysql_config">
+                        <div class="sub-accordion-header" data-id="mysql_config">${content.mysql_config_title || 'MySQL 配置優化'}</div>
+                        <div class="sub-accordion-content">
+                            <h3>簡介</h3>
+                            <p>${content.mysql_config_intro || ''}</p>
+                            <h3>步驟</h3>
+                            <p>${content.mysql_config_steps || ''}</p>
+                            <pre><code>${content.mysql_config_code || ''}</code></pre>
+                            <h3>參數</h3>
+                            <table><tr><th>參數</th><th>值</th></tr>${content.mysql_config_params ? content.mysql_config_params.split('\n').slice(2).map(row => `<tr><td>${row.split('|')[1]}</td><td>${row.split('|')[2]}</td></tr>`).join('') : ''}</table>
+                            <h3>注意</h3>
+                            <p>${content.mysql_config_notes || ''}</p>
+                            <h3>結構</h3>
+                            <pre class="table-diagram">${content.mysql_config_structure || ''}</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+            main.appendChild(performance);
+
+            // SQL 指令
+            const sqlSections = [
+                'select', 'distinct', 'where', 'and_or', 'in', 'between', 'wildcard', 'like', 'order_by', 'function',
+                'avg', 'count', 'max', 'min', 'sum', 'group_by', 'having', 'alias', 'as', 'join', 'outer_join',
+                'concatenate', 'substring', 'trim', 'length', 'replace', 'create_table', 'constraint', 'primary_key',
+                'foreign_key', 'create_view', 'create_index', 'alter_table', 'add_column', 'modify_column', 'alter_column',
+                'rename_column', 'drop_column', 'add_index', 'drop_index', 'add_constraint', 'drop_constraint', 'drop_table',
+                'truncate_table', 'use', 'insert_into', 'update', 'delete_from', 'union', 'union_all', 'nested_view',
+                'intersect', 'minus', 'limit', 'subquery', 'with', 'exists', 'case', 'window_function', 'sequence',
+                'rank', 'median', 'cumulative_sum', 'sum_percent', 'cumulative_sum_percent'
+            ];
+
+            sqlSections.forEach(section => {
+                const div = document.createElement('div');
+                div.className = 'accordion';
+                div.id = section;
+                div.innerHTML = `
+                    <div class="accordion-header" data-id="${section}">${content[`${section}_title`] || section.toUpperCase()}</div>
+                    <div class="accordion-content">
+                        <h2>語法</h2>
+                        <pre><code>${content[`${section}_syntax`] || ''}</code></pre>
+                        <h3>範例</h3>
+                        <h4>一般</h4>
+                        <p>${content[`${section}_example_general`] || ''}</p>
+                        <table><tr><th>${content[`${section}_example_general_table`] ? content[`${section}_example_general_table`].split('\n')[0] : '結果'}</th></tr><tr><td>${content[`${section}_example_general_table`] ? content[`${section}_example_general_table`].split('\n').slice(2).join('<br>') : ''}</td></tr></table>
+                        <h4>MySQL</h4>
+                        <p>${content[`${section}_example_mysql`] || ''}</p>
+                        <table><tr><th>${content[`${section}_example_mysql_table`] ? content[`${section}_example_mysql_table`].split('\n')[0] : '結果'}</th></tr><tr><td>${content[`${section}_example_mysql_table`] ? content[`${section}_example_mysql_table`].split('\n').slice(2).join('<br>') : ''}</td></tr></table>
+                        <h4>Oracle</h4>
+                        <p>${content[`${section}_example_oracle`] || ''}</p>
+                        <table><tr><th>${content[`${section}_example_oracle_table`] ? content[`${section}_example_oracle_table`].split('\n')[0] : '結果'}</th></tr><tr><td>${content[`${section}_example_oracle_table`] ? content[`${section}_example_oracle_table`].split('\n').slice(2).join('<br>') : ''}</td></tr></table>
+                        <h3>結構</h3>
+                        <pre class="table-diagram">${content[`${section}_structure`] || ''}</pre>
+                    </div>
+                `;
+                main.appendChild(div);
+            });
+        }
+
+        // 渲染頁腳
+        function renderFooter(content) {
+            const footer = document.getElementById('footer');
+            footer.innerHTML = `<p>${content.footer_content || '最後編輯時間：2025年4月9日 | 聯絡信箱：123goyellowbook@gmail.com | © 2025 SQL資料庫百科全書。保留所有權利。'}</p>`;
+        }
+
+        // 切換語言
+        function toggleLanguage() {
+            currentLang = currentLang === 'chinese' ? 'english' : 'chinese';
+            document.getElementById('toggle-lang').textContent = currentLang === 'chinese' ? '切換英文' : '切換中文';
+            loadContent(currentLang);
+        }
+
+        // 初始化載入
+        document.addEventListener('DOMContentLoaded', () => {
+            loadContent('chinese');
+
+            // Accordion 邏輯
+            const toggleAccordion = id => {
+                try {
+                    const content = document.querySelector(`#${id} .accordion-content`);
+                    if (!content) throw new Error(`No content for ID: ${id}`);
+                    document.querySelectorAll('.accordion-content').forEach(c => {
+                        if (c !== content) c.classList.remove('active');
+                    });
+                    content.classList.toggle('active');
+                    document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Accordion Error:', e.message);
+                }
+            };
+            const toggleSubAccordion = id => {
+                try {
+                    const content = document.querySelector(`#${id} .sub-accordion-content`);
+                    if (!content) throw new Error(`No sub-content for ID: ${id}`);
+                    document.querySelectorAll('.sub-accordion-content').forEach(c => {
+                        if (c !== content) c.classList.remove('active');
+                    });
+                    content.classList.toggle('active');
+                    document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Sub-Accordion Error:', e.message);
+                }
+            };
+            const scrollToSection = id => {
+                document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.sidebar').classList.remove('active');
+                }
+            };
+
+            // 動態綁定事件
+            document.addEventListener('click', (e) => {
+                const header = e.target.closest('.accordion-header');
+                const subHeader = e.target.closest('.sub-accordion-header');
+                if (header) {
+                    toggleAccordion(header.getAttribute('data-id'));
+                } else if (subHeader) {
+                    toggleSubAccordion(subHeader.getAttribute('data-id'));
+                }
+            });
+
+            document.querySelector('.hamburger').addEventListener('click', () => {
+                document.querySelector('.sidebar').classList.toggle('active');
+            });
+
+            window.toggleAccordion = toggleAccordion;
+            window.toggleSubAccordion = toggleSubAccordion;
+            window.scrollToSection = scrollToSection;
+        });
+    </script>
+</body>
+</html>
