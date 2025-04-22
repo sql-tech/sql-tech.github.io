@@ -101,8 +101,6 @@
         .ad-container{margin:20px 0;text-align:center}
         .hamburger{display:none;font-size:24px;cursor:pointer;color:#2D3748;padding:10px}
         .section-title{font-size:1.8em;color:#2D3748;margin:30px 0 15px;border-bottom:2px solid #E2E8F0;padding-bottom:5px}
-        #toggle-lang{background:#1E90FF;color:#FFF;padding:10px 20px;border:none;border-radius:4px;cursor:pointer;font-size:1em;margin:10px 0}
-        #toggle-lang:hover{background:#63B3ED}
         footer{font-size:0.9em;color:#777;text-align:center;padding:20px;border-top:1px solid #E2E8F0;margin-top:20px;background:#F5F7FA}
         @media screen and (max-width:768px){
             .banner{height:80px}
@@ -171,18 +169,72 @@
         .share-button img {
             vertical-align: middle;
         }
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #4A5568;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .language-toggle:hover {
+            background: #718096;
+        }
+        #content-area {
+            white-space: pre-wrap;
+            font-family: Arial, sans-serif;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        #content-area h1, #content-area h2, #content-area h3 {
+            color: #2D3748;
+        }
+        #content-area h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #content-area h2 {
+            font-size: 1.5em;
+            margin: 15px 0;
+        }
+        #content-area h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #4A5568;
+        }
+        #content-area pre {
+            background: #EDF2F7;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        #content-area table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        #content-area table, #content-area th, #content-area td {
+            border: 1px solid #E2E8F0;
+        }
+        #content-area th, #content-area td {
+            padding: 10px;
+            text-align: left;
+        }
+        #content-area th {
+            background: #4A5568;
+            color: #FFF;
+        }
     </style>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7K4829N8JE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7K4829N8JE');
-</script>
 <body>
-    <header><img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image"></header>
+    <header>
+        <img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image">
+        <button class="language-toggle" onclick="toggleLanguage()">切換英文</button>
+    </header>
     <div class="hamburger">☰</div>
     <div class="container">
         <nav class="sidebar">
@@ -269,241 +321,40 @@
             </ul>
         </nav>
         <main class="content">
-            <button id="toggle-lang">切換英文</button>
-            <section id="home"></section>
-            <div class="ad-container">
-                <!-- <script async src="https://monetag.com/tag.min.js" data-zone="YOUR_ZONE_ID"></script> -->
-            </div>
+            <div id="content-area"></div>
         </main>
     </div>
     <footer>
-        <p>最後編輯時間：2025年4月9日 | 聯絡信箱：<a href="mailto:support@sql-encyclopedia.com">support@sql-encyclopedia.com</a> | © 2025 SQL資料庫百科全書。保留所有權利。</p>
+        <p>最後編輯時間：2025年4月9日 | 聯絡信箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86b7b4b5e1e9ffe3eaeae9f1e4e9e9edc6e1ebe7efeaa8e5e9eb">[email&#160;protected]</a> | © 2025 SQL資料庫百科全書。保留所有權利。</p>
     </footer>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        let currentLang = 'chinese';
+        let currentLanguage = 'chinese';
 
-        function escapeHTML(str) {
-            return str.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"').replace(/'/g, ''');
-        }
-
-        function parseTable(lines, startIndex) {
-            let table = '<table>';
-            let headers = lines[startIndex].split('|').map(h => h.trim()).filter(h => h);
-            table += '<tr>' + headers.map(h => `<th>${escapeHTML(h)}</th>`).join('') + '</tr>';
-            let i = startIndex + 2;
-            while (i < lines.length && lines[i].trim() && !lines[i].startsWith('---') && lines[i].includes('|')) {
-                let cells = lines[i].split('|').map(c => c.trim()).filter(c => c);
-                table += '<tr>' + cells.map(c => `<td>${escapeHTML(c)}</td>`).join('') + '</tr>';
-                i++;
-            }
-            table += '</table>';
-            return { html: table, endIndex: i };
-        }
-
-        function parseList(lines, startIndex) {
-            let list = '<ul>';
-            let i = startIndex;
-            while (i < lines.length && lines[i].trim().startsWith('- ')) {
-                list += `<li>${escapeHTML(lines[i].trim().slice(2))}</li>`;
-                i++;
-            }
-            list += '</ul>';
-            return { html: list, endIndex: i };
-        }
-
-        function parseNumberedList(lines, startIndex) {
-            let list = '<ol>';
-            let i = startIndex;
-            while (i < lines.length && lines[i].trim().match(/^\d+\./)) {
-                const item = lines[i].trim().replace(/^\d+\.\s*/, '');
-                list += `<li>${escapeHTML(item)}</li>`;
-                i++;
-            }
-            list += '</ol>';
-            return { html: list, endIndex: i };
-        }
-
-        function loadContent(file) {
+        function loadContent(language) {
+            const file = language === 'chinese' ? 'sql_chinese.txt' : 'sql_english.txt';
             fetch(file)
                 .then(response => {
-                    if (!response.ok) throw new Error(`Failed to load ${file}: ${response.statusText}`);
+                    if (!response.ok) throw new Error('Failed to load content');
                     return response.text();
                 })
-                .then(data => {
-                    const content = document.querySelector('.content');
-                    content.innerHTML = '<button id="toggle-lang">' + (currentLang === 'chinese' ? '切換英文' : 'Switch to Chinese') + '</button><section id="home"></section><div class="ad-container"></div>';
-                    
-                    const sections = data.split('\n=== ').filter(s => s.trim());
-                    sections.forEach(section => {
-                        const lines = section.trim().split('\n');
-                        const title = lines[0].trim();
-                        const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '');
-                        let html = '';
-
-                        if (title === '歡迎來到 SQL資料庫百科全書' || title === 'Welcome to the SQL Database Encyclopedia') {
-                            html = `<section id="home"><h1>${escapeHTML(title)}</h1>`;
-                            for (let i = 1; i < lines.length; i++) {
-                                if (lines[i].trim()) {
-                                    html += `<p>${escapeHTML(lines[i].trim())}</p>`;
-                                }
-                            }
-                            html += `<div class="share-buttons">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sql-tech.github.io/" target="_blank" class="share-button facebook">
-                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/facebook.svg" alt="Facebook Share" width="32" height="32">
-                                </a>
-                                <a href="https://x.com/intent/tweet?url=https://sql-tech.github.io/" target="_blank" class="share-button x">
-                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/x.svg" alt="X Share" width="32" height="32">
-                                </a>
-                                <a href="https://www.instagram.com/?url=https://sql-tech.github.io/" target="_blank" class="share-button instagram">
-                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/instagram.svg" alt="Instagram Share" width="32" height="32">
-                                </a>
-                                <a href="https://line.me/R/msg/text/?探索SQL資料庫百科全書！%0D%0Ahttps://sql-tech.github.io/" target="_blank" class="share-button line">
-                                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/line.svg" alt="Line Share" width="32" height="32">
-                                </a>
-                            </div></section>`;
-                        } else if (title === '進階 SQL' || title === 'Advanced SQL') {
-                            html = `<div class="section-title">${escapeHTML(title)}</div>`;
-                        } else {
-                            html = `<div class="accordion" id="${id}"><div class="accordion-header" data-id="${id}">${escapeHTML(title)}</div><div class="accordion-content">`;
-                            let i = 1;
-                            while (i < lines.length) {
-                                const line = lines[i].trim();
-                                if (!line) {
-                                    i++;
-                                    continue;
-                                }
-                                if (line.startsWith('--- ')) {
-                                    const subTitle = line.slice(4).trim();
-                                    const subId = subTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '');
-                                    html += `<div class="sub-accordion" id="${subId}"><div class="sub-accordion-header" data-id="${subId}">${escapeHTML(subTitle)}</div><div class="sub-accordion-content">`;
-                                    i++;
-                                    while (i < lines.length && (!lines[i].startsWith('--- ') || lines[i].trim() === '---')) {
-                                        const subLine = lines[i] ? lines[i].trim() : '';
-                                        if (!subLine) {
-                                            i++;
-                                            continue;
-                                        }
-                                        if (subLine.match(/^[^\|]+\s*\|\s*[^\|]+/)) {
-                                            const result = parseTable(lines, i);
-                                            html += result.html;
-                                            i = result.endIndex;
-                                        } else if (subLine.match(/^\+[-+]+\+/)) {
-                                            let diagram = subLine + '\n';
-                                            i++;
-                                            while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/) || lines[i].trim().startsWith('|'))) {
-                                                diagram += lines[i] + '\n';
-                                                i++;
-                                            }
-                                            html += `<pre class="table-diagram">${escapeHTML(diagram)}</pre>`;
-                                        } else if (subLine.match(/^[-]+$/)) {
-                                            let screenshot = subLine + '\n';
-                                            i++;
-                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/)) {
-                                                screenshot += lines[i] + '\n';
-                                                i++;
-                                            }
-                                            html += `<pre class="mock-screenshot">${escapeHTML(screenshot)}</pre>`;
-                                        } else if (subLine.match(/^[A-Z_]+> /) || subLine.match(/^SELECT |CREATE |INSERT |UPDATE |DELETE |WITH /)) {
-                                            let code = subLine + '\n';
-                                            i++;
-                                            while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/) && !lines[i].match(/^\+[-+]+\+/)) {
-                                                code += lines[i] + '\n';
-                                                i++;
-                                            }
-                                            html += `<pre><code>${escapeHTML(code)}</code></pre>`;
-                                        } else if (subLine.match(/^\d+\./)) {
-                                            const result = parseNumberedList(lines, i);
-                                            html += result.html;
-                                            i = result.endIndex;
-                                        } else if (subLine.startsWith('- ')) {
-                                            const result = parseList(lines, i);
-                                            html += result.html;
-                                            i = result.endIndex;
-                                        } else {
-                                            if (subLine.match(/^(簡介|定義|規則|範例|語法|參數|注意|結構|圖示|步驟|Introduction|Definition|Rules|Examples|Syntax|Parameters|Notes|Structure|Diagram|Steps)$/)) {
-                                                html += `<h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>${escapeHTML(subLine)}</h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>`;
-                                            } else if (subLine.match(/^(一般|MySQL|Oracle)$/)) {
-                                                html += `<h4>${escapeHTML(subLine)}</h4>`;
-                                            } else {
-                                                html += `<p>${escapeHTML(subLine)}</p>`;
-                                            }
-                                            i++;
-                                        }
-                                    }
-                                    html += '</div></div>';
-                                } else {
-                                    if (line.match(/^(簡介|定義|規則|範例|語法|參數|注意|結構|圖示|步驟|Introduction|Definition|Rules|Examples|Syntax|Parameters|Notes|Structure|Diagram|Steps)$/)) {
-                                        html += `<h${line.match(/^(簡介|Introduction)$/) ? 2 : 3}>${escapeHTML(line)}</h${line.match(/^(簡介|Introduction)$/) ? 2 : 3}>`;
-                                    } else if (line.match(/^(一般|MySQL|Oracle)$/)) {
-                                        html += `<h4>${escapeHTML(line)}</h4>`;
-                                    } else if (line.match(/^[^\|]+\s*\|\s*[^\|]+/)) {
-                                        const result = parseTable(lines, i);
-                                        html += result.html;
-                                        i = result.endIndex;
-                                    } else if (line.match(/^\+[-+]+\+/)) {
-                                        let diagram = line + '\n';
-                                        i++;
-                                        while (i < lines.length && (lines[i].match(/^\+[-+]+\+/) || lines[i].match(/^\|.*\|/) || lines[i].trim().startsWith('|'))) {
-                                            diagram += lines[i] + '\n';
-                                            i++;
-                                        }
-                                        html += `<pre class="table-diagram">${escapeHTML(diagram)}</pre>`;
-                                    } else if (line.match(/^[-]+$/)) {
-                                        let screenshot = line + '\n';
-                                        i++;
-                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/)) {
-                                            screenshot += lines[i] + '\n';
-                                            i++;
-                                        }
-                                        html += `<pre class="mock-screenshot">${escapeHTML(screenshot)}</pre>`;
-                                    } else if (line.match(/^[A-Z_]+> /) || line.match(/^SELECT |CREATE |INSERT |UPDATE |DELETE |WITH /)) {
-                                        let code = line + '\n';
-                                        i++;
-                                        while (i < lines.length && !lines[i].startsWith('---') && !lines[i].match(/^[^\|]+\s*\|\s*[^\|]+/) && !lines[i].match(/^\+[-+]+\+/)) {
-                                            code += lines[i] + '\n';
-                                            i++;
-                                        }
-                                        html += `<pre><code>${escapeHTML(code)}</code></pre>`;
-                                    } else if (line.match(/^\d+\./)) {
-                                        const result = parseNumberedList(lines, i);
-                                        html += result.html;
-                                        i = result.endIndex;
-                                    } else if (line.startsWith('- ')) {
-                                        const result = parseList(lines, i);
-                                        html += result.html;
-                                        i = result.endIndex;
-                                    } else {
-                                        html += `<p>${escapeHTML(line)}</p>`;
-                                    }
-                                    i++;
-                                }
-                            }
-                            html += '</div></div>';
-                        }
-                        content.insertAdjacentHTML('beforeend', html);
-                    });
-
-                    document.querySelectorAll('.accordion-header').forEach(header => {
-                        header.addEventListener('click', () => toggleAccordion(header.getAttribute('data-id')));
-                    });
-                    document.querySelectorAll('.sub-accordion-header').forEach(header => {
-                        header.addEventListener('click', () => toggleSubAccordion(header.getAttribute('data-id')));
-                    });
-                    document.getElementById('toggle-lang').addEventListener('click', toggleLanguage);
+                .then(text => {
+                    document.getElementById('content-area').textContent = text;
                 })
                 .catch(error => {
                     console.error('Error loading content:', error);
-                    document.querySelector('.content').innerHTML += '<p>無法載入內容，請確認 sql_chinese.txt 是否存在。</p>';
+                    document.getElementById('content-area').textContent = '無法載入內容，請稍後再試。';
                 });
         }
 
         function toggleLanguage() {
-            currentLang = currentLang === 'chinese' ? 'english' : 'chinese';
-            loadContent(currentLang === 'chinese' ? './sql_chinese.txt' : './sql_english.txt');
+            currentLanguage = currentLanguage === 'chinese' ? 'english' : 'chinese';
+            document.querySelector('.language-toggle').textContent = currentLanguage === 'chinese' ? '切換英文' : '切換中文';
+            loadContent(currentLanguage);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadContent('./sql_chinese.txt');
+            loadContent('chinese');
 
             const toggleAccordion = id => {
                 try {
@@ -518,7 +369,6 @@
                     console.error('Accordion Error:', e.message);
                 }
             };
-
             const toggleSubAccordion = id => {
                 try {
                     const content = document.querySelector(`#${id} .sub-accordion-content`);
@@ -532,21 +382,21 @@
                     console.error('Sub-Accordion Error:', e.message);
                 }
             };
-
             const scrollToSection = id => {
-                const element = document.querySelector(`#${id}`);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                    if (window.innerWidth <= 768) {
-                        document.querySelector('.sidebar').classList.remove('active');
-                    }
+                document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.sidebar').classList.remove('active');
                 }
             };
-
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => toggleAccordion(header.getAttribute('data-id')));
+            });
+            document.querySelectorAll('.sub-accordion-header').forEach(header => {
+                header.addEventListener('click', () => toggleSubAccordion(header.getAttribute('data-id')));
+            });
             document.querySelector('.hamburger').addEventListener('click', () => {
                 document.querySelector('.sidebar').classList.toggle('active');
             });
-
             window.toggleAccordion = toggleAccordion;
             window.toggleSubAccordion = toggleSubAccordion;
             window.scrollToSection = scrollToSection;
