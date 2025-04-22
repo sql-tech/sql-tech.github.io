@@ -56,7 +56,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://placehold.co/1200x630/2c3e50/ffffff?text=SQL資料庫百科全書&font=montserrat">
-    <title data-i18n-key="home_title"></title>
+    <title>SQL資料庫百科全書 - 進階 SQL</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50PFF0MS1Q"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -101,19 +101,6 @@
         .hamburger{display:none;font-size:24px;cursor:pointer;color:#2D3748;padding:10px}
         .section-title{font-size:1.8em;color:#2D3748;margin:30px 0 15px;border-bottom:2px solid #E2E8F0;padding-bottom:5px}
         footer{font-size:0.9em;color:#777;text-align:center;padding:20px;border-top:1px solid #E2E8F0;margin-top:20px;background:#F5F7FA}
-        .language-switch-btn {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #4A5568;
-            color: #FFF;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .language-switch-btn:hover {
-            background-color: #718096;
-        }
         @media screen and (max-width:768px){
             .banner{height:80px}
             .container{flex-direction:column}
@@ -181,189 +168,185 @@
         .share-button img {
             vertical-align: middle;
         }
+        #toggle-lang {
+            padding: 10px 20px;
+            background: #4A5568;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        #toggle-lang:hover {
+            background: #718096;
+        }
     </style>
 </head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7K4829N8JE"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-7K4829N8JE');
-
-    // 載入語言檔案的通用函數
-    function loadLanguage(file) {
-        fetch(file)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`無法載入 ${file}: ${response.status} ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                const translations = {};
-                const lines = data.split('\n');
-                let currentKey = '';
-                let currentContent = [];
-
-                // 解析 txt 檔案
-                lines.forEach(line => {
-                    line = line.trim();
-                    if (line.startsWith('#') || line === '') return; // 跳過註釋和空行
-                    if (line.includes(':')) {
-                        if (currentKey) {
-                            translations[currentKey] = currentContent.join('\n').trim();
-                            currentContent = [];
-                        }
-                        const [key, ...content] = line.split(':');
-                        currentKey = key.trim();
-                        currentContent.push(content.join(':').trim());
-                    } else {
-                        currentContent.push(line);
-                    }
-                });
-                if (currentKey) translations[currentKey] = currentContent.join('\n').trim();
-
-                // 更新所有帶 data-i18n-key 的元素
-                document.querySelectorAll('[data-i18n-key]').forEach(element => {
-                    const key = element.getAttribute('data-i18n-key');
-                    if (translations[key]) {
-                        element.innerHTML = translations[key].replace(/\n/g, '<br>');
-                    } else {
-                        console.warn(`未找到鍵 ${key} 的翻譯`);
-                    }
-                });
-            })
-            .catch(error => {
-                console.error(`載入 ${file} 失敗:`, error);
-                alert(`無法載入語言檔案 ${file}，請檢查檔案路徑或伺服器設置。`);
-            });
-    }
-
-    // 頁面載入時預設載入 sql_chinese.txt
-    document.addEventListener('DOMContentLoaded', () => {
-        loadLanguage('sql_chinese.txt');
-    });
-
-    // 切換語言按鈕的事件處理
-    function toggleLanguage() {
-        const currentLang = document.querySelector('.language-switch-btn').textContent.includes('英文') ? 'sql_english.txt' : 'sql_chinese.txt';
-        loadLanguage(currentLang);
-        // 更新按鈕文字
-        document.querySelector('.language-switch-btn').textContent = currentLang === 'sql_chinese.txt' ? '切換英文版' : '切換中文版';
-    }
-
-    // 切換手風琴內容
-    function toggleAccordion(id) {
-        const content = document.querySelector(`#${id} .accordion-content`);
-        const isActive = content.classList.contains('active');
-        document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
-        if (!isActive) content.classList.add('active');
-    }
-
-    // 滾動到指定區塊
-    function scrollToSection(id) {
-        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // 手機端漢堡選單切換
-    document.addEventListener('DOMContentLoaded', () => {
-        const hamburger = document.querySelector('.hamburger');
-        const sidebar = document.querySelector('.sidebar');
-        hamburger.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
-    });
-</script>
 <body>
-    <header><img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image"></header>
-    <div class="hamburger">☰</div>
+    <header>
+        <img src="banner.jpg" alt="SQL資料庫百科全書" class="banner-image">
+    </header>
     <div class="container">
-        <nav class="sidebar">
-            <h2 data-i18n-key="sidebar_commands_title"></h2>
-            <ul>
-                <li><a onclick="scrollToSection('home')" data-i18n-key="home_nav"></a></li>
-                <li><a onclick="toggleAccordion('installation')" data-i18n-key="installation_nav"></a></li>
-                <li><a onclick="toggleAccordion('normalization')" data-i18n-key="normalization_nav"></a></li>
-                <li><a onclick="toggleAccordion('performance')" data-i18n-key="performance_nav"></a></li>
-            </ul>
-            <h3 data-i18n-key="sidebar_basic_queries_title"></h3>
-            <ul>
-                <li><a onclick="toggleAccordion('select')">SELECT</a></li>
-                <li><a onclick="toggleAccordion('distinct')">DISTINCT</a></li>
-                <li><a onclick="toggleAccordion('where')">WHERE</a></li>
-                <li><a onclick="toggleAccordion('and_or')">AND OR</a></li>
-                <li><a onclick="toggleAccordion('in')">IN</a></li>
-                <li><a onclick="toggleAccordion('between')">BETWEEN</a></li>
-                <li><a onclick="toggleAccordion('wildcard')">萬用字元</a></li>
-                <li><a onclick="toggleAccordion('like')">LIKE</a></li>
-                <li><a onclick="toggleAccordion('order_by')">ORDER BY</a></li>
-                <li><a onclick="toggleAccordion('function')">函數</a></li>
-                <li><a onclick="toggleAccordion('avg')">平均值</a></li>
-                <li><a onclick="toggleAccordion('count')">COUNT</a></li>
-                <li><a onclick="toggleAccordion('max')">最大值</a></li>
-                <li><a onclick="toggleAccordion('min')">最小值</a></li>
-                <li><a onclick="toggleAccordion('sum')">總合</a></li>
-                <li><a onclick="toggleAccordion('group_by')">GROUP BY</a></li>
-                <li><a onclick="toggleAccordion('having')">HAVING</a></li>
-                <li><a onclick="toggleAccordion('alias')">別名</a></li>
-                <li><a onclick="toggleAccordion('as')">AS</a></li>
-                <li><a onclick="toggleAccordion('join')">表格連接</a></li>
-                <li><a onclick="toggleAccordion('outer_join')">外部連接</a></li>
-                <li><a onclick="toggleAccordion('concatenate')">CONCATENATE</a></li>
-                <li><a onclick="toggleAccordion('substring')">SUBSTRING</a></li>
-                <li><a onclick="toggleAccordion('trim')">TRIM</a></li>
-                <li><a onclick="toggleAccordion('length')">長度</a></li>
-                <li><a onclick="toggleAccordion('replace')">REPLACE</a></li>
-            </ul>
-            <h3 data-i18n-key="sidebar_data_definition_title"></h3>
-            <ul>
-                <li><a onclick="toggleAccordion('create_table')">CREATE TABLE</a></li>
-                <li><a onclick="toggleAccordion('constraint')">Constraint</a></li>
-                <li><a onclick="toggleAccordion('primary_key')">主鍵</a></li>
-                <li><a onclick="toggleAccordion('foreign_key')">外來鍵</a></li>
-                <li><a onclick="toggleAccordion('create_view')">CREATE VIEW</a></li>
-                <li><a onclick="toggleAccordion('create_index')">CREATE INDEX</a></li>
-                <li><a onclick="toggleAccordion('alter_table')">ALTER TABLE</a></li>
-                <li><a onclick="toggleAccordion('add_column')">添加欄位</a></li>
-                <li><a onclick="toggleAccordion('modify_column')">更改欄位</a></li>
-                <li><a onclick="toggleAccordion('alter_column')">調整欄位</a></li>
-                <li><a onclick="toggleAccordion('rename_column')">改名欄位</a></li>
-                <li><a onclick="toggleAccordion('drop_column')">刪除欄位</a></li>
-                <li><a onclick="toggleAccordion('add_index')">添加索引</a></li>
-                <li><a onclick="toggleAccordion('drop_index')">刪除索引</a></li>
-                <li><a onclick="toggleAccordion('add_constraint')">添加限制</a></li>
-                <li><a onclick="toggleAccordion('drop_constraint')">刪除限制</a></li>
-                <li><a onclick="toggleAccordion('drop_table')">DROP TABLE</a></li>
-                <li><a onclick="toggleAccordion('truncate_table')">TRUNCATE TABLE</a></li>
-                <li><a onclick="toggleAccordion('use')">USE</a></li>
-                <li><a onclick="toggleAccordion('insert_into')">INSERT INTO</a></li>
-                <li><a onclick="toggleAccordion('update')">UPDATE</a></li>
-                <li><a onclick="toggleAccordion('delete_from')">DELETE FROM</a></li>
-            </ul>
-            <h3 data-i18n-key="sidebar_advanced_sql_title"></h3>
-            <ul>
-                <li><a onclick="toggleAccordion('union')">UNION</a></li>
-                <li><a onclick="toggleAccordion('union_all')">UNION ALL</a></li>
-                <li><a onclick="toggleAccordion('nested_view')">內嵌視觀表</a></li>
-                <li><a onclick="toggleAccordion('intersect')">INTERSECT</a></li>
-                <li><a onclick="toggleAccordion('minus')">MINUS</a></li>
-                <li><a onclick="toggleAccordion('limit')">LIMIT</a></li>
-                <li><a onclick="toggleAccordion('subquery')">子查詢</a></li>
-                <li><a onclick="toggleAccordion('with')">WITH</a></li>
-                <li><a onclick="toggleAccordion('exists')">EXISTS</a></li>
-                <li><a onclick="toggleAccordion('case')">CASE</a></li>
-                <li><a onclick="toggleAccordion('window_function')">窗口函數</a></li>
-                <li><a onclick="toggleAccordion('sequence')">SEQUENCE 和 NEXTVAL</a></li>
-                <li><a onclick="toggleAccordion('rank')">算排名</a></li>
-                <li><a onclick="toggleAccordion('median')">算中位數</a></li>
-                <li><a onclick="toggleAccordion('cumulative_sum')">算累積總計</a></li>
-                <li><a onclick="toggleAccordion('sum_percent')">算總合百分比</a></li>
-                <li><a onclick="toggleAccordion('cumulative_sum_percent')">算累積總合百分比</a></li>
-            </ul>
+        <div class="hamburger">☰</div>
+        <div style="text-align: center; margin: 10px 0;">
+            <button id="toggle-lang" onclick="toggleLanguage()">切換英文</button>
+        </div>
+        <nav class="sidebar" id="sidebar">
+            <h2>SQL指令清單</h2>
+            <ul id="nav-list"></ul>
         </nav>
-        <main class="content">
-            <section id="home">
-                <h1 data-i18n-key="home_title"></h1>
+        <main class="content" id="content">
+            <!-- 內容將動態填充 -->
+        </main>
+    </div>
+    <footer id="footer">
+        <!-- Footer 內容將動態填充 -->
+    </footer>
+    <script>
+        let currentLang = 'chinese';
+
+        // 解析 txt 檔案為鍵值對
+        function parseTextFile(text) {
+            const sections = text.split('===').map(s => s.trim()).filter(s => s);
+            const content = {};
+            sections.forEach(section => {
+                const lines = section.split('\n').map(line => line.trim()).filter(line => line);
+                lines.forEach(line => {
+                    if (line.startsWith('#')) return;
+                    const [key, ...value] = line.split(': ');
+                    if (key && value.length) {
+                        content[key] = value.join(': ').replace(/\\n/g, '\n');
+                    }
+                });
+            });
+            return content;
+        }
+
+        // 載入內容並渲染
+        function loadContent(lang) {
+            const file = lang === 'chinese' ? 'sql_chinese.txt' : 'sql_english.txt';
+            fetch(file)
+                .then(response => {
+                    if (!response.ok) throw new Error(`無法載入 ${file}`);
+                    return response.text();
+                })
+                .then(text => {
+                    const content = parseTextFile(text);
+                    renderSidebar(content);
+                    renderMainContent(content);
+                    renderFooter(content);
+                })
+                .catch(error => {
+                    console.error('載入錯誤:', error);
+                    document.getElementById('content').innerHTML = '<p>無法載入內容，請檢查檔案路徑。</p>';
+                });
+        }
+
+        // 渲染左側導航
+        function renderSidebar(content) {
+            const navList = document.getElementById('nav-list');
+            navList.innerHTML = '';
+            const sections = [
+                { key: 'nav_home', id: 'home' },
+                { key: 'nav_installation', id: 'installation' },
+                { key: 'nav_normalization', id: 'normalization' },
+                { key: 'nav_performance', id: 'performance' },
+                { key: 'nav_basic_query', isHeader: true },
+                { key: 'nav_select', id: 'select' },
+                { key: 'nav_distinct', id: 'distinct' },
+                { key: 'nav_where', id: 'where' },
+                { key: 'nav_and_or', id: 'and_or' },
+                { key: 'nav_in', id: 'in' },
+                { key: 'nav_between', id: 'between' },
+                { key: 'nav_wildcard', id: 'wildcard' },
+                { key: 'nav_like', id: 'like' },
+                { key: 'nav_order_by', id: 'order_by' },
+                { key: 'nav_function', id: 'function' },
+                { key: 'nav_avg', id: 'avg' },
+                { key: 'nav_count', id: 'count' },
+                { key: 'nav_max', id: 'max' },
+                { key: 'nav_min', id: 'min' },
+                { key: 'nav_sum', id: 'sum' },
+                { key: 'nav_group_by', id: 'group_by' },
+                { key: 'nav_having', id: 'having' },
+                { key: 'nav_alias', id: 'alias' },
+                { key: 'nav_as', id: 'as' },
+                { key: 'nav_join', id: 'join' },
+                { key: 'nav_outer_join', id: 'outer_join' },
+                { key: 'nav_concatenate', id: 'concatenate' },
+                { key: 'nav_substring', id: 'substring' },
+                { key: 'nav_trim', id: 'trim' },
+                { key: 'nav_length', id: 'length' },
+                { key: 'nav_replace', id: 'replace' },
+                { key: 'nav_data_definition', isHeader: true },
+                { key: 'nav_create_table', id: 'create_table' },
+                { key: 'nav_constraint', id: 'constraint' },
+                { key: 'nav_primary_key', id: 'primary_key' },
+                { key: 'nav_foreign_key', id: 'foreign_key' },
+                { key: 'nav_create_view', id: 'create_view' },
+                { key: 'nav_create_index', id: 'create_index' },
+                { key: 'nav_alter_table', id: 'alter_table' },
+                { key: 'nav_add_column', id: 'add_column' },
+                { key: 'nav_modify_column', id: 'modify_column' },
+                { key: 'nav_alter_column', id: 'alter_column' },
+                { key: 'nav_rename_column', id: 'rename_column' },
+                { key: 'nav_drop_column', id: 'drop_column' },
+                { key: 'nav_add_index', id: 'add_index' },
+                { key: 'nav_drop_index', id: 'drop_index' },
+                { key: 'nav_add_constraint', id: 'add_constraint' },
+                { key: 'nav_drop_constraint', id: 'drop_constraint' },
+                { key: 'nav_drop_table', id: 'drop_table' },
+                { key: 'nav_truncate_table', id: 'truncate_table' },
+                { key: 'nav_use', id: 'use' },
+                { key: 'nav_insert_into', id: 'insert_into' },
+                { key: 'nav_update', id: 'update' },
+                { key: 'nav_delete_from', id: 'delete_from' },
+                { key: 'nav_advanced_sql', isHeader: true },
+                { key: 'nav_union', id: 'union' },
+                { key: 'nav_union_all', id: 'union_all' },
+                { key: 'nav_nested_view', id: 'nested_view' },
+                { key: 'nav_intersect', id: 'intersect' },
+                { key: 'nav_minus', id: 'minus' },
+                { key: 'nav_limit', id: 'limit' },
+                { key: 'nav_subquery', id: 'subquery' },
+                { key: 'nav_with', id: 'with' },
+                { key: 'nav_exists', id: 'exists' },
+                { key: 'nav_case', id: 'case' },
+                { key: 'nav_window_function', id: 'window_function' },
+                { key: 'nav_sequence', id: 'sequence' },
+                { key: 'nav_rank', id: 'rank' },
+                { key: 'nav_median', id: 'median' },
+                { key: 'nav_cumulative_sum', id: 'cumulative_sum' },
+                { key: 'nav_sum_percent', id: 'sum_percent' },
+                { key: 'nav_cumulative_sum_percent', id: 'cumulative_sum_percent' }
+            ];
+
+            sections.forEach(section => {
+                if (section.isHeader) {
+                    const h3 = document.createElement('h3');
+                    h3.textContent = content[section.key] || section.key.replace('nav_', '');
+                    navList.appendChild(h3);
+                } else {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.textContent = content[section.key] || section.key.replace('nav_', '');
+                    a.onclick = () => scrollToSection(section.id);
+                    li.appendChild(a);
+                    navList.appendChild(li);
+                }
+            });
+        }
+
+        // 渲染主要內容
+        function renderMainContent(content) {
+            const main = document.getElementById('content');
+            main.innerHTML = '';
+
+            // 首頁
+            const homeSection = document.createElement('section');
+            homeSection.id = 'home';
+            homeSection.innerHTML = `
+                <h1>${content.home_title || '歡迎來到 SQL資料庫百科全書'}</h1>
                 <div class="share-buttons">
                     <a href="https://www.facebook.com/sharer/sharer.php?u=https://sql-tech.github.io/" target="_blank" class="share-button facebook">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/facebook.svg" alt="Facebook Share" width="32" height="32">
@@ -378,294 +361,206 @@
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/line.svg" alt="Line Share" width="32" height="32">
                     </a>
                 </div>
-                <p data-i18n-key="home_description"></p>
-                <button class="language-switch-btn" onclick="toggleLanguage()">切換英文版</button>
-            </section>
-            <div class="ad-container">
-                <!-- <script async src="https://monetag.com/tag.min.js" data-zone="YOUR_ZONE_ID"></script> -->
-            </div>
-            <div class="accordion" id="installation">
-                <div class="accordion-header" data-id="installation" data-i18n-key="installation_title"></div>
+                <p>${content.home_content || ''}</p>
+            `;
+            main.appendChild(homeSection);
+
+            // 安裝說明書
+            const installation = document.createElement('div');
+            installation.className = 'accordion';
+            installation.id = 'installation';
+            installation.innerHTML = `
+                <div class="accordion-header" data-id="installation">${content.installation_title || '資料庫安裝說明書'}</div>
                 <div class="accordion-content">
-                    <h2 data-i18n-key="installation_intro"></h2>
-                    <p data-i18n-key="installation_intro"></p>
+                    <h2>簡介</h2>
+                    <p>${content.installation_intro || ''}</p>
                     <div class="sub-accordion" id="mysql_windows">
-                        <div class="sub-accordion-header" data-id="mysql_windows" data-i18n-key="mysql_windows_title"></div>
+                        <div class="sub-accordion-header" data-id="mysql_windows">${content.mysql_windows_title || 'MySQL 安裝 - Windows'}</div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="mysql_windows_intro"></h3>
-                            <p data-i18n-key="mysql_windows_intro"></p>
+                            <h3>簡介</h3>
+                            <p>${content.mysql_windows_intro || ''}</p>
                             <h3>安裝步驟</h3>
-                            <ol data-i18n-key="mysql_windows_steps">
-                                <li><p>下載：訪問<a href="https://dev.mysql.com/downloads/installer/">MySQL官網</a>，選Windows版本（~400MB）。</p><pre class="mock-screenshot">
---------------------
-| Download MySQL 8.0 |
-| [Windows x64]     |
-| [Download Button] |
---------------------</pre></li>
-                                <li><p>運行：雙擊<code>mysql-installer-web-community-8.0.x.msi</code>，選「Developer Default」，點Next。</p><pre class="mock-screenshot">
---------------------
-| Setup Type       |
-| [x] Developer    |
-| [Next Button]    |
---------------------</pre></li>
-                                <li><p>依賴項：檢查環境（如.NET Framework），點「Execute」安裝缺少項目。</p></li>
-                                <li><p>配置：選「Standalone」，埠3306，點Next。</p><pre class="mock-screenshot">
---------------------
-| Port: [3306]     |
-| [Standalone]     |
-| [Next Button]    |
---------------------</pre></li>
-                                <li><p>密碼：設根用戶密碼（如「MySQL2025!」），點Next。</p></li>
-                                <li><p>安裝：點「Execute」，完成後勾選「Start MySQL」，點Finish。</p></li>
-                                <li><p>驗證：命令提示字元輸入<code>mysql -u root -p</code>，檢查<code>mysql></code>提示符。</p><pre><code>mysql> SHOW DATABASES;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-+--------------------+</code></pre></li>
-                            </ol>
+                            <p>${content.mysql_windows_steps || ''}</p>
+                            <pre><code>${content.mysql_windows_code || ''}</code></pre>
                             <h3>參數</h3>
-                            <table><tr><th>參數</th><th>值</th></tr><tr><td>版本</td><td>MySQL 8.0</td></tr><tr><td>路徑</td><td>C:\Program Files\MySQL</td></tr><tr><td>埠</td><td>3306</td></tr><tr><td>用戶</td><td>root</td></tr></table>
+                            <table><tr><th>參數</th><th>值</th></tr>${content.mysql_windows_params ? content.mysql_windows_params.split('\n').slice(2).map(row => `<tr><td>${row.split('|')[1]}</td><td>${row.split('|')[2]}</td></tr>`).join('') : ''}</table>
                             <h3>注意</h3>
-                            <ul data-i18n-key="mysql_windows_notes"><li>需2GB空間。</li><li>防火牆允許3306埠。</li><li>忘記密碼用<code>mysqld --skip-grant-tables</code>重設。</li></ul>
+                            <p>${content.mysql_windows_notes || ''}</p>
                             <h3>結構</h3>
-                            <pre class="table-diagram">mysql.user
-+------------+---------+
-| user       | VARCHAR |
-| host       | VARCHAR |
-| password   | VARCHAR |
-+------------+---------+</pre>
+                            <pre class="table-diagram">${content.mysql_windows_structure || ''}</pre>
                         </div>
                     </div>
                     <div class="sub-accordion" id="mysql_linux">
-                        <div class="sub-accordion-header" data-id="mysql_linux" data-i18n-key="mysql_linux_title"></div>
+                        <div class="sub-accordion-header" data-id="mysql_linux">${content.mysql_linux_title || 'MySQL 安裝 - Linux'}</div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="mysql_linux_intro"></h3>
-                            <p data-i18n-key="mysql_linux_intro"></p>
+                            <h3>簡介</h3>
+                            <p>${content.mysql_linux_intro || ''}</p>
                             <h3>安裝步驟</h3>
-                            <ol data-i18n-key="mysql_linux_steps">
-                                <li><p>更新：<code>sudo apt update && sudo apt upgrade</code></p><pre class="mock-screenshot">
---------------------
-| $ sudo apt update |
-| [Progress Bar]    |
-| Hit:1 http://...  |
---------------------</pre></li>
-                                <li><p>安裝：<code>sudo apt install mysql-server</code></p></li>
-                                <li><p>啟動：<code>sudo systemctl start mysql && sudo systemctl enable mysql</code></p></li>
-                                <li><p>安全：<code>sudo mysql_secure_installation</code>，設密碼，移除不安全選項。</p><pre class="mock-screenshot">
---------------------
-| Root password     |
-| [Input Field]     |
-| [Y/n] Remove...?  |
---------------------</pre></li>
-                                <li><p>驗證：<code>mysql -u root -p</code>，檢查資料庫。</p><pre><code>mysql> SHOW DATABASES;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-+--------------------+</code></pre></li>
-                            </ol>
+                            <p>${content.mysql_linux_steps || ''}</p>
+                            <pre><code>${content.mysql_linux_code || ''}</code></pre>
                             <h3>參數</h3>
-                            <table><tr><th>參數</th><th>值</th></tr><tr><td>版本</td><td>MySQL 8.0</td></tr><tr><td>路徑</td><td>/var/lib/mysql</td></tr><tr><td>埠</td><td>3306</td></tr><tr><td>服務</td><td>mysql</td></tr></table>
+                            <table><tr><th>參數</th><th>值</th></tr>${content.mysql_linux_params ? content.mysql_linux_params.split('\n').slice(2).map(row => `<tr><td>${row.split('|')[1]}</td><td>${row.split('|')[2]}</td></tr>`).join('') : ''}</table>
                             <h3>注意</h3>
-                            <ul data-i18n-key="mysql_linux_notes"><li>需root權限。</li><li>檢查<code>/etc/mysql</code>配置。</li><li>允許3306埠。</li></ul>
+                            <p>${content.mysql_linux_notes || ''}</p>
                             <h3>結構</h3>
-                            <pre class="table-diagram">mysql.user
-+------------+---------+
-| user       | VARCHAR |
-| host       | VARCHAR |
-| password   | VARCHAR |
-+------------+---------+</pre>
+                            <pre class="table-diagram">${content.mysql_linux_structure || ''}</pre>
                         </div>
                     </div>
                     <div class="sub-accordion" id="mysql_macos">
-                        <div class="sub-accordion-header" data-id="mysql_macos" data-i18n-key="mysql_macos_title"></div>
+                        <div class="sub-accordion-header" data-id="mysql_macos">${content.mysql_macos_title || 'MySQL 安裝 - MacOS'}</div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="mysql_macos_intro"></h3>
-                            <p data-i18n-key="mysql_macos_intro"></p>
+                            <h3>簡介</h3>
+                            <p>${content.mysql_macos_intro || ''}</p>
                             <h3>安裝步驟</h3>
-                            <ol data-i18n-key="mysql_macos_steps">
-                                <li><p>Homebrew：<code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></p><pre class="mock-screenshot">
---------------------
-| $ curl -fsSL ...  |
-| [Installing]      |
-| ==> Success       |
---------------------</pre></li>
-                                <li><p>安裝：<code>brew install mysql</code></p></li>
-                                <li><p>啟動：<code>brew services start mysql</code></p></li>
-                                <li><p>密碼：<code>mysql_secure_installation</code></p><pre class="mock-screenshot">
---------------------
-| Set password?     |
-| [Y/n] [Input]     |
-| [Continue]        |
---------------------</pre></li>
-                                <li><p>驗證：<code>mysql -u root -p</code></p><pre><code>mysql> SHOW DATABASES;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-+--------------------+</code></pre></li>
-                            </ol>
+                            <p>${content.mysql_macos_steps || ''}</p>
+                            <pre><code>${content.mysql_macos_code || ''}</code></pre>
                             <h3>參數</h3>
-                            <table><tr><th>參數</th><th>值</th></tr><tr><td>版本</td><td>MySQL 8.0</td></tr><tr><td>路徑</td><td>/usr/local/Cellar/mysql</td></tr><tr><td>埠</td><td>3306</td></tr><tr><td>服務</td><td>mysql</td></tr></table>
+                            <table><tr><th>參數</th><th>值</th></tr>${content.mysql_macos_params ? content.mysql_macos_params.split('\n').slice(2).map(row => `<tr><td>${row.split('|')[1]}</td><td>${row.split('|')[2]}</td></tr>`).join('') : ''}</table>
                             <h3>注意</h3>
-                            <ul data-i18n-key="mysql_macos_notes"><li>更新Homebrew。</li><li>檢查<code>/usr/local/etc/my.cnf</code>。</li></ul>
+                            <p>${content.mysql_macos_notes || ''}</p>
                             <h3>結構</h3>
-                            <pre class="table-diagram">mysql.user
-+------------+---------+
-| user       | VARCHAR |
-| host       | VARCHAR |
-| password   | VARCHAR |
-+------------+---------+</pre>
+                            <pre class="table-diagram">${content.mysql_macos_structure || ''}</pre>
                         </div>
                     </div>
                     <div class="sub-accordion" id="oracle_windows">
-                        <div class="sub-accordion-header" data-id="oracle_windows" data-i18n-key="oracle_windows_title"></div>
+                        <div class="sub-accordion-header" data-id="oracle_windows">${content.oracle_windows_title || 'Oracle 安裝 - Windows'}</div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="oracle_windows_intro"></h3>
-                            <p data-i18n-key="oracle_windows_intro"></p>
+                            <h3>簡介</h3>
+                            <p>${content.oracle_windows_intro || ''}</p>
                             <h3>安裝步驟</h3>
-                            <ol data-i18n-key="oracle_windows_steps">
-                                <li><p>下載：訪問<a href="https://www.oracle.com/database/technologies/xe-downloads.html">Oracle官網</a>，選21c XE（~2GB）。</p><pre class="mock-screenshot">
---------------------
-| Oracle 21c XE     |
-| [Windows x64]     |
-| [Download Button] |
---------------------</pre></li>
-                                <li><p>解壓：解壓<code>oracle-database-xe-21c.zip</code>至C:\oracle。</p></li>
-                                <li><p>運行：雙擊<code>setup.exe</code>，選路徑C:\app\oracle，點Next。</p><pre class="mock-screenshot">
---------------------
-| Destination       |
-| [C:\app\oracle]   |
-| [Next Button]     |
---------------------</pre></li>
-                                <li><p>密碼：為SYS/SYSTEM設密碼（如「Oracle2025!」），點Next。</p></li>
-                                <li><p>安裝：點Install，約15分鐘，自動啟動。</p></li>
-                                <li><p>驗證：<code>sqlplus / as sysdba</code></p><pre><code>SQL> SELECT * FROM v$version;
-BANNER
-Oracle Database 21c Express Edition</code></pre></li>
-                            </ol>
+                            <p>${content.oracle_windows_steps || ''}</p>
+                            <pre><code>${content.oracle_windows_code || ''}</code></pre>
                             <h3>參數</h3>
-                            <table><tr><th>參數</th><th>值</th></tr><tr><td>版本</td><td>Oracle 21c XE</td></tr><tr><td>路徑</td><td>C:\app\oracle</td></tr><tr><td>埠</td><td>1521</td></tr><tr><td>服務</td><td>XE</td></tr></table>
+                            <table><tr><th>參數</th><th>值</th></tr>${content.oracle_windows_params ? content.oracle_windows_params.split('\n').slice(2).map(row => `<tr><td>${row.split('|')[1]}</td><td>${row.split('|')[2]}</td></tr>`).join('') : ''}</table>
                             <h3>注意</h3>
-                            <ul data-i18n-key="oracle_windows_notes"><li>需10GB空間。</li><li>關閉防毒軟體。</li><li>檢查TNS監聽器（<code>lsnrctl status</code>）。</li></ul>
+                            <p>${content.oracle_windows_notes || ''}</p>
                             <h3>結構</h3>
-                            <pre class="table-diagram">dba_users
-+------------+---------+
-| username   | VARCHAR |
-| user_id    | NUMBER  |
-| created    | DATE    |
-+------------+---------+</pre>
+                            <pre class="table-diagram">${content.oracle_windows_structure || ''}</pre>
                         </div>
                     </div>
                     <div class="sub-accordion" id="oracle_linux">
-                        <div class="sub-accordion-header" data-id="oracle_linux" data-i18n-key="oracle_linux_title"></div>
+                        <div class="sub-accordion-header" data-id="oracle_linux">${content.oracle_linux_title || 'Oracle 安裝 - Linux'}</div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="oracle_linux_intro"></h3>
-                            <p data-i18n-key="oracle_linux_intro"></p>
+                            <h3>簡介</h3>
+                            <p>${content.oracle_linux_intro || ''}</p>
                             <h3>安裝步驟</h3>
-                            <ol data-i18n-key="oracle_linux_steps">
-                                <li><p>下載：<code>oracle-database-xe-21c-1.0-1.x86_64.rpm</code>。</p><pre class="mock-screenshot">
---------------------
-| Oracle 21c RPM    |
-| [Linux x64]       |
-| [Download Button] |
---------------------</pre></li>
-                                <li><p>依賴：<code>sudo dnf install -y oracle-database-preinstall-21c</code></p></li>
-                                <li><p>安裝：<code>sudo rpm -ivh oracle-database-xe-21c-1.0-1.x86_64.rpm</code></p></li>
-                                <li><p>配置：<code>sudo /etc/init.d/oracle-xe-21c configure</code></p><pre class="mock-screenshot">
---------------------
-| SYS password      |
-| [Input Field]     |
-| [Continue]        |
---------------------</pre></li>
-                                <li><p>驗證：<code>sqlplus / as sysdba</code></p><pre><code>SQL> SELECT * FROM v$version;
-BANNER
-Oracle Database 21c Express Edition</code></pre></li>
-                            </ol>
+                            <p>${content.oracle_linux_steps || ''}</p>
+                            <pre><code>${content.oracle_linux_code || ''}</code></pre>
                             <h3>參數</h3>
-                            <table><tr><th>參數</th><th>值</th></tr><tr><td>版本</td><td>Oracle 21c XE</td></tr><tr><td>路徑</td><td>/opt/oracle</td></tr><tr><td>埠</td><td>1521</td></tr><tr><td>服務</td><td>XE</td></tr></table>
+                            <table><tr><th>參數</th><th>值</th></tr>${content.oracle_linux_params ? content.oracle_linux_params.split('\n').slice(2).map(row => `<tr><td>${row.split('|')[1]}</td><td>${row.split('|')[2]}</td></tr>`).join('') : ''}</table>
                             <h3>注意</h3>
-                            <ul data-i18n-key="oracle_linux_notes"><li>需root權限。</li><li>12GB空間。</li><li>設<code>ORACLE_HOME=/opt/oracle/product/21c/dbhomeXE</code>。</li></ul>
+                            <p>${content.oracle_linux_notes || ''}</p>
                             <h3>結構</h3>
-                            <pre class="table-diagram">dba_users
-+------------+---------+
-| username   | VARCHAR |
-| user_id    | NUMBER  |
-| created    | DATE    |
-+------------+---------+</pre>
+                            <pre class="table-diagram">${content.oracle_linux_structure || ''}</pre>
                         </div>
                     </div>
                     <div class="sub-accordion" id="oracle_macos">
-                        <div class="sub-accordion-header" data-id="oracle_macos" data-i18n-key="oracle_macos_title"></div>
+                        <div class="sub-accordion-header" data-id="oracle_macos">${content.oracle_macos_title || 'Oracle 安裝 - MacOS'}</div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="oracle_macos_intro"></h3>
-                            <p data-i18n-key="oracle_macos_intro"></p>
+                            <h3>簡介</h3>
+                            <p>${content.oracle_macos_intro || ''}</p>
                             <h3>安裝步驟</h3>
-                            <ol data-i18n-key="oracle_macos_steps">
-                                <li><p>Docker：下載<a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>。</p><pre class="mock-screenshot">
---------------------
-| Docker Desktop    |
-| [MacOS] [500MB]   |
-| [Download Button] |
---------------------</pre></li>
-                                <li><p>啟動：打開Docker Desktop。</p></li>
-                                <li><p>映像：<code>docker pull gvenzl/oracle-xe:21-slim</code></p></li>
-                                <li><p>容器：<code>docker run -d -p 1521:1521 -e ORACLE_PASSWORD=Oracle2025 gvenzl/oracle-xe:21-slim</code></p><pre class="mock-screenshot">
---------------------
-| $ docker run ...  |
-| [Container ID]    |
-| Port 1521         |
---------------------</pre></li>
-                                <li><p>驗證：<code>docker exec -it [container_id] sqlplus sys/Oracle2025@//localhost:1521/XE as sysdba</code></p><pre><code>SQL> SELECT * FROM v$version;
-BANNER
-Oracle Database 21c Express Edition</code></pre></li>
-                            </ol>
+                            <p>${content.oracle_macos_steps || ''}</p>
+                            <pre><code>${content.oracle_macos_code || ''}</code></pre>
                             <h3>參數</h3>
-                            <table><tr><th>參數</th><th>值</th></tr><tr><td>版本</td><td>Oracle 21c XE</td></tr><tr><td>映像</td><td>gvenzl/oracle-xe:21-slim</td></tr><tr><td>埠</td><td>1521</td></tr><tr><td>服務</td><td>XE</td></tr></table>
+                            <table><tr><th>參數</th><th>值</th></tr>${content.oracle_macos_params ? content.oracle_macos_params.split('\n').slice(2).map(row => `<tr><td>${row.split('|')[1]}</td><td>${row.split('|')[2]}</td></tr>`).join('') : ''}</table>
                             <h3>注意</h3>
-                            <ul data-i18n-key="oracle_macos_notes"><li>4GB記憶體分配。</li><li>檢查1521埠。</li><li>容器需<code>docker start [container_id]</code>重啟。</li></ul>
+                            <p>${content.oracle_macos_notes || ''}</p>
                             <h3>結構</h3>
-                            <pre class="table-diagram">dba_users
-+------------+---------+
-| username   | VARCHAR |
-| user_id    | NUMBER  |
-| created    | DATE    |
-+------------+---------+</pre>
+                            <pre class="table-diagram">${content.oracle_macos_structure || ''}</pre>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="accordion" id="normalization">
-                <div class="accordion-header" data-id="normalization" data-i18n-key="normalization_title"></div>
+            `;
+            main.appendChild(installation);
+
+            // 正規化說明書
+            const normalization = document.createElement('div');
+            normalization.className = 'accordion';
+            normalization.id = 'normalization';
+            normalization.innerHTML = `
+                <div class="accordion-header" data-id="normalization">${content.normalization_title || '資料庫正規化說明書'}</div>
                 <div class="accordion-content">
-                    <h2 data-i18n-key="normalization_intro"></h2>
-                    <p data-i18n-key="normalization_intro"></p>
+                    <h2>簡介</h2>
+                    <p>${content.normalization_intro || ''}</p>
                     <div class="sub-accordion" id="first_normal_form">
-                        <div class="sub-accordion-header" data-id="first_normal_form" data-i18n-key="first_normal_form_title"></div>
+                        <div class="sub-accordion-header" data-id="first_normal_form">${content.first_normal_form_title || '第一階正規化（1NF）'}</div>
                         <div class="sub-accordion-content">
-                            <h3 data-i18n-key="first_normal_form_definition"></h3>
-                            <p data-i18n-key="first_normal_form_definition"></p>
+                            <h3>定義</h3>
+                            <p>${content.first_normal_form_definition || ''}</p>
                             <h3>規則</h3>
-                            <ul data-i18n-key="first_normal_form_rules">
-                                <li>每個欄位包含單一值。</li>
-                                <li>無多值屬性或重複群組。</li>
-                                <li>每列由主鍵唯一識別。</li>
-                            </ul>
+                            <p>${content.first_normal_form_rules || ''}</p>
                             <h3>範例</h3>
-                            <p data-i18n-key="first_normal_form_example"></p>
-                            <table>
-                                <tr><th>學生ID</th><th>姓名</th><th>課程</th></tr>
-                                <tr><td>1</td><td>張三</td><td>數學,物理</td></tr>
-                                <tr><td>2</td><td>李四</td><td>化學,生物</td></tr>
-                            </table>
-                            <p>1NF 表格：拆分課程為單一行。</p>
-                            <table>
-                                <tr><th>學生ID</th><th>姓名</th><th>課程</th></tr>
-                                <tr><td>1</td><td>張三</td><td>數學</td></tr>
-                                <tr><td>1</td><td>張三</td><td>物理</td></tr>
-                                <tr><td>2</td><td>李四</td><td>化學</td></tr>
-                                <tr><td>2</td><td>李四</td><td>生物</td></tr>
+                            <p>${content.first_normal_form_example || ''}</p>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram">${content.first_normal_form_diagram || ''}</pre>
+                            <h3>注意</h3>
+                            <p>${content.first_normal_form_notes || ''}</p>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="second_normal_form">
+                        <div class="sub-accordion-header" data-id="second_normal_form">${content.second_normal_form_title || '第二階正規化（2NF）'}</div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p>${content.second_normal_form_definition || ''}</p>
+                            <h3>規則</h3>
+                            <p>${content.second_normal_form_rules || ''}</p>
+                            <h3>範例</h3>
+                            <p>${content.second_normal_form_example || ''}</p>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram">${content.second_normal_form_diagram || ''}</pre>
+                            <h3>注意</h3>
+                            <p>${content.second_normal_form_notes || ''}</p>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="third_normal_form">
+                        <div class="sub-accordion-header" data-id="third_normal_form">${content.third_normal_form_title || '第三階正規化（3NF）'}</div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p>${content.third_normal_form_definition || ''}</p>
+                            <h3>規則</h3>
+                            <p>${content.third_normal_form_rules || ''}</p>
+                            <h3>範例</h3>
+                            <p>${content.third_normal_form_example || ''}</p>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram">${content.third_normal_form_diagram || ''}</pre>
+                            <h3>注意</h3>
+                            <p>${content.third_normal_form_notes || ''}</p>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="fourth_normal_form">
+                        <div class="sub-accordion-header" data-id="fourth_normal_form">${content.fourth_normal_form_title || '第四階正規化（4NF）'}</div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p>${content.fourth_normal_form_definition || ''}</p>
+                            <h3>規則</h3>
+                            <p>${content.fourth_normal_form_rules || ''}</p>
+                            <h3>範例</h3>
+                            <p>${content.fourth_normal_form_example || ''}</p>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram">${content.fourth_normal_form_diagram || ''}</pre>
+                            <h3>注意</h3>
+                            <p>${content.fourth_normal_form_notes || ''}</p>
+                        </div>
+                    </div>
+                    <div class="sub-accordion" id="fifth_normal_form">
+                        <div class="sub-accordion-header" data-id="fifth_normal_form">${content.fifth_normal_form_title || '第五階正規化（5NF）'}</div>
+                        <div class="sub-accordion-content">
+                            <h3>定義</h3>
+                            <p>${content.fifth_normal_form_definition || ''}</p>
+                            <h3>規則</h3>
+                            <p>${content.fifth_normal_form_rules || ''}</p>
+                            <h3>範例</h3>
+                            <p>${content.fifth_normal_form_example || ''}</p>
+                            <h3>圖示</h3>
+                            <pre class="table-diagram">${content.fifth_normal_form_diagram || ''}</pre>
+                            <h3>注意</h3>
+                            <p>${content.fifth_normal_form_notes || ''}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            main.appendChild(normalization);
+
+            // 效能提升
+            const performance = document
