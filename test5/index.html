@@ -283,7 +283,7 @@
         let currentLang = 'chinese';
 
         function escapeHTML(str) {
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            return str.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"').replace(/'/g, ''');
         }
 
         function parseTable(lines, startIndex) {
@@ -298,6 +298,29 @@
             }
             table += '</table>';
             return { html: table, endIndex: i };
+        }
+
+        function parseList(lines, startIndex) {
+            let list = '<ul>';
+            let i = startIndex;
+            while (i < lines.length && lines[i].trim().startsWith('- ')) {
+                list += `<li>${escapeHTML(lines[i].trim().slice(2))}</li>`;
+                i++;
+            }
+            list += '</ul>';
+            return { html: list, endIndex: i };
+        }
+
+        function parseNumberedList(lines, startIndex) {
+            let list = '<ol>';
+            let i = startIndex;
+            while (i < lines.length && lines[i].trim().match(/^\d+\./)) {
+                const item = lines[i].trim().replace(/^\d+\.\s*/, '');
+                list += `<li>${escapeHTML(item)}</li>`;
+                i++;
+            }
+            list += '</ol>';
+            return { html: list, endIndex: i };
         }
 
         function loadContent(file) {
@@ -388,20 +411,19 @@
                                                 i++;
                                             }
                                             html += `<pre><code>${escapeHTML(code)}</code></pre>`;
+                                        } else if (subLine.match(/^\d+\./)) {
+                                            const result = parseNumberedList(lines, i);
+                                            html += result.html;
+                                            i = result.endIndex;
+                                        } else if (subLine.startsWith('- ')) {
+                                            const result = parseList(lines, i);
+                                            html += result.html;
+                                            i = result.endIndex;
                                         } else {
                                             if (subLine.match(/^(簡介|定義|規則|範例|語法|參數|注意|結構|圖示|步驟|Introduction|Definition|Rules|Examples|Syntax|Parameters|Notes|Structure|Diagram|Steps)$/)) {
                                                 html += `<h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>${escapeHTML(subLine)}</h${subLine.match(/^(簡介|Introduction)$/) ? 2 : 3}>`;
                                             } else if (subLine.match(/^(一般|MySQL|Oracle)$/)) {
                                                 html += `<h4>${escapeHTML(subLine)}</h4>`;
-                                            } else if (subLine.startsWith('- ')) {
-                                                let list = '<ul>';
-                                                while (i < lines.length && lines[i].trim().startsWith('- ')) {
-                                                    list += `<li>${escapeHTML(lines[i].trim().slice(2))}</li>`;
-                                                    i++;
-                                                }
-                                                list += '</ul>';
-                                                html += list;
-                                                continue;
                                             } else {
                                                 html += `<p>${escapeHTML(subLine)}</p>`;
                                             }
@@ -442,15 +464,14 @@
                                             i++;
                                         }
                                         html += `<pre><code>${escapeHTML(code)}</code></pre>`;
+                                    } else if (line.match(/^\d+\./)) {
+                                        const result = parseNumberedList(lines, i);
+                                        html += result.html;
+                                        i = result.endIndex;
                                     } else if (line.startsWith('- ')) {
-                                        let list = '<ul>';
-                                        while (i < lines.length && lines[i].trim().startsWith('- ')) {
-                                            list += `<li>${escapeHTML(lines[i].trim().slice(2))}</li>`;
-                                            i++;
-                                        }
-                                        list += '</ul>';
-                                        html += list;
-                                        continue;
+                                        const result = parseList(lines, i);
+                                        html += result.html;
+                                        i = result.endIndex;
                                     } else {
                                         html += `<p>${escapeHTML(line)}</p>`;
                                     }
