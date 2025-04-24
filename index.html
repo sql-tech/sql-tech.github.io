@@ -135,6 +135,25 @@
 .share-button img {
     vertical-align: middle;
 }
+.facebook-comments {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.facebook-comments h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2563eb;
+}
+
+.facebook-comments p {
+    line-height: 1.6;
+    color: #666666;
+}
     </style>
 </head>
 <!-- Google tag (gtag.js) -->
@@ -3104,7 +3123,8 @@ WHERE rn IN (FLOOR((cnt+1)/2), CEIL((cnt+1)/2));</code></pre>
             </div>
             <div class="accordion" id="sum_percent">
                 <div class="accordion-header" data-id="sum_percent">SQL 算總合百分比 - 計算比例</div>
-                <div class="accordion-content">
+                <div class="accordion-
+				">
                     <h2>語法</h2>
                     <p>使用窗口函數計算總和百分比。</p>
                     <pre><code>SELECT column, (column / SUM(column) OVER ()) * 100 AS percent FROM table;</code></pre>
@@ -3156,6 +3176,10 @@ WHERE rn IN (FLOOR((cnt+1)/2), CEIL((cnt+1)/2));</code></pre>
 +-------+---------+</pre>
                 </div>
             </div>
+			<div class="facebook-comments">
+    <h2>留言板</h2>
+    <div class="fb-comments" data-href="https://sql-tech.github.io/sql-encyclopedia" data-width="100%" data-numposts="5"></div>
+</div>
         </main>
     </div>
     <footer>
