@@ -1,0 +1,241 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 教科書</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background: #F5F7FA;
+            color: #333;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #333;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        .navbar li {
+            float: left;
+        }
+        .navbar li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .navbar li a:hover {
+            background-color: #111;
+        }
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            flex-wrap: wrap;
+        }
+        .sidebar {
+            width: 25%;
+            padding: 20px;
+            background: #2D3748;
+            color: #FFF;
+            box-sizing: border-box;
+        }
+        .content {
+            width: 75%;
+            padding: 20px;
+            background: #FFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        .accordion {
+            margin-bottom: 10px;
+        }
+        .accordion-header {
+            background: #4A5568;
+            color: #FFF;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            border-radius: 4px;
+        }
+        .accordion-header:hover {
+            background: #718096;
+        }
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #E2E8F0;
+            border-top: none;
+            background: #F7FAFC;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+        /* 美化中英文切換按鈕 */
+        .language-switch {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .language-switch button {
+            background-color: #4A5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .language-switch button:hover {
+            background-color: #718096;
+            transform: scale(1.05);
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar, .content {
+                width: 100%;
+            }
+            .language-switch {
+                flex-direction: column;
+                align-items: center;
+            }
+            .language-switch button {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="banner.jpg" alt="HTML5 教科書" class="banner-image">
+    </header>
+    <div class="navbar">
+        <ul>
+            <li><a href="/">SQL教學</a></li>
+            <li><a href="html5.html">HTML5教學</a></li>
+            <li><a href="js.html">JavaScript教學</a></li>
+            <li><a href="css.html">CSS教學</a></li>
+            <li><a href="python.html">Python教學</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>HTML5 章節</h2>
+            <ul>
+                <li><a onclick="scrollToSection('home')">首頁</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <section id="home">
+                <h1>歡迎來到 HTML5 教科書</h1>
+                <div class="language-switch">
+                    <button onclick="loadContent('html5_chinese.txt')">中文</button>
+                    <button onclick="loadContent('html5_en.txt')">英文</button>
+                </div>
+                <div id="accordion-container"></div>
+            </section>
+        </main>
+    </div>
+    <script>
+        function loadContent(file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split('\n');
+                    let html = '';
+                    let currentAccordion = '';
+                    lines.forEach(line => {
+                        if (line.startsWith('# ')) {
+                            if (currentAccordion) {
+                                html += '</div>';
+                            }
+                            currentAccordion = line.substring(2);
+                            html += `<div class="accordion"><div class="accordion-header" data-id="${currentAccordion}">${currentAccordion}</div><div class="accordion-content"><p>`;
+                        } else {
+                            html += line + '<br>';
+                        }
+                    });
+                    if (currentAccordion) {
+                        html += '</p></div></div>';
+                    }
+                    document.getElementById('accordion-container').innerHTML = html;
+                    initAccordion();
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    document.getElementById('accordion-container').innerHTML = '<p>無法加載內容，請檢查TXT檔案是否存在。</p>';
+                });
+        }
+
+        function initAccordion() {
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    content.classList.toggle('active');
+                });
+            });
+        }
+
+        function scrollToSection(id) {
+            document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1427 @@
+# **HTML5 聖經級教科書**
+
+## **第一部分：HTML5 基礎**
+
+### **第 1 章：HTML5 簡介**
+
+#### **1.1 HTML5 的歷史與發展**
+HTML5 是 HTML（HyperText Markup Language）的第五個版本，於 2014 年正式發布。它是 Web 開發的基礎，負責定義網頁的結構和內容。HTML5 的發展經歷了多年的演進，旨在解決 HTML4 的局限性，特別是在多媒體、圖形和互動性方面的不足。HTML5 引入了許多新元素和 API，使得開發者能夠創建更豐富、更互動的網頁應用。
+
+**範例 1：HTML5 的 DOCTYPE 聲明**
+<!DOCTYPE html>
+**說明**：HTML5 的 DOCTYPE 聲明簡化了 HTML4 的複雜聲明，使得瀏覽器更容易識別網頁版本。
+
+**範例 2：HTML5 的語義標籤**
+<header>網站標頭</header>
+<nav>導航欄</nav>
+<section>主要內容</section>
+<footer>頁腳</footer>
+**說明**：HTML5 引入了語義標籤，如 `<header>`、`<nav>`、`<section>` 和 `<footer>`，使網頁結構更清晰，便於搜尋引擎和開發者理解。
+
+#### **1.2 HTML5 與 HTML4 的區別**
+HTML5 與 HTML4 相比，有以下主要區別：
+- **語義標籤**：HTML5 引入了更多語義標籤，提升了網頁的可讀性和 SEO 效果。
+- **多媒體支持**：HTML5 內建了 `<audio>` 和 `<video>` 標籤，無需依賴第三方插件。
+- **表單增強**：HTML5 提供了新的表單元素和屬性，如 `email`、`date` 和 `required`，簡化了表單驗證。
+- **API 擴展**：HTML5 引入了多個 API，如 Canvas、Web Storage 和 Geolocation，提升了網頁的互動性和功能性。
+
+**範例 1：HTML4 的 DOCTYPE 聲明**
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+**說明**：HTML4 的 DOCTYPE 聲明較為複雜，HTML5 簡化了這一過程。
+
+**範例 2：HTML5 的表單元素**
+<input type="email" required>
+**說明**：HTML5 的 `email` 類型自動驗證電子郵件格式，`required` 屬性確保欄位不為空。
+
+#### **1.3 HTML5 的優勢與特點**
+HTML5 的主要優勢包括：
+- **跨平台相容性**：HTML5 能在多種設備和瀏覽器上運行，無需額外插件。
+- **豐富的多媒體支持**：內建音頻、視頻和圖形處理功能。
+- **強大的 API**：提供地理定位、拖放、離線存儲等功能。
+- **語義化結構**：使網頁結構更清晰，提升 SEO 效果。
+
+**範例 1：HTML5 的視頻標籤**
+<video controls>
+    <source src="video.mp4" type="video/mp4">
+</video>
+**說明**：HTML5 的 `<video>` 標籤允許直接在網頁中播放視頻，無需 Flash 等插件。
+
+**範例 2：HTML5 的 Canvas 標籤**
+<canvas id="myCanvas" width="200" height="100"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'red';
+    ctx.fillRect(10, 10, 50, 50);
+</script>
+**說明**：HTML5 的 `<canvas>` 標籤允許在網頁上繪製 2D 圖形，這裡繪製了一個紅色矩形。
+
+#### **1.4 HTML5 的應用場景**
+HTML5 廣泛應用於：
+- **網頁開發**：創建響應式、互動性強的網頁。
+- **移動應用**：通過 WebView 或 PWA（漸進式 Web 應用）開發跨平台移動應用。
+- **遊戲開發**：使用 Canvas 和 WebGL 開發網頁遊戲。
+- **多媒體網站**：如視頻網站、音樂播放器等。
+
+**範例 1：HTML5 響應式設計**
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+**說明**：HTML5 的 viewport 元標籤使網頁在不同設備上自動適應螢幕大小。
+
+**範例 2：HTML5 地理定位**
+<button onclick="getLocation()">獲取位置</button>
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("瀏覽器不支持地理定位");
+        }
+    }
+    function showPosition(position) {
+        alert("緯度: " + position.coords.latitude + ", 經度: " + position.coords.longitude);
+    }
+</script>
+**說明**：HTML5 的 Geolocation API 允許網頁獲取用戶的地理位置。
+
+---
+
+### **第 2 章：HTML5 文檔結構**
+
+#### **2.1 HTML5 文檔的基本結構**
+HTML5 文檔的基本結構包括 DOCTYPE 聲明、`<html>`、`<head>` 和 `<body>` 標籤。DOCTYPE 聲明告訴瀏覽器使用 HTML5 標準渲染網頁。
+
+**範例 1：基本 HTML5 文檔**
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 文檔</title>
+</head>
+<body>
+    <h1>歡迎來到 HTML5</h1>
+</body>
+</html>
+**說明**：這是一個最簡單的 HTML5 文檔，包含 DOCTYPE、語言屬性、字符編碼和標題。
+
+**範例 2：帶有 CSS 和 JavaScript 的 HTML5 文檔**
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 文檔</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>歡迎來到 HTML5</h1>
+</body>
+</html>
+**說明**：此範例展示了如何在 HTML5 文檔中引入外部 CSS 和 JavaScript 檔案。
+
+#### **2.2 DOCTYPE 聲明與瀏覽器模式**
+HTML5 的 DOCTYPE 聲明 `<!DOCTYPE html>` 簡化了 HTML4 的複雜聲明，並確保瀏覽器以標準模式渲染網頁，避免使用過時的怪異模式（Quirks Mode）。
+
+**範例 1：HTML5 DOCTYPE**
+<!DOCTYPE html>
+**說明**：HTML5 的 DOCTYPE 聲明簡潔且通用，適用於所有瀏覽器。
+
+**範例 2：HTML4 DOCTYPE**
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+**說明**：HTML4 的 DOCTYPE 聲明較為複雜，HTML5 簡化了這一過程。
+
+#### **2.3 HTML5 的語義標籤**
+HTML5 引入了多個語義標籤，如 `<header>`、`<nav>`、`<section>`、`<article>` 和 `<footer>`，這些標籤使網頁結構更具邏輯性，便於搜尋引擎和開發者理解。
+
+**範例 1：語義標籤的使用**
+<header>
+    <h1>網站標題</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="#">首頁</a></li>
+        <li><a href="#">關於</a></li>
+    </ul>
+</nav>
+<section>
+    <article>
+        <h2>文章標題</h2>
+        <p>文章內容</p>
+    </article>
+</section>
+<footer>
+    <p>版權信息</p>
+</footer>
+**說明**：此範例展示了如何使用語義標籤組織網頁結構，使其更具可讀性。
+
+**範例 2：語義標籤與 CSS**
+<style>
+    header { background: #333; color: white; }
+    nav { background: #444; }
+    section { margin: 20px; }
+    footer { background: #555; color: white; }
+</style>
+<header>網站標題</header>
+<nav>導航欄</nav>
+<section>主要內容</section>
+<footer>頁腳</footer>
+**說明**：語義標籤不僅提升結構，還能與 CSS 結合，輕鬆應用樣式。
+
+#### **2.4 語義化標籤的優勢與應用**
+語義化標籤的優勢包括：
+- **提升可讀性**：使代碼結構清晰，便於維護。
+- **SEO 友好**：搜尋引擎能更好地理解網頁內容。
+- **無障礙訪問**：屏幕閱讀器能更準確地解讀網頁。
+
+**範例 1：語義標籤與 SEO**
+<article>
+    <h2>HTML5 介紹</h2>
+    <p>HTML5 是網頁開發的最新標準...</p>
+</article>
+**說明**：使用 `<article>` 標籤包裹獨立內容，有助於搜尋引擎識別主要內容。
+
+**範例 2：語義標籤與無障礙**
+<nav aria-label="主導航">
+    <ul>
+        <li><a href="#">首頁</a></li>
+        <li><a href="#">關於</a></li>
+    </ul>
+</nav>
+**說明**：使用 ARIA 屬性提升導航欄的無障礙性，幫助屏幕閱讀器用戶。
+
+---
+
+### **第 3 章：HTML5 元素**
+
+#### **3.1 文本元素**
+HTML5 提供了多種文本元素，用於標記不同類型的文本內容，如段落、標題、強調等。
+
+**範例 1：段落和標題**
+<h1>主標題</h1>
+<h2>副標題</h2>
+<p>這是一個段落。</p>
+**說明**：`<h1>` 到 `<h6>` 用於標記標題，`<p>` 用於段落。
+
+**範例 2：強調和加粗**
+<p>這是<strong>重要</strong>的文本。</p>
+<p>這是<em>斜體</em>的文本。</p>
+**說明**：`<strong>` 用於加粗強調，`<em>` 用於斜體強調。
+
+#### **3.2 連結元素**
+連結元素 `<a>` 用於創建超連結，允許用戶跳轉到其他網頁或資源。
+
+**範例 1：基本連結**
+<a href="https://www.example.com">訪問 Example</a>
+**說明**：此連結將用戶導向 `https://www.example.com`。
+
+**範例 2：帶 target 屬性的連結**
+<a href="https://www.example.com" target="_blank">在新標籤中打開</a>
+**說明**：`target="_blank"` 屬性使連結在新標籤中打開。
+
+#### **3.3 圖片元素**
+圖片元素 `<img>` 用於在網頁中嵌入圖片。
+
+**範例 1：基本圖片**
+<img src="image.jpg" alt="圖片描述">
+**說明**：`src` 屬性指定圖片路徑，`alt` 屬性提供圖片描述，供無障礙訪問。
+
+**範例 2：響應式圖片**
+<img src="small.jpg" srcset="small.jpg 480w, large.jpg 800w" sizes="(max-width: 600px) 480px, 800px" alt="響應式圖片">
+**說明**：使用 `srcset` 和 `sizes` 屬性實現響應式圖片，根據設備寬度載入合適的圖片。
+
+#### **3.4 表格元素**
+HTML5 的表格元素用於創建結構化的數據表格。
+
+**範例 1：基本表格**
+<table>
+    <tr>
+        <th>標頭1</th>
+        <th>標頭2</th>
+    </tr>
+    <tr>
+        <td>資料1</td>
+        <td>資料2</td>
+    </tr>
+</table>
+**說明**：`<table>` 定義表格，`<tr>` 定義行，`<th>` 定義表頭，`<td>` 定義資料單元。
+
+**範例 2：帶邊框的表格**
+<table border="1">
+    <tr>
+        <th>姓名</th>
+        <th>年齡</th>
+    </tr>
+    <tr>
+        <td>張三</td>
+        <td>30</td>
+    </tr>
+</table>
+**說明**：`border` 屬性為表格添加邊框。
+
+#### **3.5 表單元素**
+HTML5 提供了豐富的表單元素，用於用戶輸入和數據提交。
+
+**範例 1：基本表單**
+<form action="/submit" method="post">
+    <label for="name">姓名：</label>
+    <input type="text" id="name" name="name">
+    <input type="submit" value="提交">
+</form>
+**說明**：此表單包含一個文本輸入框和一個提交按鈕，提交到 `/submit` 路徑。
+
+**範例 2：HTML5 表單元素**
+<form>
+    <label for="email">電子郵件：</label>
+    <input type="email" id="email" name="email" required>
+    <label for="date">日期：</label>
+    <input type="date" id="date" name="date">
+    <input type="submit" value="提交">
+</form>
+**說明**：HTML5 引入了 `email` 和 `date` 等新類型的輸入框，提升了表單的功能性。
+
+---
+
+### **第 4 章：HTML5 屬性**
+
+#### **4.1 全局屬性**
+全局屬性是所有 HTML 元素都可以使用的屬性，如 `id`、`class`、`style` 和 `data-*`。
+
+**範例 1：id 和 class 屬性**
+<div id="header" class="container">內容</div>
+**說明**：`id` 為元素提供唯一標識，`class` 用於 CSS 樣式應用。
+
+**範例 2：data-* 屬性**
+<button data-info="click me">按鈕</button>
+**說明**：`data-*` 屬性用於存儲自定義數據，可通過 JavaScript 訪問。
+
+#### **4.2 元素特定屬性**
+某些屬性僅適用於特定元素，如 `<img>` 的 `src` 和 `alt` 屬性。
+
+**範例 1：img 元素的屬性**
+<img src="image.jpg" alt="圖片描述" width="200" height="100">
+**說明**：`src` 指定圖片路徑，`alt` 提供描述，`width` 和 `height` 設置尺寸。
+
+**範例 2：a 元素的屬性**
+<a href="https://www.example.com" title="訪問 Example">連結</a>
+**說明**：`href` 指定連結地址，`title` 提供提示文字。
+
+#### **4.3 事件屬性**
+事件屬性用於綁定 JavaScript 事件處理函數，如 `onclick` 和 `onmouseover`。
+
+**範例 1：onclick 事件**
+<button onclick="alert('按鈕被點擊')">點擊我</button>
+**說明**：當按鈕被點擊時，彈出警告框。
+
+**範例 2：onmouseover 事件**
+<p onmouseover="this.style.color='red'">滑鼠移入變色</p>
+**說明**：當滑鼠移入段落時，文字顏色變為紅色。
+
+#### **4.4 自定義屬性（data-*）的使用**
+`data-*` 屬性允許開發者存儲自定義數據，這些數據可以通過 JavaScript 訪問和操作。
+
+**範例 1：存儲數據**
+<div id="product" data-price="100" data-category="electronics">產品</div>
+**說明**：`data-price` 和 `data-category` 存儲了產品的價格和類別。
+
+**範例 2：訪問數據**
+<script>
+    var product = document.getElementById('product');
+    var price = product.dataset.price;
+    var category = product.dataset.category;
+    console.log(price, category); // 100, electronics
+</script>
+**說明**：通過 `dataset` 屬性訪問 `data-*` 屬性中的數據。
+
+---
+
+### **第二部分：HTML5 進階**
+
+#### **5.1 新的表單元素**
+HTML5 引入了多種新的表單元素，如 `email`、`url`、`number` 和 `date`，這些元素提供了內建的驗證和用戶體驗。
+
+**範例 1：email 輸入**
+<input type="email" name="email" required>
+**說明**：`type="email"` 自動驗證輸入是否為有效的電子郵件地址。
+
+**範例 2：date 輸入**
+<input type="date" name="birthday">
+**說明**：`type="date"` 提供日期選擇器，方便用戶選擇日期。
+
+#### **5.2 表單驗證**
+HTML5 提供了多種屬性來進行表單驗證，如 `required`、`pattern`、`min` 和 `max`。
+
+**範例 1：required 屬性**
+<input type="text" name="username" required>
+**說明**：`required` 屬性確保用戶必須填寫該欄位。
+
+**範例 2：pattern 屬性**
+<input type="text" name="password" pattern=".{8,}" title="密碼至少8個字符">
+**說明**：`pattern` 屬性使用正則表達式驗證輸入，這裡要求密碼至少8個字符。
+
+#### **5.3 表單提交**
+HTML5 表單支持 GET 和 POST 兩種提交方法，並可通過 `enctype` 屬性指定數據編碼方式。
+
+**範例 1：GET 方法提交**
+<form action="/search" method="get">
+    <input type="text" name="query">
+    <input type="submit" value="搜索">
+</form>
+**說明**：GET 方法將表單數據附加到 URL，適合查詢操作。
+
+**範例 2：POST 方法提交**
+<form action="/login" method="post">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <input type="submit" value="登錄">
+</form>
+**說明**：POST 方法將表單數據包含在請求體中，適合敏感數據傳輸。
+
+#### **5.4 表單自動完成與提示**
+HTML5 提供了 `autocomplete` 屬性，允許瀏覽器自動填充表單欄位。
+
+**範例 1：啟用自動完成**
+<input type="text" name="username" autocomplete="on">
+**說明**：`autocomplete="on"` 允許瀏覽器自動填充用戶名。
+
+**範例 2：禁用自動完成**
+<input type="password" name="password" autocomplete="off">
+**說明**：`autocomplete="off"` 禁止瀏覽器自動填充密碼欄位。
+
+---
+
+### **6.1 音頻元素**
+HTML5 的 `<audio>` 元素允許在網頁中嵌入音頻文件，支持多種格式。
+
+**範例 1：基本音頻播放**
+<audio controls>
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+**說明**：`controls` 屬性提供播放控制按鈕，`<source>` 指定音頻文件。
+
+**範例 2：多格式音頻**
+<audio controls>
+    <source src="audio.mp3" type="audio/mpeg">
+    <source src="audio.ogg" type="audio/ogg">
+</audio>
+**說明**：提供多種格式的音頻文件，以適應不同瀏覽器的支持。
+
+#### **6.2 視頻元素**
+HTML5 的 `<video>` 元素允許在網頁中嵌入視頻文件，支持多種格式。
+
+**範例 1：基本視頻播放**
+<video controls width="400">
+    <source src="video.mp4" type="video/mp4">
+</video>
+**說明**：`width` 屬性設置視頻寬度，`controls` 提供播放控制。
+
+**範例 2：帶海報的視頻**
+<video controls poster="poster.jpg">
+    <source src="video.mp4" type="video/mp4">
+</video>
+**說明**：`poster` 屬性指定視頻加載時顯示的海報圖片。
+
+#### **6.3 媒體控制與事件**
+HTML5 提供了豐富的媒體控制和事件，允許開發者自定義媒體播放行為。
+
+**範例 1：自定義播放按鈕**
+<video id="myVideo">
+    <source src="video.mp4" type="video/mp4">
+</video>
+<button onclick="document.getElementById('myVideo').play()">播放</button>
+<button onclick="document.getElementById('myVideo').pause()">暫停</button>
+**說明**：通過 JavaScript 控制視頻的播放和暫停。
+
+**範例 2：監聽媒體事件**
+<video id="myVideo" onplay="alert('視頻開始播放')">
+    <source src="video.mp4" type="video/mp4">
+</video>
+**說明**：`onplay` 事件在視頻開始播放時觸發警告。
+
+#### **6.4 跨瀏覽器相容性與後備內容**
+由於不同瀏覽器支持的媒體格式不同，HTML5 允許提供多種格式和後備內容。
+
+**範例 1：多格式視頻**
+<video controls>
+    <source src="video.mp4" type="video/mp4">
+    <source src="video.webm" type="video/webm">
+    <p>您的瀏覽器不支持 HTML5 視頻。</p>
+</video>
+**說明**：提供 MP4 和 WebM 格式，並在不支持時顯示提示。
+
+**範例 2：後備 Flash 視頻**
+<video controls>
+    <source src="video.mp4" type="video/mp4">
+    <object data="flashplayer.swf" type="application/x-shockwave-flash">
+        <param name="movie" value="flashplayer.swf">
+    </object>
+</video>
+**說明**：在不支持 HTML5 視頻的瀏覽器中，使用 Flash 作為後備。
+
+---
+
+### **7.1 Canvas 元素與 2D 繪圖**
+HTML5 的 `<canvas>` 元素允許在網頁上繪製 2D 圖形，通過 JavaScript 控制。
+
+**範例 1：繪製矩形**
+<canvas id="myCanvas" width="200" height="100"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(10, 10, 50, 50);
+</script>
+**說明**：在 Canvas 上繪製一個藍色矩形。
+
+**範例 2：繪製文字**
+<canvas id="myCanvas" width="200" height="100"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.font = '30px Arial';
+    ctx.fillText('Hello Canvas', 10, 50);
+</script>
+**說明**：在 Canvas 上繪製文字「Hello Canvas」。
+
+#### **7.2 SVG 元素與可縮放向量圖形**
+SVG（Scalable Vector Graphics）是一種基於 XML 的向量圖形格式，HTML5 支持直接嵌入 SVG。
+
+**範例 1：基本 SVG 圖形**
+<svg width="100" height="100">
+    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red" />
+</svg>
+**說明**：繪製一個紅色圓形，邊框為黑色。
+
+**範例 2：SVG 與 CSS**
+<svg width="100" height="100">
+    <rect width="80" height="80" style="fill:blue;stroke:pink;stroke-width:5" />
+</svg>
+**說明**：使用 CSS 樣式繪製一個藍色矩形，邊框為粉色。
+
+#### **7.3 WebGL 與 3D 圖形**
+WebGL 是 HTML5 的一部分，允許在瀏覽器中渲染 3D 圖形。
+
+**範例 1：基本 WebGL 設置**
+<canvas id="webglCanvas" width="400" height="300"></canvas>
+<script>
+    var canvas = document.getElementById('webglCanvas');
+    var gl = canvas.getContext('webgl');
+    if (!gl) {
+        alert('瀏覽器不支持 WebGL');
+    }
+</script>
+**說明**：獲取 WebGL 上下文，準備進行 3D 繪圖。
+
+**範例 2：繪製 3D 立方體**
+<script src="https://threejs.org/build/three.js"></script>
+<script>
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    var geometry = new THREE.BoxGeometry();
+    var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+    camera.position.z = 5;
+    function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+**說明**：使用 Three.js 庫在 WebGL 中繪製一個旋轉的 3D 立方體。
+
+#### **7.4 圖形動畫與互動**
+HTML5 允許通過 Canvas 和 SVG 創建動畫和互動圖形。
+
+**範例 1：Canvas 動畫**
+<canvas id="myCanvas" width="200" height="100"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    var x = 0;
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(x, 10, 50, 50);
+        x += 1;
+        if (x > canvas.width) x = 0;
+        requestAnimationFrame(draw);
+    }
+    draw();
+</script>
+**說明**：在 Canvas 上繪製一個向右移動的綠色矩形。
+
+**範例 2：SVG 動畫**
+<svg width="100" height="100">
+    <circle cx="50" cy="50" r="40" fill="yellow">
+        <animate attributeName="r" from="40" to="20" dur="1s" repeatCount="indefinite" />
+    </circle>
+</svg>
+**說明**：使用 SVG 的 `<animate>` 標籤創建一個半徑變化的動畫圓形。
+
+---
+
+### **8.1 Geolocation API（地理定位）**
+HTML5 的 Geolocation API 允許網頁獲取用戶的地理位置信息。
+
+**範例 1：獲取當前位置**
+<button onclick="getLocation()">獲取位置</button>
+<p id="location"></p>
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            document.getElementById('location').innerText = "瀏覽器不支持地理定位";
+        }
+    }
+    function showPosition(position) {
+        document.getElementById('location').innerText = "緯度: " + position.coords.latitude + ", 經度: " + position.coords.longitude;
+    }
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                document.getElementById('location').innerText = "用戶拒絕了地理定位請求";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                document.getElementById('location').innerText = "位置信息不可用";
+                break;
+            case error.TIMEOUT:
+                document.getElementById('location').innerText = "請求超時";
+                break;
+            case error.UNKNOWN_ERROR:
+                document.getElementById('location').innerText = "未知錯誤";
+                break;
+        }
+    }
+</script>
+**說明**：點擊按鈕獲取用戶的經緯度，並處理可能的錯誤。
+
+**範例 2：監聽位置變化**
+<button onclick="watchLocation()">監聽位置</button>
+<p id="watchLocation"></p>
+<script>
+    var watchId;
+    function watchLocation() {
+        if (navigator.geolocation) {
+            watchId = navigator.geolocation.watchPosition(showPosition, showError);
+        } else {
+            document.getElementById('watchLocation').innerText = "瀏覽器不支持地理定位";
+        }
+    }
+    function showPosition(position) {
+        document.getElementById('watchLocation').innerText = "緯度: " + position.coords.latitude + ", 經度: " + position.coords.longitude;
+    }
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                document.getElementById('watchLocation').innerText = "用戶拒絕了地理定位請求";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                document.getElementById('watchLocation').innerText = "位置信息不可用";
+                break;
+            case error.TIMEOUT:
+                document.getElementById('watchLocation').innerText = "請求超時";
+                break;
+            case error.UNKNOWN_ERROR:
+                document.getElementById('watchLocation').innerText = "未知錯誤";
+                break;
+        }
+    }
+    function stopWatch() {
+        if (watchId) {
+            navigator.geolocation.clearWatch(watchId);
+            watchId = null;
+        }
+    }
+</script>
+**說明**：持續監聽用戶的位置變化，並在頁面上實時更新。
+
+#### **8.2 Drag and Drop API（拖放）**
+HTML5 的 Drag and Drop API 允許用戶在網頁中拖放元素。
+
+**範例 1：基本拖放**
+<div id="drag" draggable="true" ondragstart="drag(event)">拖動我</div>
+<div id="drop" ondrop="drop(event)" ondragover="allowDrop(event)">放置區</div>
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+**說明**：將「拖動我」元素拖放到「放置區」中。
+
+**範例 2：拖放圖片**
+<img id="dragImg" src="image.jpg" draggable="true" ondragstart="drag(event)">
+<div id="dropZone" ondrop="drop(event)" ondragover="allowDrop(event)" style="width:200px;height:200px;border:1px solid #ccc;"></div>
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var img = document.getElementById(data);
+        ev.target.appendChild(img);
+    }
+</script>
+**說明**：將圖片拖放到指定區域內。
+
+#### **8.3 Web Storage API（localStorage, sessionStorage）**
+HTML5 的 Web Storage API 提供了本地存儲功能，允許網頁存儲數據。
+
+**範例 1：localStorage**
+<input type="text" id="nameInput" placeholder="輸入姓名">
+<button onclick="saveName()">保存</button>
+<p id="savedName"></p>
+<script>
+    function saveName() {
+        var name = document.getElementById('nameInput').value;
+        localStorage.setItem('name', name);
+        document.getElementById('savedName').innerText = "保存的姓名: " + localStorage.getItem('name');
+    }
+</script>
+**說明**：將輸入的姓名保存到 localStorage，並顯示保存的姓名。
+
+**範例 2：sessionStorage**
+<input type="text" id="sessionInput" placeholder="輸入臨時數據">
+<button onclick="saveSession()">保存</button>
+<p id="sessionData"></p>
+<script>
+    function saveSession() {
+        var data = document.getElementById('sessionInput').value;
+        sessionStorage.setItem('tempData', data);
+        document.getElementById('sessionData').innerText = "臨時數據: " + sessionStorage.getItem('tempData');
+    }
+</script>
+**說明**：將輸入的數據保存到 sessionStorage，關閉瀏覽器後數據消失。
+
+#### **8.4 Web Workers API（多線程處理）**
+Web Workers API 允許在背景線程中運行 JavaScript 代碼，實現多線程處理。
+
+**範例 1：基本 Worker**
+<button onclick="startWorker()">開始 Worker</button>
+<p id="workerResult"></p>
+<script>
+    var worker;
+    function startWorker() {
+        worker = new Worker('worker.js');
+        worker.onmessage = function(event) {
+            document.getElementById('workerResult').innerText = event.data;
+        };
+    }
+</script>
+**worker.js**
+self.onmessage = function() {
+    self.postMessage('Worker 完成任務');
+};
+**說明**：創建一個 Worker，執行後發送消息回主線程。
+
+**範例 2：Worker 執行計算**
+<button onclick="startCalculation()">開始計算</button>
+<p id="calculationResult"></p>
+<script>
+    var calculationWorker = new Worker('calculation.js');
+    calculationWorker.onmessage = function(event) {
+        document.getElementById('calculationResult').innerText = "計算結果: " + event.data;
+    };
+    function startCalculation() {
+        calculationWorker.postMessage(1000000); // 傳遞參數
+    }
+</script>
+**calculation.js**
+self.onmessage = function(event) {
+    var sum = 0;
+    for (var i = 0; i < event.data; i++) {
+        sum += i;
+    }
+    self.postMessage(sum);
+};
+**說明**：Worker 在背景計算大量數據的總和，完成後返回結果。
+
+---
+
+### **第三部分：HTML5 實踐**
+
+#### **9.1 CSS3 選擇器**
+CSS3 引入了多種新的選擇器，如屬性選擇器、偽類和偽元素，增強了樣式應用的靈活性。
+
+**範例 1：屬性選擇器**
+<style>
+input[type="text"] {
+    border: 1px solid #ccc;
+}
+</style>
+<input type="text" placeholder="輸入文字">
+**說明**：選擇所有 `type="text"` 的 `<input>` 元素，應用邊框樣式。
+
+**範例 2：偽類選擇器**
+<style>
+a:hover {
+    color: red;
+}
+</style>
+<a href="#">滑鼠懸停變色</a>
+**說明**：當滑鼠懸停在連結上時，文字顏色變為紅色。
+
+#### **9.2 CSS3 屬性**
+CSS3 提供了豐富的屬性，如 `border-radius`、`box-shadow` 和 `gradients`，用於創建更複雜的視覺效果。
+
+**範例 1：圓角邊框**
+<style>
+div {
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+</style>
+<div>圓角矩形</div>
+**說明**：為 `<div>` 元素添加圓角邊框。
+
+**範例 2：盒子陰影**
+<style>
+div {
+    box-shadow: 5px 5px 10px #888888;
+}
+</style>
+<div>帶陰影的盒子</div>
+**說明**：為 `<div>` 元素添加陰影效果。
+
+#### **9.3 CSS3 動畫與過渡**
+CSS3 允許創建動畫和過渡效果，提升用戶體驗。
+
+**範例 1：過渡效果**
+<style>
+button {
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #4CAF50;
+}
+</style>
+<button>懸停變色</button>
+**說明**：當滑鼠懸停在按鈕上時，背景顏色平滑過渡到綠色。
+
+**範例 2：動畫效果**
+<style>
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+div {
+    animation: slideIn 1s ease-in;
+}
+</style>
+<div>滑入動畫</div>
+**說明**：`<div>` 元素從左側滑入，動畫持續 1 秒。
+
+#### **9.4 響應式設計中的 CSS3 媒體查詢**
+媒體查詢允許根據設備特性（如螢幕寬度）應用不同的 CSS 樣式，實現響應式設計。
+
+**範例 1：基本媒體查詢**
+<style>
+@media (max-width: 600px) {
+    body {
+        background-color: lightblue;
+    }
+}
+</style>
+<body>調整窗口大小查看效果</body>
+**說明**：當螢幕寬度小於 600px 時，背景顏色變為淺藍色。
+
+**範例 2：多個媒體查詢**
+<style>
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        width: 80%;
+    }
+}
+</style>
+<div class="container">平板設備寬度</div>
+**說明**：在 768px 到 1024px 寬度的設備上，`.container` 寬度設為 80%。
+
+---
+
+### **10.1 DOM 操作**
+DOM（Document Object Model）是 HTML 文檔的對象表示，JavaScript 可以通過 DOM 操作網頁元素。
+
+**範例 1：獲取元素**
+<div id="myElement">原始內容</div>
+<script>
+var element = document.getElementById('myElement');
+element.innerHTML = '新內容';
+</script>
+**說明**：獲取 ID 為 `myElement` 的元素，並修改其內容。
+
+**範例 2：查詢元素**
+<div class="myClass">元素1</div>
+<div class="myClass">元素2</div>
+<script>
+var elements = document.querySelectorAll('.myClass');
+elements.forEach(function(el) {
+    el.style.color = 'blue';
+});
+</script>
+**說明**：選擇所有類別為 `myClass` 的元素，並將其文字顏色設為藍色。
+
+#### **10.2 事件處理**
+JavaScript 允許為 HTML 元素綁定事件處理函數，響應用戶操作。
+
+**範例 1：點擊事件**
+<button id="myButton">點擊我</button>
+<script>
+document.getElementById('myButton').addEventListener('click', function() {
+    alert('按鈕被點擊');
+});
+</script>
+**說明**：當按鈕被點擊時，彈出警告框。
+
+**範例 2：滑鼠事件**
+<div id="myDiv" style="width:100px;height:100px;">滑鼠移入</div>
+<script>
+document.getElementById('myDiv').addEventListener('mouseover', function() {
+    this.style.backgroundColor = 'yellow';
+});
+</script>
+**說明**：當滑鼠移入 `<div>` 時，背景顏色變為黃色。
+
+#### **10.3 AJAX 與異步請求**
+AJAX（Asynchronous JavaScript and XML）允許在不重載頁面的情況下與伺服器交換數據。
+
+**範例 1：GET 請求**
+<script>
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'data.json', true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log(xhr.responseText);
+    }
+};
+xhr.send();
+</script>
+**說明**：發送 GET 請求獲取 `data.json` 並輸出響應。
+
+**範例 2：POST 請求**
+<script>
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/submit', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify({ name: 'John' }));
+</script>
+**說明**：發送 POST 請求，提交 JSON 數據。
+
+#### **10.4 JavaScript 與 HTML5 API 的整合**
+JavaScript 可以與 HTML5 的各種 API 結合使用，實現豐富的功能。
+
+**範例 1：Canvas 與 JavaScript**
+<canvas id="myCanvas" width="200" height="100"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'red';
+    ctx.fillRect(10, 10, 50, 50);
+</script>
+**說明**：使用 JavaScript 在 Canvas 上繪製紅色矩形。
+
+**範例 2：Web Storage 與 JavaScript**
+<script>
+localStorage.setItem('key', 'value');
+console.log(localStorage.getItem('key')); // 'value'
+</script>
+**說明**：使用 JavaScript 操作 localStorage 存儲和獲取數據。
+
+---
+
+### **11.1 媒體查詢與斷點**
+媒體查詢是響應式設計的基礎，允許根據設備特性應用不同的 CSS 樣式。
+
+**範例 1：基本斷點**
+<style>
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+}
+</style>
+<div class="container">調整窗口查看</div>
+**說明**：當螢幕寬度小於 768px 時，`.container` 寬度設為 100%。
+
+**範例 2：多個斷點**
+<style>
+@media (min-width: 320px) and (max-width: 480px) {
+    .mobile {
+        display: block;
+    }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+    .tablet {
+        display: block;
+    }
+}
+</style>
+<div class="mobile" style="display:none;">手機</div>
+<div class="tablet" style="display:none;">平板</div>
+**說明**：根據不同設備寬度顯示不同的元素。
+
+#### **11.2 流動佈局（Fluid Layout）**
+流動佈局使用百分比寬度，使網頁元素適應不同螢幕尺寸。
+
+**範例 1：百分比寬度**
+<style>
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+</style>
+<div class="container">流動佈局</div>
+**說明**：`.container` 寬度為螢幕的 80%，並居中對齊。
+
+**範例 2：流動柵格**
+<style>
+.column {
+    width: 33.33%;
+    float: left;
+}
+</style>
+<div class="column">列1</div>
+<div class="column">列2</div>
+<div class="column">列3</div>
+**說明**：創建三列流動柵格，每列佔 33.33% 寬度。
+
+#### **11.3 彈性圖片與媒體**
+彈性圖片和媒體可以根據容器大小自動調整尺寸。
+
+**範例 1：彈性圖片**
+<style>
+img {
+    max-width: 100%;
+    height: auto;
+}
+</style>
+<img src="image.jpg" alt="彈性圖片">
+**說明**：圖片寬度不超過容器寬度，高度自動調整。
+
+**範例 2：彈性視頻**
+<style>
+video {
+    width: 100%;
+    height: auto;
+}
+</style>
+<video controls>
+    <source src="video.mp4" type="video/mp4">
+</video>
+**說明**：視頻寬度設為 100%，高度自動調整。
+
+#### **11.4 移動優先設計原則**
+移動優先設計強調先為移動設備設計，然後逐步增強桌面版功能。
+
+**範例 1：移動優先 CSS**
+<style>
+body {
+    font-size: 16px;
+}
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+}
+</style>
+<body>移動優先</body>
+**說明**：先定義移動設備的字體大小，然後在桌面設備上增大字體。
+
+**範例 2：隱藏桌面元素**
+<style>
+.desktop-only {
+    display: none;
+}
+@media (min-width: 768px) {
+    .desktop-only {
+        display: block;
+    }
+}
+</style>
+<div class="desktop-only">僅桌面顯示</div>
+**說明**：在移動設備上隱藏 `.desktop-only` 元素，在桌面設備上顯示。
+
+---
+
+### **12.1 資源載入策略**
+HTML5 提供了多種資源載入策略，如 Lazy Loading 和 Preloading，優化網頁載入速度。
+
+**範例 1：Lazy Loading**
+<img src="image.jpg" loading="lazy" alt="懶載入圖片">
+**說明**：`loading="lazy"` 屬性延遲載入圖片，節省帶寬。
+
+**範例 2：Preloading**
+<link rel="preload" href="style.css" as="style">
+**說明**：預載入 CSS 檔案，提升頁面渲染速度。
+
+#### **12.2 緩存策略**
+緩存策略可以減少伺服器請求，提升網頁載入速度。
+
+**範例 1：Cache-Control**
+<meta http-equiv="Cache-Control" content="max-age=3600">
+**說明**：設置緩存過期時間為 1 小時。
+
+**範例 2：ETag**
+<!-- 伺服器端配置 ETag -->
+**說明**：ETag 用於驗證緩存資源是否更新，減少不必要的下載。
+
+#### **12.3 渲染性能**
+優化渲染性能可以減少重繪和回流，提升網頁流暢度。
+
+**範例 1：避免頻繁 DOM 操作**
+<script>
+var fragment = document.createDocumentFragment();
+for (var i = 0; i < 100; i++) {
+    var p = document.createElement('p');
+    p.textContent = '段落 ' + i;
+    fragment.appendChild(p);
+}
+document.body.appendChild(fragment);
+</script>
+**說明**：使用文檔片段（fragment）批量插入元素，減少回流。
+
+**範例 2：使用 CSS 動畫**
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.element {
+    animation: fadeIn 1s;
+}
+</style>
+<div class="element">淡入效果</div>
+**說明**：CSS 動畫比 JavaScript 動畫更高效，減少重繪。
+
+#### **12.4 壓縮與優化**
+壓縮 HTML、CSS 和 JavaScript 檔案可以減少檔案大小，加快載入速度。
+
+**範例 1：HTML 壓縮**
+<!-- 使用工具如 HTMLMinifier 壓縮 HTML -->
+**說明**：移除 HTML 中的多餘空格和註釋。
+
+**範例 2：CSS 和 JS 壓縮**
+<!-- 使用工具如 UglifyJS 壓縮 JavaScript -->
+**說明**：移除代碼中的多餘字符，減少檔案大小。
+
+---
+
+### **第四部分：HTML5 高級主題**
+
+#### **13.1 跨站腳本攻擊（XSS）防護**
+XSS 是一種常見的 Web 安全漏洞，HTML5 提供了一些防護機制。
+
+**範例 1：轉義用戶輸入**
+<script>
+var userInput = '<script>alert("XSS")</script>';
+var safeInput = document.createTextNode(userInput);
+document.body.appendChild(safeInput);
+</script>
+**說明**：使用 `createTextNode` 將用戶輸入轉為文本節點，防止腳本執行。
+
+**範例 2：使用內容安全策略（CSP）**
+<meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+**說明**：CSP 限制腳本來源，防止外部腳本注入。
+
+#### **13.2 跨站請求偽造（CSRF）防護**
+CSRF 攻擊利用用戶的身份發送惡意請求，HTML5 提供了防護方法。
+
+**範例 1：使用 CSRF Token**
+<form action="/transfer" method="post">
+    <input type="hidden" name="csrf_token" value="random_token">
+    <input type="submit" value="轉帳">
+</form>
+**說明**：在表單中加入 CSRF Token，伺服器端驗證 Token 有效性。
+
+**範例 2：SameSite Cookie**
+<!-- 伺服器端設置 Cookie -->
+Set-Cookie: sessionId=abc123; SameSite=Strict
+**說明**：`SameSite=Strict` 屬性限制 Cookie 僅在同站請求時發送，防止 CSRF。
+
+#### **13.3 內容安全策略（CSP）**
+CSP 是一種安全機制，用於防止 XSS 和其他攻擊。
+
+**範例 1：基本 CSP**
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+**說明**：僅允許載入同源資源，防止外部資源注入。
+
+**範例 2：允許特定來源**
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://trusted.com">
+**說明**：允許載入同源和 `https://trusted.com` 的腳本。
+
+#### **13.4 HTTPS 與安全傳輸**
+HTTPS 通過 SSL/TLS 加密傳輸數據，保護用戶隱私。
+
+**範例 1：強制 HTTPS**
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+**說明**：自動將 HTTP 請求升級為 HTTPS。
+
+**範例 2：HSTS**
+<!-- 伺服器端設置 HSTS -->
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+**說明**：HSTS 頭部強制瀏覽器使用 HTTPS 訪問網站。
+
+---
+
+### **14.1 WAI-ARIA（可訪問性標準）**
+WAI-ARIA（Web Accessibility Initiative - Accessible Rich Internet Applications）是一套標準，用於提升 Web 內容的無障礙性。
+
+**範例 1：ARIA 角色**
+<button role="button" aria-label="關閉">X</button>
+**說明**：`role="button"` 定義元素的角色，`aria-label` 提供描述。
+
+**範例 2：ARIA 屬性**
+<div role="alert" aria-live="assertive">錯誤消息</div>
+**說明**：`role="alert"` 和 `aria-live="assertive"` 使屏幕閱讀器立即播報消息。
+
+#### **14.2 可訪問性設計**
+可訪問性設計確保網頁對所有用戶（包括殘障人士）友好。
+
+**範例 1：鍵盤導航**
+<a href="#" tabindex="0">可聚焦的連結</a>
+**說明**：`tabindex="0"` 使元素可通過鍵盤 Tab 鍵聚焦。
+
+**範例 2：屏幕閱讀器支持**
+<img src="image.jpg" alt="圖片描述">
+**說明**：`alt` 屬性為圖片提供文本描述，供屏幕閱讀器朗讀。
+
+#### **14.3 語義化 HTML 的無障礙優勢**
+語義化 HTML 提升了網頁的結構化，使屏幕閱讀器能更好地理解內容。
+
+**範例 1：語義標籤**
+<nav>導航欄</nav>
+<main>主要內容</main>
+**說明**：`<nav>` 和 `<main>` 標籤明確了網頁的導航和主要內容區域。
+
+**範例 2：表頭與資料關聯**
+<table>
+    <caption>員工列表</caption>
+    <tr>
+        <th scope="col">姓名</th>
+        <th scope="col">年齡</th>
+    </tr>
+    <tr>
+        <td>張三</td>
+        <td>30</td>
+    </tr>
+</table>
+**說明**：`scope` 屬性關聯表頭和資料單元，提升表格的無障礙性。
+
+#### **14.4 無障礙測試與工具**
+無障礙測試工具幫助開發者檢測和改進網頁的無障礙性。
+
+**範例 1：使用 Lighthouse**
+<!-- 在 Chrome DevTools 中使用 Lighthouse 進行無障礙審計 -->
+**說明**：Lighthouse 提供無障礙評分和改進建議。
+
+**範例 2：使用 axe**
+<!-- 安裝 axe 擴展並在瀏覽器中運行 -->
+**說明**：axe 是一個無障礙測試工具，幫助識別和修復無障礙問題。
+
+---
+
+### **15.1 W3C 標準與規範**
+W3C（World Wide Web Consortium）是制定 Web 標準的組織，HTML5 是其重要標準之一。
+
+**範例 1：HTML5 規範**
+<!-- 參考 W3C HTML5 規範：https://www.w3.org/TR/html5/ -->
+**說明**：W3C 提供了 HTML5 的詳細規範和指南。
+
+**範例 2：CSS 規範**
+/* 參考 W3C CSS 規範：https://www.w3.org/Style/CSS/ */
+**說明**：W3C 也制定了 CSS 的標準，確保跨瀏覽器一致性。
+
+#### **15.2 WHATWG 標準與 Living Standard**
+WHATWG（Web Hypertext Application Technology Working Group）維護 HTML 的 Living Standard，持續更新 HTML 規範。
+
+**範例 1：Living Standard**
+<!-- 參考 WHATWG HTML Living Standard：https://html.spec.whatwg.org/ -->
+**說明**：Living Standard 是 HTML 的動態規範，反映最新的 Web 技術。
+
+**範例 2：新功能提案**
+<!-- WHATWG 社區討論新功能，如 <portal> 元素 -->
+**說明**：WHATWG 通過社區討論和提案不斷改進 HTML 標準。
+
+#### **15.3 瀏覽器相容性與 Polyfills**
+由於瀏覽器支持的 HTML5 功能不同，Polyfills 可以填補不支持的功能。
+
+**範例 1：使用 Polyfill**
+<script src="https://cdn.polyfill.io/v3/polyfill.min.js"></script>
+**說明**：Polyfill.io 自動為舊瀏覽器提供 HTML5 功能的 Polyfill。
+
+**範例 2：手動 Polyfill**
+<script>
+if (!String.prototype.trim) {
+    String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
+}
+</script>
+**說明**：為不支持 `trim` 方法的瀏覽器提供 Polyfill。
+
+#### **15.4 HTML5 驗證與工具**
+HTML5 驗證工具幫助開發者確保代碼符合標準。
+
+**範例 1：W3C 驗證器**
+<!-- 訪問 https://validator.w3.org/ 驗證 HTML -->
+**說明**：W3C 驗證器檢查 HTML 代碼是否符合規範。
+
+**範例 2：HTMLHint**
+<!-- 安裝 HTMLHint：npm install htmlhint -g -->
+htmlhint index.html
+**說明**：HTMLHint 是一個命令行工具，用於檢查 HTML 代碼的錯誤和風格問題。
+
+---
+
+### **16.1 Web Components（自定義元素、Shadow DOM）**
+Web Components 是一套技術，允許開發者創建自定義的、可重用的 HTML 元素。
+
+**範例 1：自定義元素**
+<script>
+class MyElement extends HTMLElement {
+    constructor() {
+        super();
+        this.innerHTML = '<p>這是一個自定義元素</p>';
+    }
+}
+customElements.define('my-element', MyElement);
+</script>
+<my-element></my-element>
+**說明**：定義一個名為 `<my-element>` 的自定義元素。
+
+**範例 2：Shadow DOM**
+<div id="shadowHost"></div>
+<script>
+var shadowHost = document.getElementById('shadowHost');
+var shadowRoot = shadowHost.attachShadow({mode: 'open'});
+shadowRoot.innerHTML = '<style>p { color: red; }</style><p>Shadow DOM 內容</p>';
+</script>
+**說明**：使用 Shadow DOM 創建隔離的 DOM 樹，樣式不影響外部。
+
+#### **16.2 Progressive Web Apps（PWA）**
+PWA 是一種 Web 應用技術，結合了 Web 和原生應用的優勢。
+
+**範例 1：Service Worker**
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+}
+</script>
+**說明**：註冊 Service Worker，實現離線訪問和緩存。
+
+**範例 2：Web App Manifest**
+{
+    "name": "我的 PWA",
+    "short_name": "PWA",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000"
+}
+**說明**：Web App Manifest 定義 PWA 的元數據，使其像原生應用一樣運行。
+
+#### **16.3 WebAssembly 與高性能 Web**
+WebAssembly（WASM）是一種低級二進制格式，允許在 Web 上運行高性能代碼。
+
+**範例 1：加載 WASM 模組**
+<script>
+fetch('module.wasm')
+    .then(response => response.arrayBuffer())
+    .then(bytes => WebAssembly.instantiate(bytes))
+    .then(result => {
+        console.log(result.instance.exports.add(1, 2));
+    });
+</script>
+**說明**：加載並執行 WASM 模組中的 `add` 函數。
+
+**範例 2：WASM 與 JavaScript 交互**
+// C 代碼
+int add(int a, int b) {
+    return a + b;
+}
+// JavaScript 調用
+<script>
+fetch('add.wasm')
+    .then(response => response.arrayBuffer())
+    .then(bytes => WebAssembly.instantiate(bytes))
+    .then(result => {
+        console.log(result.instance.exports.add(3, 4)); // 7
+    });
+</script>
+**說明**：編譯 C 代碼為 WASM，然後在 JavaScript 中調用。
+
+#### **16.4 HTML5 的演進與未來**
+HTML5 作為 Web 技術的基礎，未來將繼續演進，融入更多新功能和標準。
+
+**範例 1：HTML6 提案**
+<!-- HTML6 可能引入的新功能，如 <portal> -->
+<portal src="https://example.com"></portal>
+**說明**：`<portal>` 標籤允許嵌入其他網頁，類似於 iframe 但更靈活。
+
+**範例 2：WebXR**
+<script>
+// WebXR API 允許在 Web 上實現虛擬現實和增強現實
+navigator.xr.isSessionSupported('immersive-vr').then(supported => {
+    if (supported) {
+        console.log("支持 VR");
+    }
+});
+</script>
+**說明**：WebXR API 為 Web 帶來沉浸式體驗，未來將有更多應用。
+
+---
+
+### **附錄 A：HTML5 元素參考**
+- `<a>`：超連結
+- `<img>`：圖片
+- `<table>`：表格
+- `<form>`：表單
+- `<video>`：視頻
+- `<audio>`：音頻
+- `<canvas>`：畫布
+- `<svg>`：向量圖形
+
+### **附錄 B：HTML5 屬性參考**
+- `id`：唯一標識
+- `class`：類別
+- `style`：內聯樣式
+- `data-*`：自定義數據
+- `href`：連結地址
+- `src`：資源路徑
+- `alt`：替代文本
+
+### **附錄 C：HTML5 API 參考**
+- Geolocation API
+- Drag and Drop API
+- Web Storage API
+- Web Workers API
+- Canvas API
+- WebGL API
+
+### **附錄 D：常見問題與解答**
+- **Q：HTML5 與 HTML4 有何區別？**  
+  A：HTML5 引入了語義標籤、多媒體支持、表單增強和 API 擴展。
+- **Q：如何在 HTML5 中實現響應式設計？**  
+  A：使用媒體查詢、流動佈局和彈性媒體。
+
+### **附錄 E：資源與工具推薦**
+- **W3C HTML5 規範**：https://www.w3.org/TR/html5/
+- **MDN Web Docs**：https://developer.mozilla.org/
+- **Can I Use**：https://caniuse.com/
+- **HTMLHint**：https://htmlhint.com/
+- **Lighthouse**：Chrome DevTools 內建工具
